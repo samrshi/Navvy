@@ -98,20 +98,20 @@
 			isa = PBXGroup;
 			children = (
 				BD788011276800E3009D4F2C /* LocationSearchVC.swift */,
+				BD788019276809A3009D4F2C /* SearchViewModel.swift */,
 				BD78802727682CD6009D4F2C /* Detailed Search */,
 				BD788023276829F5009D4F2C /* Autocomplete */,
-				BD788017276809A3009D4F2C /* ViewModel */,
+				BD788017276809A3009D4F2C /* Helpers */,
 			);
 			path = Search;
 			sourceTree = "<group>";
 		};
-		BD788017276809A3009D4F2C /* ViewModel */ = {
+		BD788017276809A3009D4F2C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BD788019276809A3009D4F2C /* SearchViewModel.swift */,
 				BD788018276809A3009D4F2C /* LocalSearchPublishers.swift */,
 			);
-			path = ViewModel;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		BD78801A276809FE009D4F2C /* Location */ = {
