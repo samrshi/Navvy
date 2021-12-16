@@ -61,7 +61,6 @@ class DetailedSearchVC: UIViewController {
 
         view.addSubview(mapView)
         view.addSubview(tableView)
-        
         mapView.addSubview(searchAgainButton)
 
         searchButtonBottomConstraint = searchAgainButton.bottomAnchor.constraint(equalTo: mapView.topAnchor)
@@ -81,7 +80,7 @@ class DetailedSearchVC: UIViewController {
             searchButtonBottomConstraint
         ])
         
-        searchViewModel.$mapItems
+        searchViewModel.$detailedMapItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] mapItems in
                 self?.results = mapItems
@@ -102,7 +101,7 @@ class DetailedSearchVC: UIViewController {
     
     func toggleSearchButton(shouldShow: Bool) {
         guard shouldShow == (searchButtonBottomConstraint.constant == 0),
-              !searchViewModel.queryFragment.isEmpty
+              !searchViewModel.searchTerm.isEmpty
         else {
             return
         }
@@ -116,21 +115,7 @@ class DetailedSearchVC: UIViewController {
     }
     
     func searchThisArea(_: UIAction) {
-        searchViewModel.searchNearby(query: searchViewModel.queryFragment, changeRegion: false)
-    }
-    
-    func didSelectMapItem(mapItem: MKMapItem) {
-        let coordinate = mapItem.placemark.coordinate
-        setMapRegion(region: MKCoordinateRegion(center: coordinate, radius: 0.025))
-        
-        let vc = UIViewController()
-        vc.view.backgroundColor = .systemBlue
-        
-        if let presentationController = vc.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium()]
-        }
-                
-        present(vc, animated: true)
+        searchViewModel.searchNearby(query: searchViewModel.searchTerm, changeRegion: false)
     }
 }
 
@@ -148,7 +133,7 @@ extension DetailedSearchVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = (view.annotation as? SSAnnotation) else { return }
-        didSelectMapItem(mapItem: annotation.mapItem)
+        searchViewModel.selectMapItem(mapItem: annotation.mapItem)
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -199,7 +184,7 @@ extension DetailedSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let mapItem = results[indexPath.row]
-        didSelectMapItem(mapItem: mapItem)
+        searchViewModel.selectMapItem(mapItem: mapItem)
         
         if let annotation = mapView.annotations.first(where: {
             ($0 as? SSAnnotation)?.mapItem == mapItem

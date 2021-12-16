@@ -11,52 +11,41 @@ import MapKit
 
 protocol SearchViewModelDelegate: AnyObject {
     func changeSearchBarText(newText: String)
+    func didSelectMapItem(mapItem: MKMapItem)
 }
 
 class SearchViewModel: NSObject, ObservableObject {
-    enum LocationStatus: Equatable {
-        case idle
-        case noResults
-        case isSearching
-        case error(String)
-        case result
-    }
+    @Published var searchTerm: String = ""
+    @Published var status: LocationStatus = .noResults
 
-    @Published var status: LocationStatus = .idle
-
-    // Autcomplete
-    @Published var queryFragment: String = ""
-    @Published var searchResults: [MKLocalSearchCompletion] = []
-
-    // Detailed Search
-    @Published var mapItems: [MKMapItem] = []
+    @Published var autocompleteResults: [MKLocalSearchCompletion] = []
+    @Published var detailedMapItems: [MKMapItem] = []
     @Published var region = MKCoordinateRegion()
 
+    var cancellables: [AnyCancellable] = []
     let searchCompleter = MKLocalSearchCompleter()
     var locationManager: LocationManager? = LocationManager()
-
-    var cancellables: [AnyCancellable] = []
     var delegate: SearchViewModelDelegate?
-    
+
     override init() {
         super.init()
-
         searchCompleter.delegate = self
         searchCompleter.resultTypes = [.address, .pointOfInterest, .query]
         setUpObservers()
     }
 
     func setUpObservers() {
-        $queryFragment
+        $searchTerm
             .receive(on: DispatchQueue.main)
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main, options: nil)
-            .sink { fragment in
-                self.status = .isSearching
-                if !fragment.isEmpty {
-                    self.searchCompleter.queryFragment = fragment
+            .sink { searchTerm in
+                self.status = .searching
+
+                if !searchTerm.isEmpty {
+                    self.searchCompleter.queryFragment = searchTerm
                 } else {
-                    self.status = .idle
-                    self.searchResults = []
+                    self.status = .noResults
+                    self.autocompleteResults = []
                 }
             }
             .store(in: &cancellables)
@@ -78,20 +67,26 @@ class SearchViewModel: NSObject, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func searchNearby(query: String, changeRegion: Bool) {
-        status = .isSearching
+    func changeAutocompleterRegion(region: MKCoordinateRegion) {
+        searchCompleter.region = region
+    }
 
+    func selectMapItem(mapItem: MKMapItem) {
+        delegate?.didSelectMapItem(mapItem: mapItem)
+    }
+
+    func searchNearby(query: String, changeRegion: Bool) {
+        status = .searching
         LocalSearchPublishers.geocode(query: query, region: region)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.status = .error(error.localizedDescription)
-                }
+                guard case .failure(let error) = completion, let self = self else { return }
+                self.status = .error(error.localizedDescription)
             } receiveValue: { [weak self] mapItems in
-                self?.mapItems = mapItems
-                self?.status = .result
+                self?.detailedMapItems = mapItems
+                self?.status = .hasResults
                 self?.delegate?.changeSearchBarText(newText: query)
-                
+
                 let coordinates = mapItems.map(\.placemark.coordinate)
 
                 if changeRegion, let region = MKCoordinateRegion(containing: coordinates) {
@@ -101,32 +96,74 @@ class SearchViewModel: NSObject, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func fetchMapItem(completion: MKLocalSearchCompletion) {
+    func fetchAndSelectMapItem(forCompletion completion: MKLocalSearchCompletion) {
+        status = .searching
         LocalSearchPublishers.geocode(completionResult: completion, region: nil)
             .map(\.first)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case .failure(let error) = completion {
-                    self.status = .error(error.localizedDescription)
-                }
-            } receiveValue: { _ in
-                #warning("Did select map item")
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion, let self = self else { return }
+                self.status = .error(error.localizedDescription)
+            } receiveValue: { [weak self] mapItem in
+                guard let mapItem = mapItem, let self = self else { return }
+                self.detailedMapItems = [mapItem]
+                self.selectMapItem(mapItem: mapItem)
             }
             .store(in: &cancellables)
     }
 
-    func changeAutocompleterRegion(region: MKCoordinateRegion) {
-        searchCompleter.region = region
+    func fetchMapItems(forCompletions completions: [MKLocalSearchCompletion]) {
+        guard !completions.isEmpty else {
+            status = .error("Cannot search with empty autocomplete suggestions")
+            return
+        }
+
+        status = .searching
+        LocalSearchPublishers.publishPlacemarks(completions: completions, region: region)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion, let self = self else { return }
+                self.status = .error(error.localizedDescription)
+            } receiveValue: { [weak self] mapItems in
+                self?.detailedMapItems = mapItems
+                self?.status = mapItems.isEmpty ? .noResults : .hasResults
+            }
+            .store(in: &cancellables)
     }
 }
 
 extension SearchViewModel: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
-        status = completer.results.isEmpty ? .noResults : .result
+        autocompleteResults = completer.results
+        status = completer.results.isEmpty ? .noResults : .hasResults
     }
 
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         status = .error(error.localizedDescription)
+    }
+}
+
+extension SearchViewModel {
+    enum LocationStatus: Equatable {
+        case idle
+        case noResults
+        case searching
+        case error(String)
+        case hasResults
+        
+        var displayString: String {
+            switch self {
+            case .idle:
+                return ""
+            case .noResults:
+                return "No search results yet..."
+            case .searching:
+                return "Searching..."
+            case .error(let message):
+                return message
+            case .hasResults:
+                return "Received search results"
+            }
+        }
     }
 }

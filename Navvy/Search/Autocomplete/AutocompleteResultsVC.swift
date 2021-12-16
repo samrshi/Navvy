@@ -11,35 +11,60 @@ import MapKit
 
 class AutocompleteResultsVC: UIViewController {
     var searchViewModel: SearchViewModel!
-    var results = [MKLocalSearchCompletion]()
+    var autocompleteResults = [MKLocalSearchCompletion]()
     var cancellables = [AnyCancellable]()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(AutocompleteTableViewCell.self, forCellReuseIdentifier: AutocompleteTableViewCell.reuseId)
-        tableView.delegate = self
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         tableView.dataSource = self
+        tableView.delegate = self
         return tableView
+    }()
+    
+    lazy var statusLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        view.addSubview(statusLabel)
         view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            statusLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            statusLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 10)
         ])
         
-        searchViewModel.$searchResults
+        searchViewModel.$autocompleteResults
             .receive(on: DispatchQueue.main)
             .sink { results in
-                self.results = results
+                self.autocompleteResults = results
                 self.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+        
+        searchViewModel.$status
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                guard let self = self else { return }
+                self.statusLabel.text = status.displayString
+                self.statusLabel.isHidden = status == .hasResults
             }
             .store(in: &cancellables)
     }
@@ -51,12 +76,15 @@ extension AutocompleteResultsVC: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let result = results[indexPath.row]
+        let result = autocompleteResults[indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.image = UIImage(systemName: result.isSearchNearby ? "magnifyingglass.circle.fill" : "mappin.circle.fill")
         content.text = result.title
         content.secondaryText = result.subtitle
+        content.secondaryTextProperties.color = .secondaryLabel
+        
         cell.contentConfiguration = content
+        cell.backgroundColor = .systemBackground
         
         return cell
     }
@@ -66,19 +94,19 @@ extension AutocompleteResultsVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
+        return autocompleteResults.count
     }
 }
 
 extension AutocompleteResultsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let result = results[indexPath.row]
+        let autcompleteResult = autocompleteResults[indexPath.row]
         
-        if result.isSearchNearby {
-            searchViewModel.searchNearby(query: result.title, changeRegion: true)
+        if autcompleteResult.isSearchNearby {
+            searchViewModel.searchNearby(query: autcompleteResult.title, changeRegion: true)
             dismiss(animated: true)
         } else {
-            // Show navigation screen
+            searchViewModel.fetchAndSelectMapItem(forCompletion: autcompleteResult)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

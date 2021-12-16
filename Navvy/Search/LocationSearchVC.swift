@@ -5,8 +5,9 @@
 //  Created by Samuel Shi on 12/13/21.
 //
 
-import UIKit
 import Combine
+import UIKit
+import MapKit
 
 class LocationSearchVC: UIViewController {
     var cancellables = [AnyCancellable]()
@@ -26,28 +27,30 @@ class LocationSearchVC: UIViewController {
     
     lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: autocompleteVC)
-        searchController.searchResultsUpdater = self
+        searchController.delegate = self
         searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     
     lazy var detailedSearchVC: DetailedSearchVC = {
         let detailedSearchVC = DetailedSearchVC()
         detailedSearchVC.searchViewModel = searchViewModel
+        detailedSearchVC.view.translatesAutoresizingMaskIntoConstraints = false
         return detailedSearchVC
     }()
     
-    let searchViewModel = SearchViewModel()
+    lazy var searchViewModel: SearchViewModel = {
+        let vm = SearchViewModel()
+        vm.delegate = self
+        return vm
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchViewModel.delegate = self
-        
-        detailedSearchVC.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(detailedSearchVC.view)
-        addChild(detailedSearchVC)
-        detailedSearchVC.didMove(toParent: self)
+                
+        addChildViewController(child: detailedSearchVC)
         
         NSLayoutConstraint.activate([
             detailedSearchVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -59,24 +62,51 @@ class LocationSearchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         parent?.navigationItem.searchController = searchController
+        searchController.searchBar.becomeFirstResponder()
+    }
+}
+
+extension LocationSearchVC: SearchViewModelDelegate {
+    func didSelectMapItem(mapItem: MKMapItem) {
+        detailedSearchVC.setMapRegion(region: MKCoordinateRegion(center: mapItem.placemark.coordinate, radius: 0.025))
+        autocompleteVC.dismiss(animated: true)
+        
+        let vc = UIViewController()
+        vc.view.backgroundColor = .systemBlue
+        
+        if let presentationController = vc.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
+        }
+                
+        present(vc, animated: true)
+    }
+    
+    func changeSearchBarText(newText: String) {
+        searchController.searchBar.text = newText
+    }
+}
+
+extension LocationSearchVC: UISearchControllerDelegate {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchResultsController?.view.isHidden = false
+    }
+    
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchResultsController?.view.isHidden = false
     }
 }
 
 extension LocationSearchVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        searchViewModel.queryFragment = text
+        searchViewModel.searchTerm = text
     }
 }
 
 extension LocationSearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // search nearby
-    }
-}
-
-extension LocationSearchVC: SearchViewModelDelegate {
-    func changeSearchBarText(newText: String) {
-        searchController.searchBar.text = newText
+        guard let text = searchBar.text, !text.isEmpty, !searchViewModel.autocompleteResults.isEmpty else { return }
+        searchViewModel.searchNearby(query: text, changeRegion: true)
+        autocompleteVC.dismiss(animated: true)
     }
 }
