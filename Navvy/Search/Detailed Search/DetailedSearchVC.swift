@@ -11,7 +11,7 @@ import UIKit
 
 class DetailedSearchVC: UIViewController {
     var searchViewModel: SearchViewModel!
-    var results = [MKMapItem]()
+    var detailedSearchResults = [MKMapItem]()
     
     var cancellables = [AnyCancellable]()
     var nextRegionChangeIsFromUserInteraction = false
@@ -83,7 +83,7 @@ class DetailedSearchVC: UIViewController {
         searchViewModel.$detailedMapItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] mapItems in
-                self?.results = mapItems
+                self?.detailedSearchResults = mapItems
                 self?.tableView.reloadData()
                 self?.updateMapItems(mapItems: mapItems)
                 
@@ -116,6 +116,44 @@ class DetailedSearchVC: UIViewController {
     
     func searchThisArea(_: UIAction) {
         searchViewModel.searchNearby(query: searchViewModel.searchTerm, changeRegion: false)
+    }
+}
+
+extension DetailedSearchVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailedSearchTableViewCell.reuseId) as? DetailedSearchTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let result = detailedSearchResults[indexPath.row]
+        cell.setUp(mapItem: result)
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return detailedSearchResults.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Search Results"
+    }
+}
+
+extension DetailedSearchVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let mapItem = detailedSearchResults[indexPath.row]
+        searchViewModel.selectMapItem(mapItem: mapItem)
+        
+        if let annotation = mapView.annotations.first(where: {
+            ($0 as? SSAnnotation)?.mapItem == mapItem
+        }) {
+            mapView.selectAnnotation(annotation, animated: true)
+        }
     }
 }
 
@@ -155,43 +193,3 @@ extension DetailedSearchVC: MKMapViewDelegate {
         }
     }
 }
-
-extension DetailedSearchVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailedSearchTableViewCell.reuseId) as? DetailedSearchTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        let result = results[indexPath.row]
-        cell.setUp(mapItem: result)
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Search Results"
-    }
-}
-
-extension DetailedSearchVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let mapItem = results[indexPath.row]
-        searchViewModel.selectMapItem(mapItem: mapItem)
-        
-        if let annotation = mapView.annotations.first(where: {
-            ($0 as? SSAnnotation)?.mapItem == mapItem
-        }) {
-            mapView.selectAnnotation(annotation, animated: true)
-        }
-    }
-}
-
-extension DetailedSearchVC: UIGestureRecognizerDelegate {}
