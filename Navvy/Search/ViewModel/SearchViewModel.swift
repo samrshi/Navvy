@@ -77,7 +77,8 @@ class SearchViewModel: NSObject, ObservableObject {
 
     func searchNearby(query: String, changeRegion: Bool) {
         status = .searching
-        LocalSearchPublishers.geocode(query: query, region: region)
+        
+        LocalSearchPublishers.getMapItems(query: query, region: region)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion, let self = self else { return }
@@ -98,7 +99,8 @@ class SearchViewModel: NSObject, ObservableObject {
 
     func fetchAndSelectMapItem(forCompletion completion: MKLocalSearchCompletion) {
         status = .searching
-        LocalSearchPublishers.geocode(completionResult: completion, region: nil)
+        
+        LocalSearchPublishers.getMapItems(completion: completion, region: region)
             .map(\.first)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -119,7 +121,7 @@ class SearchViewModel: NSObject, ObservableObject {
         }
 
         status = .searching
-        LocalSearchPublishers.publishPlacemarks(completions: completions, region: region)
+        LocalSearchPublishers.getMapItems(completions: completions, region: region)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion, let self = self else { return }
@@ -145,7 +147,6 @@ extension SearchViewModel: MKLocalSearchCompleterDelegate {
 
 extension SearchViewModel {
     enum LocationStatus: Equatable {
-        case idle
         case noResults
         case searching
         case error(String)
@@ -153,8 +154,6 @@ extension SearchViewModel {
         
         var displayString: String {
             switch self {
-            case .idle:
-                return ""
             case .noResults:
                 return "No search results yet..."
             case .searching:
