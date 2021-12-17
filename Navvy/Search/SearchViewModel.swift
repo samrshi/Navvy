@@ -61,9 +61,7 @@ class SearchViewModel: NSObject, ObservableObject {
             .store(in: &cancellables)
 
         $region
-            .sink { region in
-                self.searchCompleter.region = region
-            }
+            .assign(to: \.searchCompleter.region, on: self)
             .store(in: &cancellables)
     }
 
@@ -89,7 +87,6 @@ class SearchViewModel: NSObject, ObservableObject {
                 self?.delegate?.changeSearchBarText(newText: query)
 
                 let coordinates = mapItems.map(\.placemark.coordinate)
-
                 if changeRegion, let region = MKCoordinateRegion(containing: coordinates) {
                     self?.region = region
                 }

@@ -35,7 +35,13 @@ class DetailedSearchTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    var navigationVM: NavigationViewModel!
+    
     func setUp(mapItem: MKMapItem) {
+        navigationVM = NavigationViewModel(mapItem: mapItem)
+        #warning("hook this ^^^ up to the table view cell")
+        #warning("consider moving this to view controller and having data be the VM's")
+        
         nameLabel.text = mapItem.name
         subtitleLabel.text = mapItem.placemark.title
         iconView.image = UIImage(named: mapItem.pointOfInterestCategory.toIcon())

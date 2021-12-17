@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
+		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
 		BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */; };
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
 		BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
+		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
 		BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchTableViewCell.swift; sourceTree = "<group>"; };
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildViewController.swift"; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				BD65305A276B0670001CA8C0 /* NavigationManager.swift */,
+				BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 				BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */,
 				BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */,
 				BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */,
+				BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -238,10 +244,12 @@
 				BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */,
 				BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */,
 				BD787FFF2767FF27009D4F2C /* ViewController.swift in Sources */,
+				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
 				BD653057276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
 				BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */,
+				BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */,
 				BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */,
 				BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift in Sources */,
 				BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */,

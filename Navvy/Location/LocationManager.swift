@@ -15,6 +15,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 
     let locationsPublisher = PassthroughSubject<[CLLocation], Never>()
     let headingPublisher = PassthroughSubject<CLHeading, Never>()
+    let errorPublisher = PassthroughSubject<Error?, Never>()
 
     init(desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBestForNavigation) {
         super.init()
@@ -33,6 +34,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         headingPublisher.send(newHeading)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        errorPublisher.send(error)
     }
 
     func requestPreciseLocation() {
