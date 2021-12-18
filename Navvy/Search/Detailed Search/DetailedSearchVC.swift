@@ -40,7 +40,7 @@ class DetailedSearchVC: UIViewController {
         searchAgainButton.translatesAutoresizingMaskIntoConstraints = false
         searchAgainButton.setTitle("Search This Area", for: .normal)
         searchAgainButton.addAction(UIAction(handler: searchThisArea), for: .touchUpInside)
-        searchAgainButton.tintColor = .systemBlue.withAlphaComponent(0.5)
+        searchAgainButton.tintColor = .systemBlue.withAlphaComponent(0.75)
         
         var configuration = UIButton.Configuration.filled()
         configuration.title = "Search This Area"
@@ -54,7 +54,17 @@ class DetailedSearchVC: UIViewController {
         return searchAgainButton
     }()
     
+    lazy var mapSizeButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
+        button.addAction(UIAction(handler: toggleMap(_:)), for: .touchUpInside)
+        button.tintColor = .white
+        return button
+    }()
+    
     var searchButtonBottomConstraint: NSLayoutConstraint!
+    var mapViewHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,19 +72,24 @@ class DetailedSearchVC: UIViewController {
         view.addSubview(mapView)
         view.addSubview(tableView)
         mapView.addSubview(searchAgainButton)
+        mapView.addSubview(mapSizeButton)
 
         searchButtonBottomConstraint = searchAgainButton.bottomAnchor.constraint(equalTo: mapView.topAnchor)
-        
+        mapViewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 5/9)
+
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 5/9),
+            mapViewHeightConstraint,
             
             tableView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            mapSizeButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
+            mapSizeButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -5),
             
             searchAgainButton.centerXAnchor.constraint(equalTo: mapView.centerXAnchor),
             searchButtonBottomConstraint
@@ -97,6 +112,20 @@ class DetailedSearchVC: UIViewController {
                 self?.setMapRegion(region: region)
             }
             .store(in: &cancellables)
+    }
+    
+    func toggleMap(_: UIAction) {
+        let multiplier = mapViewHeightConstraint.multiplier == 1.0 ? 5/9 : 1.0
+        mapViewHeightConstraint.isActive = false
+        mapViewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: multiplier)
+        mapViewHeightConstraint.isActive = true
+        
+        let image = mapViewHeightConstraint.multiplier == 1.0 ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right"
+        mapSizeButton.setImage(UIImage(systemName: image), for: .normal)
+        
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.view.layoutSubviews()
+        }
     }
     
     func toggleSearchButton(shouldShow: Bool) {
