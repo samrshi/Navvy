@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
 		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
+		BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */; };
+		BD39DE4E276D3BD300AF8B57 /* NavvyDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4C276D3BD300AF8B57 /* NavvyDirectionTests.swift */; };
+		BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE52276D4B0300AF8B57 /* Publisher+weaklyAssign.swift */; };
 		BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */; };
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
 		BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */; };
@@ -31,9 +34,23 @@
 		BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BD39DE42276D3B9200AF8B57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD787FEF2767FF27009D4F2C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD787FF62767FF27009D4F2C;
+			remoteInfo = Navvy;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
+		BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavvyAccesibilityHeadingTests.swift; sourceTree = "<group>"; };
+		BD39DE4C276D3BD300AF8B57 /* NavvyDirectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavvyDirectionTests.swift; sourceTree = "<group>"; };
+		BD39DE52276D4B0300AF8B57 /* Publisher+weaklyAssign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+weaklyAssign.swift"; sourceTree = "<group>"; };
 		BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchTableViewCell.swift; sourceTree = "<group>"; };
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildViewController.swift"; sourceTree = "<group>"; };
@@ -59,6 +76,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BD39DE3B276D3B9200AF8B57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD787FF42767FF27009D4F2C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,6 +93,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD39DE3F276D3B9200AF8B57 /* NavvyTests */ = {
+			isa = PBXGroup;
+			children = (
+				BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */,
+				BD39DE4C276D3BD300AF8B57 /* NavvyDirectionTests.swift */,
+			);
+			path = NavvyTests;
+			sourceTree = "<group>";
+		};
+		BD39DE4F276D4AD300AF8B57 /* MapKit+CoreLocation */ = {
+			isa = PBXGroup;
+			children = (
+				BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */,
+				BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */,
+				BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */,
+			);
+			path = "MapKit+CoreLocation";
+			sourceTree = "<group>";
+		};
+		BD39DE50276D4AE300AF8B57 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		BD39DE51276D4AF100AF8B57 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				BD39DE52276D4B0300AF8B57 /* Publisher+weaklyAssign.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
 		BD653059276B0660001CA8C0 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				BD787FF92767FF27009D4F2C /* Navvy */,
+				BD39DE3F276D3B9200AF8B57 /* NavvyTests */,
 				BD787FF82767FF27009D4F2C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				BD787FF72767FF27009D4F2C /* Navvy.app */,
+				BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,10 +213,9 @@
 		BD78802427682AC9009D4F2C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */,
-				BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */,
-				BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */,
-				BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */,
+				BD39DE51276D4AF100AF8B57 /* Combine */,
+				BD39DE50276D4AE300AF8B57 /* UIKit */,
+				BD39DE4F276D4AD300AF8B57 /* MapKit+CoreLocation */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -174,6 +234,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BD39DE3D276D3B9200AF8B57 /* NavvyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD39DE46276D3B9200AF8B57 /* Build configuration list for PBXNativeTarget "NavvyTests" */;
+			buildPhases = (
+				BD39DE3A276D3B9200AF8B57 /* Sources */,
+				BD39DE3B276D3B9200AF8B57 /* Frameworks */,
+				BD39DE3C276D3B9200AF8B57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD39DE43276D3B9200AF8B57 /* PBXTargetDependency */,
+			);
+			name = NavvyTests;
+			productName = NavvyTests;
+			productReference = BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BD787FF62767FF27009D4F2C /* Navvy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD78800E2767FF29009D4F2C /* Build configuration list for PBXNativeTarget "Navvy" */;
@@ -198,9 +276,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
+					BD39DE3D276D3B9200AF8B57 = {
+						CreatedOnToolsVersion = 13.2;
+						TestTargetID = BD787FF62767FF27009D4F2C;
+					};
 					BD787FF62767FF27009D4F2C = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -220,11 +302,19 @@
 			projectRoot = "";
 			targets = (
 				BD787FF62767FF27009D4F2C /* Navvy */,
+				BD39DE3D276D3B9200AF8B57 /* NavvyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BD39DE3C276D3B9200AF8B57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD787FF52767FF27009D4F2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +327,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BD39DE3A276D3B9200AF8B57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */,
+				BD39DE4E276D3BD300AF8B57 /* NavvyDirectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD787FF32767FF27009D4F2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +344,7 @@
 				BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */,
 				BD787FFF2767FF27009D4F2C /* ViewController.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
+				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
 				BD653057276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
@@ -266,6 +366,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BD39DE43276D3B9200AF8B57 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD787FF62767FF27009D4F2C /* Navvy */;
+			targetProxy = BD39DE42276D3B9200AF8B57 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BD7880082767FF29009D4F2C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -278,6 +386,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BD39DE44276D3B9200AF8B57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9PPH2T3L2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samuelshi.NavvyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navvy.app/Navvy";
+			};
+			name = Debug;
+		};
+		BD39DE45276D3B9200AF8B57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9PPH2T3L2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samuelshi.NavvyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navvy.app/Navvy";
+			};
+			name = Release;
+		};
 		BD78800C2767FF29009D4F2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -455,6 +601,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BD39DE46276D3B9200AF8B57 /* Build configuration list for PBXNativeTarget "NavvyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD39DE44276D3B9200AF8B57 /* Debug */,
+				BD39DE45276D3B9200AF8B57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BD787FF22767FF27009D4F2C /* Build configuration list for PBXProject "Navvy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

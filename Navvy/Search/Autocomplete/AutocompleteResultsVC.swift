@@ -53,9 +53,9 @@ class AutocompleteResultsVC: UIViewController {
         
         searchViewModel.$autocompleteResults
             .receive(on: DispatchQueue.main)
-            .sink { results in
-                self.autocompleteResults = results
-                self.tableView.reloadData()
+            .sink { [weak self] results in
+                self?.autocompleteResults = results
+                self?.tableView.reloadData()
             }
             .store(in: &cancellables)
         

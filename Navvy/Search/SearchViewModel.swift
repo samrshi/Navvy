@@ -52,16 +52,16 @@ class SearchViewModel: NSObject, ObservableObject {
 
         locationManager?.locationsPublisher
             .receive(on: DispatchQueue.main)
-            .sink { locations in
+            .sink { [weak self] locations in
                 guard let coordinate = locations.first?.coordinate else { return }
 
-                self.region = MKCoordinateRegion(center: coordinate, radius: 0.1)
-                self.locationManager = nil
+                self?.region = MKCoordinateRegion(center: coordinate, radius: 0.1)
+                self?.locationManager = nil
             }
             .store(in: &cancellables)
 
         $region
-            .assign(to: \.searchCompleter.region, on: self)
+            .weaklyAssign(to: \.searchCompleter.region, on: self)
             .store(in: &cancellables)
     }
 

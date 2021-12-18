@@ -11,7 +11,7 @@ import UIKit
 
 class DetailedSearchVC: UIViewController {
     var searchViewModel: SearchViewModel!
-    var detailedSearchResults = [MKMapItem]()
+    var detailedSearchResults = [NavigationViewModel]()
     
     var cancellables = [AnyCancellable]()
     var nextRegionChangeIsFromUserInteraction = false
@@ -83,7 +83,7 @@ class DetailedSearchVC: UIViewController {
         searchViewModel.$detailedMapItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] mapItems in
-                self?.detailedSearchResults = mapItems
+                self?.detailedSearchResults = mapItems.map(NavigationViewModel.init)
                 self?.tableView.reloadData()
                 self?.updateMapItems(mapItems: mapItems)
                 
@@ -126,7 +126,7 @@ extension DetailedSearchVC: UITableViewDataSource {
         }
         
         let result = detailedSearchResults[indexPath.row]
-        cell.setUp(mapItem: result)
+        cell.setUp(navigationVM: result)
         return cell
     }
     
@@ -142,7 +142,7 @@ extension DetailedSearchVC: UITableViewDataSource {
 extension DetailedSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let mapItem = detailedSearchResults[indexPath.row]
+        let mapItem = detailedSearchResults[indexPath.row].mapItem
         searchViewModel.selectMapItem(mapItem: mapItem)
         
         if let annotation = mapView.annotations.first(where: {

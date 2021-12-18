@@ -11,6 +11,8 @@ import Foundation
 import MapKit
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
+    static let shared = LocationManager()
+    
     private let locationManager = CLLocationManager()
 
     let locationsPublisher = PassthroughSubject<[CLLocation], Never>()
