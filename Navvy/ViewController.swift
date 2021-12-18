@@ -13,14 +13,13 @@ class ViewController: UIViewController {
         vc.view.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Navvy"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        
-        
+
         addChild(locationSearchVC)
         view.addSubview(locationSearchVC.view)
         locationSearchVC.didMove(toParent: self)
@@ -29,7 +28,7 @@ class ViewController: UIViewController {
             locationSearchVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             locationSearchVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             locationSearchVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            locationSearchVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            locationSearchVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }

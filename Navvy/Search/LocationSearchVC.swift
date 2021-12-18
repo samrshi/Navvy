@@ -6,8 +6,8 @@
 //
 
 import Combine
-import UIKit
 import MapKit
+import UIKit
 
 class LocationSearchVC: UIViewController {
     var cancellables = [AnyCancellable]()
@@ -56,7 +56,7 @@ class LocationSearchVC: UIViewController {
             detailedSearchVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             detailedSearchVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             detailedSearchVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            detailedSearchVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            detailedSearchVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     
