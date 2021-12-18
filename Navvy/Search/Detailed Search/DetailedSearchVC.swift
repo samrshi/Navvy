@@ -197,6 +197,10 @@ extension DetailedSearchVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = (view.annotation as? SSAnnotation) else { return }
         searchViewModel.selectMapItem(mapItem: annotation.mapItem)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.nextRegionChangeIsFromUserInteraction = false
+        }
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
