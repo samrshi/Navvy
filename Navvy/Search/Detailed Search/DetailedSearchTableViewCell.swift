@@ -29,6 +29,12 @@ class DetailedSearchTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var textContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var iconView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +56,7 @@ class DetailedSearchTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
         label.textColor = .secondaryLabel
-        label.text = "0 mi"
+        label.textAlignment = .right
         return label
     }()
     
@@ -89,8 +95,10 @@ class DetailedSearchTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(iconView)
-        contentView.addSubview(nameLabel)
+        contentView.addSubview(textContainer)
+        textContainer.addSubview(iconView)
+        textContainer.addSubview(nameLabel)
+        
         contentView.addSubview(subtitleLabel)
         contentView.addSubview(arrow)
         contentView.addSubview(distanceLabel)
@@ -105,14 +113,19 @@ class DetailedSearchTableViewCell: UITableViewCell {
             iconView.topAnchor.constraint(equalTo: nameLabel.topAnchor),
             iconView.bottomAnchor.constraint(equalTo: subtitleLabel.bottomAnchor),
             
-            nameLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 10),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -45),
-            nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            nameLabel.topAnchor.constraint(equalTo: textContainer.topAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: textContainer.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: textContainer.trailingAnchor),
             
-            subtitleLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            subtitleLabel.trailingAnchor.constraint(equalTo: distanceLabel.leadingAnchor, constant: -5),
-            subtitleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            subtitleLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
+            subtitleLabel.leadingAnchor.constraint(equalTo: textContainer.leadingAnchor),
+            subtitleLabel.trailingAnchor.constraint(equalTo: textContainer.trailingAnchor),
+            subtitleLabel.bottomAnchor.constraint(equalTo: textContainer.bottomAnchor),
+            
+            textContainer.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 10),
+            textContainer.trailingAnchor.constraint(equalTo: distanceLabel.leadingAnchor, constant: -5),
+            textContainer.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            textContainer.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             
             distanceLabel.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor, constant: 15),
             distanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 30),
