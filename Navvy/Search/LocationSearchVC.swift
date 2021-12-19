@@ -49,6 +49,8 @@ class LocationSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .systemBackground
                 
         addChildViewController(child: detailedSearchVC)
         
@@ -61,8 +63,7 @@ class LocationSearchVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        parent?.navigationItem.searchController = searchController
-        searchController.searchBar.becomeFirstResponder()
+        navigationItem.searchController = searchController
     }
 }
 

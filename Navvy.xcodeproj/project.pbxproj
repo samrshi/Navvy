@@ -19,7 +19,7 @@
 		BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD65305A276B0670001CA8C0 /* NavigationManager.swift */; };
 		BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFA2767FF27009D4F2C /* AppDelegate.swift */; };
 		BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */; };
-		BD787FFF2767FF27009D4F2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFE2767FF27009D4F2C /* ViewController.swift */; };
+		BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFE2767FF27009D4F2C /* MainTabBarController.swift */; };
 		BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD7880032767FF27009D4F2C /* Navvy.xcdatamodeld */; };
 		BD7880072767FF29009D4F2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD7880062767FF29009D4F2C /* Assets.xcassets */; };
 		BD78800A2767FF29009D4F2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD7880082767FF29009D4F2C /* LaunchScreen.storyboard */; };
@@ -59,7 +59,7 @@
 		BD787FF72767FF27009D4F2C /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD787FFA2767FF27009D4F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BD787FFE2767FF27009D4F2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BD787FFE2767FF27009D4F2C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BD7880042767FF27009D4F2C /* Navvy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Navvy.xcdatamodel; sourceTree = "<group>"; };
 		BD7880062767FF29009D4F2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD7880092767FF29009D4F2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 			children = (
 				BD787FFA2767FF27009D4F2C /* AppDelegate.swift */,
 				BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */,
-				BD787FFE2767FF27009D4F2C /* ViewController.swift */,
+				BD787FFE2767FF27009D4F2C /* MainTabBarController.swift */,
 				BD78801327680884009D4F2C /* Search */,
 				BD653059276B0660001CA8C0 /* Navigation */,
 				BD78801A276809FE009D4F2C /* Location */,
@@ -342,7 +342,7 @@
 			files = (
 				BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */,
 				BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */,
-				BD787FFF2767FF27009D4F2C /* ViewController.swift in Sources */,
+				BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
 				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
