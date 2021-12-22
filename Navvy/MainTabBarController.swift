@@ -29,15 +29,11 @@ class MainTabBarController: UITabBarController {
         profileVC.tabBarItem.image = UIImage(systemName: "person")
         profileVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         
-        let standardAppearance = UITabBarAppearance()
-        standardAppearance.configureWithDefaultBackground()
-        standardAppearance.backgroundColor = .primaryBackground
-        tabBar.standardAppearance = standardAppearance
-        tabBar.scrollEdgeAppearance = standardAppearance
-        
-//        let scrollEdgeAppearance = UITabBarAppearance()
-//        scrollEdgeAppearance.configureWithTransparentBackground()
-//        tabBar.scrollEdgeAppearance = scrollEdgeAppearance
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithDefaultBackground()
+        tabBarAppearance.backgroundColor = .primaryBackground
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
         
         viewControllers = controllers
     }
