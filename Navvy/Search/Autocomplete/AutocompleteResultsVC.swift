@@ -5,15 +5,16 @@
 //  Created by Samuel Shi on 12/13/21.
 //
 
-import UIKit
 import Combine
 import MapKit
+import UIKit
+
+protocol AutocompleteResultsVCDelegate: AnyObject {
+    func didSelectMapItem(mapItem: MKMapItem)
+    func changeSearchBarText(newText: String)
+}
 
 class AutocompleteResultsVC: UIViewController {
-    var searchViewModel: SearchViewModel!
-    var autocompleteResults = [MKLocalSearchCompletion]()
-    var cancellables = [AnyCancellable]()
-    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +34,11 @@ class AutocompleteResultsVC: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
+    var searchViewModel: SearchViewModel!
+    var cancellables = [AnyCancellable]()
+    var autocompleteResults = [MKLocalSearchCompletion]()
+    weak var delegate: AutocompleteResultsVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,13 +106,17 @@ extension AutocompleteResultsVC: UITableViewDataSource {
 
 extension AutocompleteResultsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let autcompleteResult = autocompleteResults[indexPath.row]
+        let autocompleteResult = autocompleteResults[indexPath.row]
         
-        if autcompleteResult.isSearchNearby {
-            searchViewModel.searchNearby(query: autcompleteResult.title, changeRegion: true)
+        if autocompleteResult.isSearchNearby {
+            searchViewModel.searchNearby(query: autocompleteResult.title, changeRegion: true)
+            delegate.changeSearchBarText(newText: autocompleteResult.title)
             dismiss(animated: true)
         } else {
-            searchViewModel.fetchAndSelectMapItem(forCompletion: autcompleteResult)
+            searchViewModel.fetchMapItem(forSearchCompletion: autocompleteResult) { [weak self] result in
+                guard case .success(let mapItem) = result, let self = self else { return }                
+                self.delegate.didSelectMapItem(mapItem: mapItem)
+            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

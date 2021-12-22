@@ -21,6 +21,7 @@ class LocationSearchVC: UIViewController {
     
     lazy var autocompleteVC: AutocompleteResultsVC = {
         let autocompleteResultsVC = AutocompleteResultsVC()
+        autocompleteResultsVC.delegate = self
         autocompleteResultsVC.searchViewModel = searchViewModel
         return autocompleteResultsVC
     }()
@@ -44,9 +45,7 @@ class LocationSearchVC: UIViewController {
     }()
     
     lazy var searchViewModel: SearchViewModel = {
-        let vm = SearchViewModel()
-        vm.delegate = self
-        return vm
+        return SearchViewModel()
     }()
     
     lazy var scrollView: UIScrollView = {
@@ -92,9 +91,13 @@ class LocationSearchVC: UIViewController {
     }
 }
 
-extension LocationSearchVC: SearchViewModelDelegate {
+extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDelegate {
+    func didSelectLocationFromTableView() {
+        scrollView.setContentOffset(.zero, animated: true)
+    }
+    
     func didSelectMapItem(mapItem: MKMapItem) {
-        detailedSearchVC.setMapRegion(region: MKCoordinateRegion(center: mapItem.placemark.coordinate, radius: 0.025))
+        detailedSearchVC.mapVC.setMapRegion(region: MKCoordinateRegion(center: mapItem.placemark.coordinate, radius: 0.025))
         autocompleteVC.dismiss(animated: true)
         
         let vc = UIViewController()
@@ -109,12 +112,6 @@ extension LocationSearchVC: SearchViewModelDelegate {
     
     func changeSearchBarText(newText: String) {
         searchController.searchBar.text = newText
-    }
-}
-
-extension LocationSearchVC: DetailedSearchViewControllerDelegate {
-    func didSelectLocationFromTableView() {
-        scrollView.setContentOffset(.zero, animated: true)
     }
 }
 
@@ -139,6 +136,7 @@ extension LocationSearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty, !searchViewModel.autocompleteResults.isEmpty else { return }
         searchViewModel.searchNearby(query: text, changeRegion: true)
+        changeSearchBarText(newText: text)
         autocompleteVC.dismiss(animated: true)
     }
 }

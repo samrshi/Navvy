@@ -9,11 +9,6 @@ import Combine
 import Foundation
 import MapKit
 
-protocol SearchViewModelDelegate: AnyObject {
-    func changeSearchBarText(newText: String)
-    func didSelectMapItem(mapItem: MKMapItem)
-}
-
 class SearchViewModel: NSObject, ObservableObject {
     @Published var searchTerm: String = ""
     @Published var status: LocationStatus = .noResults
@@ -25,7 +20,6 @@ class SearchViewModel: NSObject, ObservableObject {
     var cancellables: [AnyCancellable] = []
     let searchCompleter = MKLocalSearchCompleter()
     var locationManager: LocationManager? = LocationManager()
-    var delegate: SearchViewModelDelegate?
 
     override init() {
         super.init()
@@ -69,10 +63,6 @@ class SearchViewModel: NSObject, ObservableObject {
         searchCompleter.region = region
     }
 
-    func selectMapItem(mapItem: MKMapItem) {
-        delegate?.didSelectMapItem(mapItem: mapItem)
-    }
-
     func searchNearby(query: String, changeRegion: Bool) {
         status = .searching
         
@@ -84,7 +74,6 @@ class SearchViewModel: NSObject, ObservableObject {
             } receiveValue: { [weak self] mapItems in
                 self?.detailedMapItems = mapItems
                 self?.status = .hasResults
-                self?.delegate?.changeSearchBarText(newText: query)
 
                 let coordinates = mapItems.map(\.placemark.coordinate)
                 if changeRegion, let region = MKCoordinateRegion(containing: coordinates) {
@@ -94,19 +83,20 @@ class SearchViewModel: NSObject, ObservableObject {
             .store(in: &cancellables)
     }
 
-    func fetchAndSelectMapItem(forCompletion completion: MKLocalSearchCompletion) {
+    func fetchMapItem(forSearchCompletion searchCompletion: MKLocalSearchCompletion, completion: @escaping (Result<MKMapItem, Error>) -> Void) {
         status = .searching
         
-        LocalSearchPublishers.getMapItems(completion: completion, region: region)
+        LocalSearchPublishers.getMapItems(completion: searchCompletion, region: region)
             .map(\.first)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard case .failure(let error) = completion, let self = self else { return }
+            .sink { [weak self] publisherCompletion in
+                guard case .failure(let error) = publisherCompletion, let self = self else { return }
                 self.status = .error(error.localizedDescription)
+                completion(.failure(error))
             } receiveValue: { [weak self] mapItem in
                 guard let mapItem = mapItem, let self = self else { return }
                 self.detailedMapItems = [mapItem]
-                self.selectMapItem(mapItem: mapItem)
+                completion(.success(mapItem))
             }
             .store(in: &cancellables)
     }
