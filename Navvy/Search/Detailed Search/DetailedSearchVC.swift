@@ -45,19 +45,10 @@ class DetailedSearchVC: UIViewController {
     lazy var searchAgainButton: UIButton = {
         let searchAgainButton = UIButton(frame: .zero)
         searchAgainButton.translatesAutoresizingMaskIntoConstraints = false
-        searchAgainButton.setTitle("Search This Area", for: .normal)
+        searchAgainButton.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
         searchAgainButton.addAction(UIAction(handler: searchThisArea), for: .touchUpInside)
-        searchAgainButton.tintColor = .systemBlue.withAlphaComponent(0.75)
-        
-        var configuration = UIButton.Configuration.filled()
-        configuration.title = "Search This Area"
-        configuration.image = UIImage(systemName: "arrow.counterclockwise")
-        configuration.imagePadding = 5
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        configuration.cornerStyle = .capsule
-        configuration.buttonSize = .mini
-        searchAgainButton.configuration = configuration
-
+        searchAgainButton.accessibilityHint = "Search New Map Area"
+        searchAgainButton.tintColor = .white
         return searchAgainButton
     }()
     
@@ -98,7 +89,7 @@ class DetailedSearchVC: UIViewController {
             mapSizeButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
             mapSizeButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -5),
             
-            searchAgainButton.centerXAnchor.constraint(equalTo: mapView.centerXAnchor),
+            searchAgainButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 5),
             searchButtonBottomConstraint
         ])
         
