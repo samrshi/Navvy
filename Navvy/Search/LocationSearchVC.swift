@@ -31,6 +31,7 @@ class LocationSearchVC: UIViewController {
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
         return searchController
     }()
     
@@ -56,9 +57,8 @@ class LocationSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .primaryBackground
-                
+        
         view.addSubview(scrollView)
         addChildViewController(child: detailedSearchVC, to: scrollView)
         
