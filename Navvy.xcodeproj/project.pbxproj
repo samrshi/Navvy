@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD1670052773084400856062 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1670042773084400856062 /* MapVC.swift */; };
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
 		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
 		BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */; };
@@ -16,7 +17,6 @@
 		BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */; };
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
 		BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */; };
-		BD653057276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653056276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift */; };
 		BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD65305A276B0670001CA8C0 /* NavigationManager.swift */; };
 		BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFA2767FF27009D4F2C /* AppDelegate.swift */; };
 		BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */; };
@@ -46,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD1670042773084400856062 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
 		BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +57,6 @@
 		BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchTableViewCell.swift; sourceTree = "<group>"; };
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildViewController.swift"; sourceTree = "<group>"; };
-		BD653056276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchResultViewModel.swift; sourceTree = "<group>"; };
 		BD65305A276B0670001CA8C0 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		BD787FF72767FF27009D4F2C /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD787FFA2767FF27009D4F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				BD504E26276FB44A0042A247 /* Colors.swift */,
+				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -235,9 +236,8 @@
 			isa = PBXGroup;
 			children = (
 				BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */,
+				BD1670042773084400856062 /* MapVC.swift */,
 				BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */,
-				BD653056276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift */,
-				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
 			path = "Detailed Search";
 			sourceTree = "<group>";
@@ -356,9 +356,9 @@
 				BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */,
 				BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
+				BD1670052773084400856062 /* MapVC.swift in Sources */,
 				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
-				BD653057276B05FE001CA8C0 /* DetailedSearchResultViewModel.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
 				BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */,
 				BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */,
