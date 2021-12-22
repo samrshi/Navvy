@@ -9,9 +9,14 @@ import Combine
 import MapKit
 import UIKit
 
+protocol DetailedSearchViewControllerDelegate: AnyObject {
+    func didSelectLocationFromTableView()
+}
+
 class DetailedSearchVC: UIViewController {
     var searchViewModel: SearchViewModel!
     var detailedSearchResults = [NavigationViewModel]()
+    weak var delegate: DetailedSearchViewControllerDelegate?
     
     var cancellables = [AnyCancellable]()
     var nextRegionChangeIsFromUserInteraction = false
@@ -30,6 +35,8 @@ class DetailedSearchVC: UIViewController {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(DetailedSearchTableViewCell.self, forCellReuseIdentifier: DetailedSearchTableViewCell.reuseId)
+        tableView.backgroundColor = .clear
+        tableView.isScrollEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -58,7 +65,7 @@ class DetailedSearchVC: UIViewController {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
-        button.addAction(UIAction(handler: toggleMap(_:)), for: .touchUpInside)
+        button.addAction(UIAction(handler: toggleMapViewHeight(_:)), for: .touchUpInside)
         button.tintColor = .white
         return button
     }()
@@ -98,11 +105,7 @@ class DetailedSearchVC: UIViewController {
         searchViewModel.$detailedMapItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] mapItems in
-                self?.detailedSearchResults = mapItems.map(NavigationViewModel.init)
-                self?.tableView.reloadData()
-                self?.updateMapItems(mapItems: mapItems)
-                
-                self?.toggleSearchButton(shouldShow: false)
+                self?.didReceiveResults(results: mapItems)
             }
             .store(in: &cancellables)
         
@@ -114,7 +117,15 @@ class DetailedSearchVC: UIViewController {
             .store(in: &cancellables)
     }
     
-    func toggleMap(_: UIAction) {
+    func didReceiveResults(results: [MKMapItem]) {
+        detailedSearchResults = results.map(NavigationViewModel.init)
+        tableView.reloadData()
+        updateMapItems(mapItems: results)
+        
+        toggleSearchButton(shouldShow: false)
+    }
+    
+    func toggleMapViewHeight(_: UIAction) {
         let multiplier = mapViewHeightConstraint.multiplier == 1.0 ? 5/9 : 1.0
         mapViewHeightConstraint.isActive = false
         mapViewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: multiplier)
@@ -130,16 +141,13 @@ class DetailedSearchVC: UIViewController {
     
     func toggleSearchButton(shouldShow: Bool) {
         guard shouldShow == (searchButtonBottomConstraint.constant == 0),
-              !searchViewModel.searchTerm.isEmpty
-        else {
-            return
-        }
+              !searchViewModel.searchTerm.isEmpty else { return }
         
         let showConstant = searchAgainButton.frame.size.height + 5
         searchButtonBottomConstraint?.constant = shouldShow ? showConstant : 0
         
-        UIView.animate(withDuration: 0.25) {
-            self.mapView.layoutSubviews()
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.mapView.layoutSubviews()
         }
     }
     
@@ -173,7 +181,9 @@ extension DetailedSearchVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let mapItem = detailedSearchResults[indexPath.row].mapItem
         searchViewModel.selectMapItem(mapItem: mapItem)
-        
+
+        delegate?.didSelectLocationFromTableView()
+
         if let annotation = mapView.annotations.first(where: {
             ($0 as? SSAnnotation)?.mapItem == mapItem
         }) {

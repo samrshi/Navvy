@@ -36,7 +36,7 @@ class AutocompleteResultsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .primaryBackground
         
         view.addSubview(statusLabel)
         view.addSubview(tableView)
@@ -84,7 +84,7 @@ extension AutocompleteResultsVC: UITableViewDataSource {
         content.secondaryTextProperties.color = .secondaryLabel
         
         cell.contentConfiguration = content
-        cell.backgroundColor = .systemBackground
+        cell.backgroundColor = .primaryBackground
         
         return cell
     }

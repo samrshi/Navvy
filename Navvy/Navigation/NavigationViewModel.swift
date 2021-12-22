@@ -55,7 +55,7 @@ extension NavigationViewModel {
     static func measurementToString(measurement: Measurement<UnitLength>) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = measurement.value > 1 ? 0 : 3
+        formatter.maximumFractionDigits = measurement.value > 1 ? 0 : 1
         
         let number = NSNumber(floatLiteral: measurement.value)
         let distance = formatter.string(from: number)!

@@ -36,6 +36,7 @@ class LocationSearchVC: UIViewController {
     
     lazy var detailedSearchVC: DetailedSearchVC = {
         let detailedSearchVC = DetailedSearchVC()
+        detailedSearchVC.delegate = self
         detailedSearchVC.searchViewModel = searchViewModel
         detailedSearchVC.view.translatesAutoresizingMaskIntoConstraints = false
         return detailedSearchVC
@@ -47,18 +48,42 @@ class LocationSearchVC: UIViewController {
         return vm
     }()
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .primaryBackground
                 
-        addChildViewController(child: detailedSearchVC)
+        view.addSubview(scrollView)
+        addChildViewController(child: detailedSearchVC, to: scrollView)
         
         NSLayoutConstraint.activate([
-            detailedSearchVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            detailedSearchVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            detailedSearchVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            detailedSearchVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            detailedSearchVC.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            detailedSearchVC.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            detailedSearchVC.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            detailedSearchVC.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+        ])
+        
+        let contentViewCenterY = detailedSearchVC.view.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+        contentViewCenterY.priority = .defaultLow
+
+        let contentViewHeight = detailedSearchVC.view.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
+        contentViewHeight.priority = .defaultLow
+
+        NSLayoutConstraint.activate([
+            detailedSearchVC.view.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentViewCenterY,
+            contentViewHeight
         ])
     }
     
@@ -84,6 +109,12 @@ extension LocationSearchVC: SearchViewModelDelegate {
     
     func changeSearchBarText(newText: String) {
         searchController.searchBar.text = newText
+    }
+}
+
+extension LocationSearchVC: DetailedSearchViewControllerDelegate {
+    func didSelectLocationFromTableView() {
+        scrollView.setContentOffset(.zero, animated: true)
     }
 }
 

@@ -8,8 +8,8 @@
 import UIKit
 
 extension UIViewController {
-    func addChildViewController(child: UIViewController) {
-        view.addSubview(child.view)
+    func addChildViewController(child: UIViewController, to view: UIView? = nil) {
+        (view ?? self.view).addSubview(child.view)
         addChild(child)
         child.didMove(toParent: self)
     }

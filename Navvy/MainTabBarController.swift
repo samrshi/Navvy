@@ -31,7 +31,7 @@ class MainTabBarController: UITabBarController {
         
         let standardAppearance = UITabBarAppearance()
         standardAppearance.configureWithDefaultBackground()
-        standardAppearance.backgroundColor = .systemBackground
+        standardAppearance.backgroundColor = .primaryBackground
         tabBar.standardAppearance = standardAppearance
         tabBar.scrollEdgeAppearance = standardAppearance
         
