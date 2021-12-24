@@ -34,7 +34,8 @@ class NavigationViewModel: ObservableObject {
     }
     
     func didUpdateAngle(angle: Double) {
-        angleToDestination = -1 * angle // display angle should flip sign to show which way the user should go
+        let angleInDegrees = angle * .pi / 180 // convert from radians to degrees
+        angleToDestination = -angleInDegrees // display angle should flip sign to show which way the user should go
         
         let boundedAngle = NavigationViewModel.accessibilityHeading(angle: angle)
         let direction = NavigationViewModel.accessibilityHeadingDirection(angle: boundedAngle)

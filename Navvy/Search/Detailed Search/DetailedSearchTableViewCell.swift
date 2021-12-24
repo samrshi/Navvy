@@ -73,7 +73,6 @@ class DetailedSearchTableViewCell: UITableViewCell {
         
         angleCancellable = navigationVM.$angleToDestination
             .receive(on: DispatchQueue.main)
-            .map { $0 * .pi / 180 } // convert degrees to radians
             .sink { [weak self] angle in
                 self?.rotateArrow(angle: angle)
             }

@@ -11,4 +11,8 @@ extension UIColor {
     static var primaryBackground: UIColor {
         UIColor(named: "primary-background")!
     }
+    
+    static var secondaryBackground: UIColor {
+        UIColor(named: "secondary-background")!
+    }
 }

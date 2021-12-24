@@ -100,8 +100,8 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
         detailedSearchVC.mapVC.setMapRegion(region: MKCoordinateRegion(center: mapItem.placemark.coordinate, radius: 0.025))
         autocompleteVC.dismiss(animated: true)
         
-        let vc = UIViewController()
-        vc.view.backgroundColor = .systemBlue
+        let vc = DestinationConfirmationVC()
+        vc.setUp(vm: NavigationViewModel(mapItem: mapItem))
         
         if let presentationController = vc.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()]
