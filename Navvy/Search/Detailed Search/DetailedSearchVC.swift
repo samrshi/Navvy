@@ -11,7 +11,7 @@ import UIKit
 
 protocol DetailedSearchVCDelegate: AnyObject {
     func didSelectLocationFromTableView()
-    func didSelectMapItem(mapItem: MKMapItem)
+    func didSelectSearchResult(result: NavigationViewModel)
     func changeSearchBarText(newText: String)
 }
 
@@ -92,7 +92,7 @@ extension DetailedSearchVC: MapVCDelegate {
     }
     
     func didSelectMapItem(mapItem: MKMapItem) {
-        delegate?.didSelectMapItem(mapItem: mapItem)
+        delegate?.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem))
     }
     
     func mapRegionDidChange(region: MKCoordinateRegion) {
@@ -126,7 +126,7 @@ extension DetailedSearchVC: UITableViewDelegate {
         
         let result = detailedSearchResults[indexPath.row]
         mapVC.selectAnnotation(forMapItem: result.mapItem)
-        delegate?.didSelectMapItem(mapItem: result.mapItem)
+        delegate?.didSelectSearchResult(result: result)
         delegate?.didSelectLocationFromTableView()
     }
 }

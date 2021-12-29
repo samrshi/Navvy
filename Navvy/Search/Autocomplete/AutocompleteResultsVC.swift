@@ -10,7 +10,7 @@ import MapKit
 import UIKit
 
 protocol AutocompleteResultsVCDelegate: AnyObject {
-    func didSelectMapItem(mapItem: MKMapItem)
+    func didSelectSearchResult(result: NavigationViewModel)
     func changeSearchBarText(newText: String)
 }
 
@@ -115,7 +115,7 @@ extension AutocompleteResultsVC: UITableViewDelegate {
         } else {
             searchViewModel.fetchMapItem(forSearchCompletion: autocompleteResult) { [weak self] result in
                 guard case .success(let mapItem) = result, let self = self else { return }                
-                self.delegate.didSelectMapItem(mapItem: mapItem)
+                self.delegate.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem))
             }
         }
         

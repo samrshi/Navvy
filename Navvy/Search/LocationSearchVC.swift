@@ -96,16 +96,16 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
         scrollView.setContentOffset(.zero, animated: true)
     }
     
-    func didSelectMapItem(mapItem: MKMapItem) {
-        detailedSearchVC.mapVC.setMapRegion(region: MKCoordinateRegion(center: mapItem.placemark.coordinate, radius: 0.025))
+    func didSelectSearchResult(result: NavigationViewModel) {
+        detailedSearchVC.mapVC.setMapRegion(region: MKCoordinateRegion(center: result.mapItem.placemark.coordinate, radius: 0.025))
         autocompleteVC.dismiss(animated: true)
         
         let vc = DestinationConfirmationVC()
-        vc.setUp(vm: NavigationViewModel(mapItem: mapItem))
+//        vc.view.layoutIfNeeded()
+        vc.setUp(vm: result)
         
         if let presentationController = vc.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium()]
-            presentationController.largestUndimmedDetentIdentifier = .medium
+            presentationController.detents = [.medium(), .large()]
         }
                 
         present(vc, animated: true)
