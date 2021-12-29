@@ -27,13 +27,13 @@ class MapVC: UIViewController {
     }()
     
     lazy var searchAgainButton: UIButton = {
-        let searchAgainButton = UIButton(frame: .zero)
-        searchAgainButton.translatesAutoresizingMaskIntoConstraints = false
-        searchAgainButton.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
-        searchAgainButton.addAction(UIAction(handler: searchThisArea), for: .touchUpInside)
-        searchAgainButton.accessibilityHint = "Search New Map Area"
-        searchAgainButton.tintColor = .white
-        return searchAgainButton
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
+        button.addAction(UIAction(handler: searchThisArea), for: .touchUpInside)
+        button.accessibilityHint = "Search New Map Area"
+        button.tintColor = .label
+        return button
     }()
     
     lazy var mapSizeButton: UIButton = {
@@ -41,7 +41,16 @@ class MapVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
         button.addAction(UIAction(handler: toggleMapViewHeight), for: .touchUpInside)
-        button.tintColor = .white
+        button.tintColor = .label
+        return button
+    }()
+    
+    lazy var showUserLocationButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "location"), for: .normal)
+        button.addAction(UIAction(handler: showUserRegion), for: .touchUpInside)
+        button.tintColor = .label
         return button
     }()
     
@@ -56,6 +65,7 @@ class MapVC: UIViewController {
         view.addSubview(mapView)
         mapView.addSubview(searchAgainButton)
         mapView.addSubview(mapSizeButton)
+        mapView.addSubview(showUserLocationButton)
 
         searchButtonBottomConstraint = searchAgainButton.bottomAnchor.constraint(equalTo: mapView.topAnchor)
         viewHeightConstraint = view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 5/9)
@@ -70,14 +80,42 @@ class MapVC: UIViewController {
             
             mapSizeButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
             mapSizeButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -5),
+            mapSizeButton.widthAnchor.constraint(equalTo: mapSizeButton.heightAnchor),
+            mapSizeButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            showUserLocationButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
+            showUserLocationButton.trailingAnchor.constraint(equalTo: mapSizeButton.leadingAnchor),
+            showUserLocationButton.widthAnchor.constraint(equalTo: mapSizeButton.heightAnchor),
+            showUserLocationButton.heightAnchor.constraint(equalToConstant: 30),
             
             searchAgainButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 5),
+            searchAgainButton.widthAnchor.constraint(equalTo: mapSizeButton.heightAnchor),
+            searchAgainButton.heightAnchor.constraint(equalToConstant: 30),
             searchButtonBottomConstraint
         ])
     }
     
     func searchThisArea(_: UIAction) {
         delegate.searchCurrentArea()
+    }
+    
+    func toggleMapViewHeight(_: UIAction) {
+        let multiplier = viewHeightConstraint.multiplier == 1.0 ? 5/9 : 1.0
+        viewHeightConstraint.isActive = false
+        viewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: multiplier)
+        viewHeightConstraint.isActive = true
+        
+        let image = viewHeightConstraint.multiplier == 1.0 ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right"
+        mapSizeButton.setImage(UIImage(systemName: image), for: .normal)
+        
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.view.layoutSubviews()
+        }
+    }
+    
+    func showUserRegion(_: UIAction) {
+        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, radius: 0.1)
+        setMapRegion(region: region)
     }
     
     func selectAnnotation(forMapItem mapItem: MKMapItem) {
@@ -92,20 +130,6 @@ class MapVC: UIViewController {
     func setMapRegion(region: MKCoordinateRegion) {
         UIView.animate(withDuration: 0.25) {
             self.mapView.region = region
-        }
-    }
-    
-    func toggleMapViewHeight(_: UIAction) {
-        let multiplier = viewHeightConstraint.multiplier == 1.0 ? 5/9 : 1.0
-        viewHeightConstraint.isActive = false
-        viewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: multiplier)
-        viewHeightConstraint.isActive = true
-        
-        let image = viewHeightConstraint.multiplier == 1.0 ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right"
-        mapSizeButton.setImage(UIImage(systemName: image), for: .normal)
-        
-        UIView.animate(withDuration: 0.25) { [weak self] in
-            self?.view.layoutSubviews()
         }
     }
     
