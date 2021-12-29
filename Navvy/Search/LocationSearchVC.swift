@@ -105,6 +105,7 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
         
         if let presentationController = vc.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()]
+            presentationController.largestUndimmedDetentIdentifier = .medium
         }
                 
         present(vc, animated: true)

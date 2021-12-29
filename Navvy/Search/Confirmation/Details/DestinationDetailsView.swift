@@ -14,7 +14,7 @@ class DestinationDetailsView: UIView {
     lazy var detailsContainer: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .secondaryBackground
+        view.backgroundColor = .tertiaryLabel
         view.layer.cornerRadius = 10
         return view
     }()

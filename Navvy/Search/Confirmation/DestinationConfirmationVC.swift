@@ -38,7 +38,7 @@ class DestinationConfirmationVC: UIViewController {
     lazy var cancelButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .secondaryBackground
+        button.backgroundColor = .tertiaryBackground
         button.setTitleColor(.label, for: .normal)
         button.setTitle("Cancel", for: .normal)
         button.layer.cornerRadius = 10
@@ -50,7 +50,7 @@ class DestinationConfirmationVC: UIViewController {
     lazy var detailsContainer: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .secondaryBackground
+        view.backgroundColor = .tertiaryBackground
         view.layer.cornerRadius = 10
         return view
     }()
@@ -75,7 +75,7 @@ class DestinationConfirmationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .primaryBackground
+        view.backgroundColor = .secondaryBackground
         
         view.addSubview(pointOfInterestImage)
         view.addSubview(titleLabel)
