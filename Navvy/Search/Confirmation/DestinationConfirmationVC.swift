@@ -23,7 +23,7 @@ class DestinationConfirmationVC: UIViewController {
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 25)
+        label.font = .preferredFont(forTextStyle: .title1)
         label.numberOfLines = 0
         return label
     }()
@@ -39,9 +39,10 @@ class DestinationConfirmationVC: UIViewController {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .secondaryBackground
+        button.setTitleColor(.label, for: .normal)
         button.setTitle("Cancel", for: .normal)
         button.layer.cornerRadius = 10
-        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
         // button.addAction(UIAction, for: .touchUpInside)
         return button
     }()
@@ -57,7 +58,7 @@ class DestinationConfirmationVC: UIViewController {
     lazy var detailsHeader: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .preferredFont(forTextStyle: .headline)
         label.text = "Details"
         return label
     }()
@@ -75,7 +76,6 @@ class DestinationConfirmationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryBackground
-        overrideUserInterfaceStyle = .dark
         
         view.addSubview(pointOfInterestImage)
         view.addSubview(titleLabel)
@@ -177,5 +177,6 @@ struct DestinationConfirmationVC_Previews: PreviewProvider {
     static var previews: some View {
         DestinationConfirmationVC.View()
             .preferredColorScheme(.dark)
+            .environment(\.sizeCategory, .extraSmall)
     }
 }

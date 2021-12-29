@@ -12,7 +12,7 @@ class DestinationDetailsItem: UILabel {
         super.init(frame: .zero)
 
         translatesAutoresizingMaskIntoConstraints = false
-        font = .systemFont(ofSize: 18)
+        font = .preferredFont(forTextStyle: .callout)
         numberOfLines = 0
     }
 

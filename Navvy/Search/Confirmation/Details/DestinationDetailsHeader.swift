@@ -13,7 +13,7 @@ class DestinationDetailsHeader: UILabel {
         
         translatesAutoresizingMaskIntoConstraints = false
         textColor = .secondaryLabel
-        font = .systemFont(ofSize: 15)
+        font = .preferredFont(forTextStyle: .footnote)
         text = title
     }
     

@@ -19,15 +19,15 @@ class DestinationSelectionButton: UIButton {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "arrow.up")
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .label
+        imageView.tintColor = .white
         return imageView
     }()
     
     lazy var distanceLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .label
+        label.font = .preferredFont(forTextStyle: .title3)
+        label.textColor = .white
         return label
     }()
 
@@ -42,14 +42,12 @@ class DestinationSelectionButton: UIButton {
         contentView.addSubview(distanceLabel)
         
         NSLayoutConstraint.activate([
-//            contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-//            contentView.leadingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
             contentView.centerXAnchor.constraint(equalTo: centerXAnchor),
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             arrowImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            arrowImage.widthAnchor.constraint(equalToConstant: 25),
+            arrowImage.widthAnchor.constraint(equalToConstant: 20),
             arrowImage.heightAnchor.constraint(equalTo: arrowImage.widthAnchor),
             arrowImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             arrowImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),

@@ -9,8 +9,12 @@ import CoreLocation
 
 extension CLLocationCoordinate2D {
     var formatted: String {
-        let lat = "\(abs(latitude))º \(latitude >= 0 ? "N" : "S")"
-        let lon = "\(abs(longitude))º \(longitude >= 0 ? "E" : "W")"
-        return "\(lat), \(lon)"
+        var latitudeString = abs(latitude).formatted(.number.precision(.fractionLength(4)))
+        var longitudeString = abs(longitude).formatted(.number.precision(.fractionLength(4)))
+
+        latitudeString = "\(latitudeString)º \(latitude >= 0 ? "N" : "S")"
+        longitudeString = "\(longitudeString)º \(longitude >= 0 ? "E" : "W")"
+        
+        return "\(latitudeString), \(longitudeString)"
     }
 }
