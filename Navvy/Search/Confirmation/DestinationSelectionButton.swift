@@ -34,8 +34,9 @@ class DestinationSelectionButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .systemBlue
-        layer.cornerRadius = 10
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = .systemBlue
+        self.configuration = configuration
         
         addSubview(contentView)
         contentView.addSubview(arrowImage)
@@ -49,13 +50,12 @@ class DestinationSelectionButton: UIButton {
             arrowImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             arrowImage.widthAnchor.constraint(equalToConstant: 20),
             arrowImage.heightAnchor.constraint(equalTo: arrowImage.widthAnchor),
-            arrowImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            arrowImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            arrowImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             distanceLabel.leadingAnchor.constraint(equalTo: arrowImage.trailingAnchor, constant: 5),
             distanceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            distanceLabel.topAnchor.constraint(equalTo: arrowImage.topAnchor),
-            distanceLabel.bottomAnchor.constraint(equalTo: arrowImage.bottomAnchor),
+            distanceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            distanceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
     }
     

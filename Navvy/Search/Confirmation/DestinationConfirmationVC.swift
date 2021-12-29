@@ -13,6 +13,12 @@ import UIKit
 class DestinationConfirmationVC: UIViewController {
     var cancellables = [AnyCancellable]()
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     lazy var pointOfInterestImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,14 +42,23 @@ class DestinationConfirmationVC: UIViewController {
     }()
     
     lazy var cancelButton: UIButton = {
+        let button = UIButton(type: .close)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addAction(UIAction(handler: closeAction), for: .touchUpInside)
+        button.tintColor = .blue
+        return button
+    }()
+    
+    lazy var favoriteButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .tertiaryBackground
-        button.setTitleColor(.label, for: .normal)
-        button.setTitle("Cancel", for: .normal)
-        button.layer.cornerRadius = 10
-        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        // button.addAction(UIAction, for: .touchUpInside)
+        
+        var configuration = UIButton.Configuration.filled()
+        configuration.image = UIImage(systemName: "heart")
+        configuration.baseBackgroundColor = .tertiaryBackground
+        configuration.baseForegroundColor = .label
+        button.configuration = configuration
+        
         return button
     }()
     
@@ -77,13 +92,16 @@ class DestinationConfirmationVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .secondaryBackground
         
-        view.addSubview(pointOfInterestImage)
-        view.addSubview(titleLabel)
-        view.addSubview(callToActionButton)
-        view.addSubview(cancelButton)
+        view.addSubview(scrollView)
         
-        view.addSubview(detailsHeader)
-        view.addSubview(detailsContainer)
+        scrollView.addSubview(pointOfInterestImage)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(cancelButton)
+        scrollView.addSubview(callToActionButton)
+        scrollView.addSubview(favoriteButton)
+        
+        scrollView.addSubview(detailsHeader)
+        scrollView.addSubview(detailsContainer)
         detailsContainer.addSubview(addressHeader)
         detailsContainer.addSubview(addressLabel)
         detailsContainer.addSubview(detailsDivider)
@@ -91,23 +109,32 @@ class DestinationConfirmationVC: UIViewController {
         detailsContainer.addSubview(coordinatesLabel)
         
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             pointOfInterestImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             pointOfInterestImage.widthAnchor.constraint(equalToConstant: 45),
             pointOfInterestImage.heightAnchor.constraint(equalTo: pointOfInterestImage.widthAnchor),
             pointOfInterestImage.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             
             titleLabel.leadingAnchor.constraint(equalTo: pointOfInterestImage.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 25),
+            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 25),
+            
+            cancelButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 25),
+            cancelButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             
             callToActionButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            callToActionButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -5),
-            
-            cancelButton.topAnchor.constraint(equalTo: callToActionButton.topAnchor),
-            cancelButton.bottomAnchor.constraint(equalTo: callToActionButton.bottomAnchor),
-            cancelButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
-            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            callToActionButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
+
+            favoriteButton.leadingAnchor.constraint(equalTo: callToActionButton.trailingAnchor, constant: 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            favoriteButton.topAnchor.constraint(equalTo: callToActionButton.topAnchor),
+            favoriteButton.heightAnchor.constraint(equalTo: callToActionButton.heightAnchor),
+            favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor),
 
             detailsHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             detailsHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
@@ -116,6 +143,7 @@ class DestinationConfirmationVC: UIViewController {
             detailsContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             detailsContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             detailsContainer.topAnchor.constraint(equalTo: detailsHeader.bottomAnchor, constant: 5),
+            detailsContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             addressHeader.topAnchor.constraint(equalTo: detailsContainer.topAnchor, constant: 18),
             addressHeader.leadingAnchor.constraint(equalTo: detailsContainer.leadingAnchor, constant: 18),
@@ -149,13 +177,15 @@ class DestinationConfirmationVC: UIViewController {
         coordinatesLabel.text = vm.mapItem.placemark.coordinate.formatted
         pointOfInterestImage.image = UIImage(named: vm.mapItem.pointOfInterestCategory.toIcon())
         
+        callToActionButton.distanceLabel.text = vm.distanceToDestination
         vm.$distanceToDestination
             .receive(on: DispatchQueue.main)
             .sink { [weak self] distance in
-                self?.callToActionButton.distanceLabel.text = "\(distance)"
+                self?.callToActionButton.distanceLabel.text = distance
             }
             .store(in: &cancellables)
         
+        callToActionButton.arrowImage.transform = CGAffineTransform(rotationAngle: vm.angleToDestination)
         vm.$angleToDestination
             .receive(on: DispatchQueue.main)
             .sink { [weak self] angle in
@@ -170,6 +200,10 @@ class DestinationConfirmationVC: UIViewController {
         coordinatesLabel.text = coordinate.formatted
         callToActionButton.distanceLabel.text = "\(distance)"
         pointOfInterestImage.image = UIImage(named: poi.toIcon())
+    }
+    
+    func closeAction(_: UIAction) {
+        dismiss(animated: true)
     }
 }
 
