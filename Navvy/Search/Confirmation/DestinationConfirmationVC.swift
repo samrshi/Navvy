@@ -62,13 +62,7 @@ class DestinationConfirmationVC: UIViewController {
         return button
     }()
     
-    lazy var detailsContainer: UIView = {
-        let view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .tertiaryBackground
-        view.layer.cornerRadius = 10
-        return view
-    }()
+    var detailsContent = [DetailsItem]()
     
     lazy var detailsHeader: UILabel = {
         let label = UILabel(frame: .zero)
@@ -78,13 +72,15 @@ class DestinationConfirmationVC: UIViewController {
         return label
     }()
     
-    lazy var addressHeader = DestinationDetailsHeader(title: "Address")
-    lazy var addressLabel = DestinationDetailsItem(frame: .zero)
-    
-    lazy var detailsDivider = DestinationDetailsDivider(frame: .zero)
-    
-    lazy var coordinatesHeader = DestinationDetailsHeader(title: "Coordinates")
-    lazy var coordinatesLabel = DestinationDetailsItem(frame: .zero)
+    lazy var detailsTableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DetailsTableViewCell")
+        tableView.dataSource = self
+        tableView.backgroundColor = .tertiaryBackground
+        tableView.layer.cornerRadius = 10
+        return tableView
+    }()
     
     var navigationVM: NavigationViewModel!
     
@@ -101,12 +97,7 @@ class DestinationConfirmationVC: UIViewController {
         scrollView.addSubview(favoriteButton)
         
         scrollView.addSubview(detailsHeader)
-        scrollView.addSubview(detailsContainer)
-        detailsContainer.addSubview(addressHeader)
-        detailsContainer.addSubview(addressLabel)
-        detailsContainer.addSubview(detailsDivider)
-        detailsContainer.addSubview(coordinatesHeader)
-        detailsContainer.addSubview(coordinatesLabel)
+        scrollView.addSubview(detailsTableView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -140,32 +131,10 @@ class DestinationConfirmationVC: UIViewController {
             detailsHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             detailsHeader.topAnchor.constraint(equalTo: callToActionButton.bottomAnchor, constant: 30),
             
-            detailsContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            detailsContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            detailsContainer.topAnchor.constraint(equalTo: detailsHeader.bottomAnchor, constant: 5),
-            detailsContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
-            addressHeader.topAnchor.constraint(equalTo: detailsContainer.topAnchor, constant: 18),
-            addressHeader.leadingAnchor.constraint(equalTo: detailsContainer.leadingAnchor, constant: 18),
-            addressHeader.trailingAnchor.constraint(equalTo: detailsContainer.trailingAnchor, constant: -18),
-            
-            addressLabel.topAnchor.constraint(equalTo: addressHeader.bottomAnchor, constant: 2),
-            addressLabel.leadingAnchor.constraint(equalTo: addressHeader.leadingAnchor),
-            addressLabel.trailingAnchor.constraint(equalTo: addressHeader.trailingAnchor),
-            
-            detailsDivider.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 10),
-            detailsDivider.leadingAnchor.constraint(equalTo: addressLabel.leadingAnchor),
-            detailsDivider.trailingAnchor.constraint(equalTo: addressLabel.trailingAnchor),
-            detailsDivider.heightAnchor.constraint(equalToConstant: 1),
-            
-            coordinatesHeader.topAnchor.constraint(equalTo: detailsDivider.bottomAnchor, constant: 10),
-            coordinatesHeader.leadingAnchor.constraint(equalTo: detailsDivider.leadingAnchor),
-            coordinatesHeader.trailingAnchor.constraint(equalTo: detailsDivider.trailingAnchor),
-            
-            coordinatesLabel.topAnchor.constraint(equalTo: coordinatesHeader.bottomAnchor, constant: 2),
-            coordinatesLabel.leadingAnchor.constraint(equalTo: coordinatesHeader.leadingAnchor),
-            coordinatesLabel.trailingAnchor.constraint(equalTo: coordinatesHeader.trailingAnchor),
-            coordinatesLabel.bottomAnchor.constraint(equalTo: detailsContainer.bottomAnchor, constant: -18),
+            detailsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            detailsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            detailsTableView.topAnchor.constraint(equalTo: detailsHeader.bottomAnchor, constant: 5),
+            detailsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 
@@ -173,9 +142,27 @@ class DestinationConfirmationVC: UIViewController {
         navigationVM = vm
         
         titleLabel.text = vm.destinationName
-        addressLabel.text = vm.destinationSubtitle
-        coordinatesLabel.text = vm.mapItem.placemark.coordinate.formatted
         pointOfInterestImage.image = UIImage(named: vm.mapItem.pointOfInterestCategory.toIcon())
+        
+        var details = [DetailsItem]()
+        
+        if let address = vm.destinationSubtitle {
+            details.append(DetailsItem(header: "Address", content: address))
+        }
+        
+        let coordinates = vm.destinationCoordinates.formatted
+        details.append(DetailsItem(header: "Coordinates", content: coordinates))
+        
+        if let url = vm.destinationURL {
+            details.append(DetailsItem(header: "Website", content: url.absoluteString))
+        }
+        
+        if let phoneNumber = vm.destinationPhoneNumber {
+            details.append(DetailsItem(header: "Phone Number", content: phoneNumber))
+        }
+        
+        self.detailsContent = details
+        detailsTableView.reloadData()
         
         callToActionButton.distanceLabel.text = vm.distanceToDestination
         vm.$distanceToDestination
@@ -196,14 +183,42 @@ class DestinationConfirmationVC: UIViewController {
 
     func setUp(title: String, address: String, poi: MKPointOfInterestCategory?, coordinate: CLLocationCoordinate2D, distance: String = "25 mi") {
         titleLabel.text = title
-        addressLabel.text = address
-        coordinatesLabel.text = coordinate.formatted
+        
+        var details = [DetailsItem]()
+        details.append(DetailsItem(header: "Address", content: address))
+        details.append(DetailsItem(header: "Coordinates", content: coordinate.formatted))
+        self.detailsContent = details
+        detailsTableView.reloadData()
+        
         callToActionButton.distanceLabel.text = "\(distance)"
         pointOfInterestImage.image = UIImage(named: poi.toIcon())
     }
     
     func closeAction(_: UIAction) {
         dismiss(animated: true)
+    }
+}
+
+extension DestinationConfirmationVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsTableViewCell", for: indexPath)
+        
+        var configuration = cell.defaultContentConfiguration()
+        
+        configuration.text = detailsContent[indexPath.row].header
+        configuration.textProperties.font = .preferredFont(forTextStyle: .footnote)
+        configuration.textProperties.color = .secondaryLabel
+        
+        configuration.secondaryText = detailsContent[indexPath.row].content
+        configuration.secondaryTextProperties.font = .preferredFont(forTextStyle: .callout)
+        configuration.secondaryTextProperties.color = .label
+        
+        cell.contentConfiguration = configuration
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        detailsContent.count
     }
 }
 

@@ -50,6 +50,9 @@ class NavigationViewModel: ObservableObject {
     var destinationName: String? { mapItem.name }
     var destinationSubtitle: String? { mapItem.placemark.title }
     var destinationCategory: MKPointOfInterestCategory? { mapItem.pointOfInterestCategory }
+    var destinationCoordinates: CLLocationCoordinate2D { mapItem.placemark.coordinate }
+    var destinationPhoneNumber: String? { mapItem.phoneNumber }
+    var destinationURL: URL? { mapItem.url }
 }
 
 extension NavigationViewModel {
