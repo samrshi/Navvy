@@ -59,7 +59,7 @@ class LocationSearchVC: UIViewController {
         view.backgroundColor = .primaryBackground
         
         view.addSubview(scrollView)
-        addChildViewController(child: detailedSearchVC, to: scrollView)
+        addChildViewController(child: detailedSearchVC, toView: scrollView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

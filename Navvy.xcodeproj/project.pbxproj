@@ -15,6 +15,7 @@
 		BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE52276D4B0300AF8B57 /* Publisher+weaklyAssign.swift */; };
 		BD4AC62D277C44C300F12D4F /* DetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4AC62C277C44C300F12D4F /* DetailsItem.swift */; };
 		BD504E27276FB44A0042A247 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD504E26276FB44A0042A247 /* Colors.swift */; };
+		BD54D053277D823E00B44F05 /* DestinationConfirmationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54D052277D823E00B44F05 /* DestinationConfirmationDetailsView.swift */; };
 		BD58412927759643004841B7 /* DestinationConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58412827759643004841B7 /* DestinationConfirmationVC.swift */; };
 		BD58412B2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58412A2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift */; };
 		BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58412D2775B059004841B7 /* Confirmation+Previews.swift */; };
@@ -64,6 +65,7 @@
 		BD39DE52276D4B0300AF8B57 /* Publisher+weaklyAssign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+weaklyAssign.swift"; sourceTree = "<group>"; };
 		BD4AC62C277C44C300F12D4F /* DetailsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsItem.swift; sourceTree = "<group>"; };
 		BD504E26276FB44A0042A247 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		BD54D052277D823E00B44F05 /* DestinationConfirmationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationConfirmationDetailsView.swift; sourceTree = "<group>"; };
 		BD58412827759643004841B7 /* DestinationConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationConfirmationVC.swift; sourceTree = "<group>"; };
 		BD58412A2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Formatted.swift"; sourceTree = "<group>"; };
 		BD58412D2775B059004841B7 /* Confirmation+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Confirmation+Previews.swift"; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				BD58412827759643004841B7 /* DestinationConfirmationVC.swift */,
+				BD54D052277D823E00B44F05 /* DestinationConfirmationDetailsView.swift */,
 				BD5841392775B1BD004841B7 /* DestinationSelectionButton.swift */,
 				BD5841362775B10B004841B7 /* Details */,
 				BD58412D2775B059004841B7 /* Confirmation+Previews.swift */,
@@ -409,6 +412,7 @@
 				BD58412927759643004841B7 /* DestinationConfirmationVC.swift in Sources */,
 				BD58413A2775B1BD004841B7 /* DestinationSelectionButton.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
+				BD54D053277D823E00B44F05 /* DestinationConfirmationDetailsView.swift in Sources */,
 				BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */,
 				BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */,
 				BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */,
