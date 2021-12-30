@@ -45,7 +45,7 @@ class LocationSearchVC: UIViewController {
     }()
     
     lazy var searchViewModel: SearchViewModel = {
-        return SearchViewModel()
+        SearchViewModel()
     }()
     
     lazy var scrollView: UIScrollView = {
@@ -65,7 +65,7 @@ class LocationSearchVC: UIViewController {
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             detailedSearchVC.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
             detailedSearchVC.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -82,7 +82,7 @@ class LocationSearchVC: UIViewController {
         NSLayoutConstraint.activate([
             detailedSearchVC.view.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             contentViewCenterY,
-            contentViewHeight
+            contentViewHeight,
         ])
     }
     
@@ -97,18 +97,7 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
     }
     
     func didSelectSearchResult(result: NavigationViewModel) {
-        
-        let userLocation = detailedSearchVC.mapVC.mapView.userLocation.coordinate
-        if var region = MKCoordinateRegion(containing: [result.destinationCoordinates, userLocation]) {
-            #warning("come back to this and see if i still like it later")
-            if region.span.longitudeDelta > 100 {
-                region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 10)
-            }
-            detailedSearchVC.mapVC.setMapRegion(region: region)
-        }
-        
-        autocompleteVC.dismiss(animated: true)
-        
+        // Show Confirmation View Controller Modally
         let vc = DestinationConfirmationVC()
         vc.setUp(vm: result)
         
@@ -117,6 +106,15 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
         }
                 
         present(vc, animated: true)
+        
+        // Select Matching MapView Annotation and Change Region
+        detailedSearchVC.mapVC.selectAnnotation(forMapItem: result.mapItem)
+        
+        let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
+        detailedSearchVC.mapVC.setMapRegion(region: region)
+            
+        // Dismiss Search Controller Results VC
+        autocompleteVC.dismiss(animated: true)
     }
     
     func changeSearchBarText(newText: String) {

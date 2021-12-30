@@ -51,7 +51,7 @@ class DetailedSearchVC: UIViewController {
             mapVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             mapVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            tableView.topAnchor.constraint(equalTo: mapVC.view.bottomAnchor, constant: 16),
+            tableView.topAnchor.constraint(equalTo: mapVC.view.bottomAnchor, constant: 12),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

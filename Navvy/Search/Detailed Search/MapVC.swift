@@ -122,7 +122,8 @@ class MapVC: UIViewController {
     }
     
     func selectAnnotation(forMapItem mapItem: MKMapItem) {
-        
+        guard let annotation = mapView.annotations.compactMap({ $0 as? SSAnnotation}).first(where: { $0.mapItem == mapItem }) else { return }
+        mapView.selectAnnotation(annotation, animated: true)
     }
     
     func updateMapItems(mapItems: [MKMapItem]) {
