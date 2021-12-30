@@ -83,7 +83,7 @@ class DetailedSearchVC: UIViewController {
 
 extension DetailedSearchVC: MapVCDelegate {
     func searchCurrentArea() {
-        searchViewModel.searchNearby(query: searchViewModel.searchTerm, changeRegion: false)
+        searchViewModel.searchNearby(query: searchViewModel.searchTerm, changeRegion: true)
         delegate?.changeSearchBarText(newText: searchViewModel.searchTerm)
     }
     

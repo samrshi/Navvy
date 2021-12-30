@@ -97,11 +97,19 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
     }
     
     func didSelectSearchResult(result: NavigationViewModel) {
-        detailedSearchVC.mapVC.setMapRegion(region: MKCoordinateRegion(center: result.mapItem.placemark.coordinate, radius: 0.025))
+        
+        let userLocation = detailedSearchVC.mapVC.mapView.userLocation.coordinate
+        if var region = MKCoordinateRegion(containing: [result.destinationCoordinates, userLocation]) {
+            #warning("come back to this and see if i still like it later")
+            if region.span.longitudeDelta > 100 {
+                region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 10)
+            }
+            detailedSearchVC.mapVC.setMapRegion(region: region)
+        }
+        
         autocompleteVC.dismiss(animated: true)
         
         let vc = DestinationConfirmationVC()
-//        vc.view.layoutIfNeeded()
         vc.setUp(vm: result)
         
         if let presentationController = vc.presentationController as? UISheetPresentationController {

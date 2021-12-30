@@ -26,8 +26,8 @@ extension MKCoordinateRegion {
         let centerLongitude = (minimumLongitude + maximumLongitude) / 2
         let center = CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude)
 
-        let latitudeDelta = maximumLatitude - minimumLatitude
-        let longitudeDelta = minimumLongitude - minimumLongitude
+        let latitudeDelta = (maximumLatitude - minimumLatitude) * 1.2
+        let longitudeDelta = (maximumLongitude - minimumLongitude) * 1.2
         let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
 
         self.init(center: center, span: span)
