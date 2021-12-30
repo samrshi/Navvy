@@ -59,6 +59,9 @@ class MapVC: UIViewController {
     var searchButtonBottomConstraint: NSLayoutConstraint!
     weak var delegate: MapVCDelegate!
 
+    let mapViewSmallAspectRatio: Double = 2/3
+    let mapViewBigAspectRatio: Double = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,7 +71,7 @@ class MapVC: UIViewController {
         mapView.addSubview(showUserLocationButton)
 
         searchButtonBottomConstraint = searchAgainButton.bottomAnchor.constraint(equalTo: mapView.topAnchor)
-        viewHeightConstraint = view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 5/9)
+        viewHeightConstraint = view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: mapViewSmallAspectRatio)
         
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -100,7 +103,7 @@ class MapVC: UIViewController {
     }
     
     func toggleMapViewHeight(_: UIAction) {
-        let multiplier = viewHeightConstraint.multiplier == 1.0 ? 5/9 : 1.0
+        let multiplier = viewHeightConstraint.multiplier == mapViewBigAspectRatio ? mapViewSmallAspectRatio : mapViewBigAspectRatio
         viewHeightConstraint.isActive = false
         viewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: multiplier)
         viewHeightConstraint.isActive = true
