@@ -33,6 +33,7 @@ struct DestinationConfirmationDetailsView: View {
                 detailItem(title: "Coordinates") {
                     copyMenu(textToCopy: coordinates) {
                         Text(coordinates)
+                            .multilineTextAlignment(.leading)
                     }
                 }
                 
@@ -44,6 +45,7 @@ struct DestinationConfirmationDetailsView: View {
                             callPhoneNumber(number: phoneNumber)
                         } label: {
                             Text(phoneNumber)
+                                .multilineTextAlignment(.leading)
                         }
                     }
                 }

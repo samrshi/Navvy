@@ -73,15 +73,15 @@ class DestinationConfirmationVC: UIViewController {
         return button
     }()
         
-    func buildDetailsVC(address: String?, coordinates: String, phoneNumber: String?, url: URL?) -> UIHostingController<DestinationConfirmationDetailsView> {
+    func buildDetailsVC(address: String?, coordinates: String, phoneNumber: String?, url: URL?) -> SelfSizingHostingController<DestinationConfirmationDetailsView> {
         let rootView = DestinationConfirmationDetailsView(address: address, coordinates: coordinates, phoneNumber: phoneNumber, url: url)
-        let hostingController = UIHostingController(rootView: rootView)
+        let hostingController = SelfSizingHostingController(rootView: rootView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         hostingController.view.backgroundColor = .clear
         return hostingController
     }
     
-    var detailsVC: UIHostingController<DestinationConfirmationDetailsView>!
+    var detailsVC: SelfSizingHostingController<DestinationConfirmationDetailsView>!
     
     var navigationVM: NavigationViewModel!
     weak var delegate: DestinationConfirmationVCDelegate!
