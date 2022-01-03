@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD1670052773084400856062 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1670042773084400856062 /* MapVC.swift */; };
+		BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */; };
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
 		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
 		BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		BD1670042773084400856062 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RawPhoneNumber.swift"; sourceTree = "<group>"; };
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
 		BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD24D4EC2782CFA300E7ED83 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 		BD39DE3F276D3B9200AF8B57 /* NavvyTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +261,7 @@
 		BD78802427682AC9009D4F2C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BD24D4EC2782CFA300E7ED83 /* Foundation */,
 				BD39DE51276D4AF100AF8B57 /* Combine */,
 				BD39DE50276D4AE300AF8B57 /* UIKit */,
 				BD39DE4F276D4AD300AF8B57 /* MapKit+CoreLocation */,
@@ -404,6 +415,7 @@
 				BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */,
 				BD78802227680C54009D4F2C /* AutocompleteTableViewCell.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,
+				BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */,
 				BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

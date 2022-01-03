@@ -15,26 +15,36 @@ struct DestinationConfirmationDetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Details").font(.headline)
+            Text("Details")
+                .font(.headline)
             
             VStack {
                 if let address = address {
                     detailItem(title: "Address") {
-                        Text(address)
+                        copyMenu(textToCopy: address) {
+                            Text(address)
+                                .multilineTextAlignment(.leading)
+                        }
                     }
                     
                     Divider()
                 }
                 
                 detailItem(title: "Coordinates") {
-                    Text(coordinates)
+                    copyMenu(textToCopy: coordinates) {
+                        Text(coordinates)
+                    }
                 }
                 
                 if let phoneNumber = phoneNumber {
                     Divider()
                     
                     detailItem(title: "Phone Number") {
-                        Text(phoneNumber)
+                        Button {
+                            callPhoneNumber(number: phoneNumber)
+                        } label: {
+                            Text(phoneNumber)
+                        }
                     }
                 }
                 
@@ -42,9 +52,7 @@ struct DestinationConfirmationDetailsView: View {
                     Divider()
                     
                     detailItem(title: "Website") {
-                        Button {
-                            UIApplication.shared.open(url)
-                        } label: {
+                        Button { openWebsite(url: url) } label: {
                             Text(url.absoluteString)
                                 .multilineTextAlignment(.leading)
                         }
@@ -58,16 +66,44 @@ struct DestinationConfirmationDetailsView: View {
         }
     }
     
+    func copyTextToClipboard(text: String) {
+        let clipboard = UIPasteboard.general
+        clipboard.string = text
+    }
+    
+    func callPhoneNumber(number: String) {
+        if let url = URL(string: "tel://" + number.rawPhoneNumber()) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func openWebsite(url: URL) {
+        UIApplication.shared.open(url)
+    }
+        
     @ViewBuilder func detailItem<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading) {
             Text(title)
                 .foregroundColor(.secondary)
                 .font(.footnote)
-            
+        
             content()
                 .font(.callout)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    @ViewBuilder func copyMenu<Content: View>(textToCopy: String, @ViewBuilder content: () -> Content) -> some View {
+        Menu {
+            Button {
+                copyTextToClipboard(text: textToCopy)
+            } label: {
+                Label("Copy", systemImage: "doc.on.doc")
+            }
+        } label: {
+            content()
+                .foregroundColor(.primary)
+        }
     }
 }
 
