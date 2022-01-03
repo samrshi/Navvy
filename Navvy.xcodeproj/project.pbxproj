@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		BD1670052773084400856062 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1670042773084400856062 /* MapVC.swift */; };
 		BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */; };
-		BD24D4F02782D21000E7ED83 /* SelfSizingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4EF2782D21000E7ED83 /* SelfSizingHostingController.swift */; };
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
 		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
 		BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */; };
@@ -21,7 +20,7 @@
 		BD58412927759643004841B7 /* DestinationConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58412827759643004841B7 /* DestinationConfirmationVC.swift */; };
 		BD58412B2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58412A2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift */; };
 		BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58412D2775B059004841B7 /* Confirmation+Previews.swift */; };
-		BD58413A2775B1BD004841B7 /* DestinationSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5841392775B1BD004841B7 /* DestinationSelectionButton.swift */; };
+		BD58413A2775B1BD004841B7 /* BeginNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5841392775B1BD004841B7 /* BeginNavigationButton.swift */; };
 		BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */; };
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
 		BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */; };
@@ -56,7 +55,6 @@
 /* Begin PBXFileReference section */
 		BD1670042773084400856062 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RawPhoneNumber.swift"; sourceTree = "<group>"; };
-		BD24D4EF2782D21000E7ED83 /* SelfSizingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingHostingController.swift; sourceTree = "<group>"; };
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
 		BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +67,7 @@
 		BD58412827759643004841B7 /* DestinationConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationConfirmationVC.swift; sourceTree = "<group>"; };
 		BD58412A2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Formatted.swift"; sourceTree = "<group>"; };
 		BD58412D2775B059004841B7 /* Confirmation+Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Confirmation+Previews.swift"; sourceTree = "<group>"; };
-		BD5841392775B1BD004841B7 /* DestinationSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionButton.swift; sourceTree = "<group>"; };
+		BD5841392775B1BD004841B7 /* BeginNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginNavigationButton.swift; sourceTree = "<group>"; };
 		BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchTableViewCell.swift; sourceTree = "<group>"; };
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildViewController.swift"; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			children = (
 				BD504E26276FB44A0042A247 /* Colors.swift */,
 				BD5F096227683844005ADADC /* SSAnnotation.swift */,
-				BD24D4EF2782D21000E7ED83 /* SelfSizingHostingController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -170,7 +167,7 @@
 			children = (
 				BD58412827759643004841B7 /* DestinationConfirmationVC.swift */,
 				BD54D052277D823E00B44F05 /* DestinationDetailsView.swift */,
-				BD5841392775B1BD004841B7 /* DestinationSelectionButton.swift */,
+				BD5841392775B1BD004841B7 /* BeginNavigationButton.swift */,
 				BD58412D2775B059004841B7 /* Confirmation+Previews.swift */,
 			);
 			path = Confirmation;
@@ -401,7 +398,7 @@
 				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
 				BD58412927759643004841B7 /* DestinationConfirmationVC.swift in Sources */,
-				BD58413A2775B1BD004841B7 /* DestinationSelectionButton.swift in Sources */,
+				BD58413A2775B1BD004841B7 /* BeginNavigationButton.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
 				BD54D053277D823E00B44F05 /* DestinationDetailsView.swift in Sources */,
 				BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */,
@@ -415,7 +412,6 @@
 				BD58412B2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift in Sources */,
 				BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */,
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,
-				BD24D4F02782D21000E7ED83 /* SelfSizingHostingController.swift in Sources */,
 				BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */,
 				BD78802227680C54009D4F2C /* AutocompleteTableViewCell.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,

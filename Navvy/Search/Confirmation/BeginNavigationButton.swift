@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DestinationSelectionButton: UIButton {
+class BeginNavigationButton: UIButton {
     lazy var contentView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false

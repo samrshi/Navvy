@@ -22,7 +22,9 @@ class NavigationVC: UIViewController {
     lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addAction(UIAction(handler: closeAction), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.closeAction()
+        }), for: .touchUpInside)
         return button
     }()
     
@@ -90,7 +92,7 @@ class NavigationVC: UIViewController {
             .store(in: &cancellables)
     }
     
-    func closeAction(_: UIAction) {
+    func closeAction() {
         dismiss(animated: true)
     }
 }
