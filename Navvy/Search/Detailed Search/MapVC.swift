@@ -126,6 +126,12 @@ class MapVC: UIViewController {
         mapView.selectAnnotation(annotation, animated: true)
     }
     
+    func deselectAnnotations() {
+        mapView.selectedAnnotations.forEach {
+            mapView.deselectAnnotation($0, animated: true)
+        }
+    }
+    
     func updateMapItems(mapItems: [MKMapItem]) {
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotations(mapItems.map(SSAnnotation.init))

@@ -10,6 +10,10 @@ import MapKit
 import SwiftUI
 import UIKit
 
+protocol DestinationConfirmationVCDelegate: AnyObject {
+    func didDismissDestinationConfirmation()
+}
+
 class DestinationConfirmationVC: UIViewController {
     var cancellables = [AnyCancellable]()
     
@@ -82,6 +86,7 @@ class DestinationConfirmationVC: UIViewController {
     var detailsVC: UIHostingController<DestinationConfirmationDetailsView>!
     
     var navigationVM: NavigationViewModel!
+    weak var delegate: DestinationConfirmationVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,8 +150,9 @@ class DestinationConfirmationVC: UIViewController {
         ])
     }
     
-    func setUp(vm: NavigationViewModel) {
-        navigationVM = vm
+    func setUp(vm: NavigationViewModel, delegate: DestinationConfirmationVCDelegate) {
+        self.navigationVM = vm
+        self.delegate = delegate
         
         titleLabel.text = vm.destinationName
         pointOfInterestImage.image = UIImage(named: vm.mapItem.pointOfInterestCategory.toIcon())
@@ -182,6 +188,7 @@ class DestinationConfirmationVC: UIViewController {
     }
     
     func closeAction(_: UIAction) {
+        delegate.didDismissDestinationConfirmation()
         dismiss(animated: true)
     }
 }

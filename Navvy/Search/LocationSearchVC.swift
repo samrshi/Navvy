@@ -99,7 +99,7 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
     func didSelectSearchResult(result: NavigationViewModel) {
         // Show Confirmation View Controller Modally
         let vc = DestinationConfirmationVC()
-        vc.setUp(vm: result)
+        vc.setUp(vm: result, delegate: self)
         
         if let presentationController = vc.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium(), .large()]
@@ -119,6 +119,12 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
     
     func changeSearchBarText(newText: String) {
         searchController.searchBar.text = newText
+    }
+}
+
+extension LocationSearchVC: DestinationConfirmationVCDelegate {
+    func didDismissDestinationConfirmation() {
+        detailedSearchVC.mapVC.deselectAnnotations()
     }
 }
 
