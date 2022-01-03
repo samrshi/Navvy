@@ -60,18 +60,23 @@ class LocationSearchVC: UIViewController {
         view.backgroundColor = .primaryBackground
         
         view.addSubview(scrollView)
-        addChildViewController(child: detailedSearchVC, toView: scrollView)
+        addChildViewController(child: detailedSearchVC, toView: view)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            detailedSearchVC.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            detailedSearchVC.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            detailedSearchVC.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            detailedSearchVC.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+//            detailedSearchVC.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            detailedSearchVC.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//            detailedSearchVC.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+//            detailedSearchVC.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            
+            detailedSearchVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailedSearchVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            detailedSearchVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            detailedSearchVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
         
         let contentViewCenterY = detailedSearchVC.view.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
@@ -94,25 +99,27 @@ class LocationSearchVC: UIViewController {
 
 extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDelegate {
     func didSelectLocationFromTableView() {
-        scrollView.setContentOffset(.zero, animated: true)
+//        scrollView.setContentOffset(.zero, animated: true)
     }
     
-    func didSelectSearchResult(result: NavigationViewModel) {
+    func didSelectSearchResult(result: NavigationViewModel, showConfirmation: Bool) {
         // Show Confirmation View Controller Modally
-        let vc = DestinationConfirmationVC()
-        vc.setUp(vm: result, delegate: self)
-        
-        if let presentationController = vc.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium(), .large()]
+        if showConfirmation {
+            let vc = DestinationConfirmationVC()
+            vc.setUp(vm: result, delegate: self)
+            
+            if let presentationController = vc.presentationController as? UISheetPresentationController {
+                presentationController.detents = [.medium(), .large()]
+            }
+                    
+            present(vc, animated: true)
         }
-                
-        present(vc, animated: true)
         
         // Select Matching MapView Annotation and Change Region
-        detailedSearchVC.mapVC.selectAnnotation(forMapItem: result.mapItem)
+//        detailedSearchVC.mapVC.selectAnnotation(forMapItem: result.mapItem)
         
-        let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
-        detailedSearchVC.mapVC.setMapRegion(region: region)
+//        let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
+//        detailedSearchVC.mapVC.setMapRegion(region: region)
             
         // Dismiss Search Controller Results VC
         autocompleteVC.dismiss(animated: true)
@@ -125,7 +132,7 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
 
 extension LocationSearchVC: DestinationConfirmationVCDelegate {
     func didDismissDestinationConfirmation() {
-        detailedSearchVC.mapVC.deselectAnnotations()
+        detailedSearchVC.mapTableViewCell.mapView.deselectAnnotations()
     }
 }
 

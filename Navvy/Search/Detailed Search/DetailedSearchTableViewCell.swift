@@ -60,6 +60,13 @@ class DetailedSearchTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var separatorView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .separator
+        return view
+    }()
+    
     var navigationVM: NavigationViewModel!
     var angleCancellable: AnyCancellable?
     var distanceCancellable: AnyCancellable?
@@ -102,6 +109,7 @@ class DetailedSearchTableViewCell: UITableViewCell {
         contentView.addSubview(subtitleLabel)
         contentView.addSubview(arrow)
         contentView.addSubview(distanceLabel)
+        contentView.addSubview(separatorView)
         
         iconView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         nameLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -135,6 +143,11 @@ class DetailedSearchTableViewCell: UITableViewCell {
             arrow.heightAnchor.constraint(equalTo: arrow.widthAnchor),
             arrow.trailingAnchor.constraint(equalTo: distanceLabel.trailingAnchor),
             arrow.bottomAnchor.constraint(equalTo: distanceLabel.topAnchor),
+            
+            separatorView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separatorView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 0.5),
         ])
     }
     

@@ -131,7 +131,7 @@ class DestinationConfirmationVC: UIViewController {
             cancelButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
             cancelButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
             cancelButton.widthAnchor.constraint(equalTo: cancelButton.heightAnchor),
-
+            
             callToActionButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             callToActionButton.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
             callToActionButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
@@ -150,7 +150,7 @@ class DestinationConfirmationVC: UIViewController {
     }
     
     func setUp(vm: NavigationViewModel, delegate: DestinationConfirmationVCDelegate) {
-        self.navigationVM = vm
+        navigationVM = vm
         self.delegate = delegate
         
         titleLabel.text = vm.destinationName

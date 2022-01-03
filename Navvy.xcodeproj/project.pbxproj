@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD1670052773084400856062 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1670042773084400856062 /* MapVC.swift */; };
+		BD1670052773084400856062 /* SearchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1670042773084400856062 /* SearchMapView.swift */; };
 		BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */; };
 		BD24D4F02782D21000E7ED83 /* SelfSizingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4EF2782D21000E7ED83 /* SelfSizingHostingController.swift */; };
+		BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4F12782DBD500E7ED83 /* SearchMapTableViewCell.swift */; };
+		BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */; };
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
 		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
 		BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */; };
@@ -54,9 +56,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BD1670042773084400856062 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		BD1670042773084400856062 /* SearchMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapView.swift; sourceTree = "<group>"; };
 		BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RawPhoneNumber.swift"; sourceTree = "<group>"; };
 		BD24D4EF2782D21000E7ED83 /* SelfSizingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingHostingController.swift; sourceTree = "<group>"; };
+		BD24D4F12782DBD500E7ED83 /* SearchMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapTableViewCell.swift; sourceTree = "<group>"; };
+		BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addAndPinSubview.swift"; sourceTree = "<group>"; };
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
 		BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */,
+				BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -276,8 +281,9 @@
 			isa = PBXGroup;
 			children = (
 				BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */,
-				BD1670042773084400856062 /* MapVC.swift */,
 				BD5F096027683292005ADADC /* DetailedSearchTableViewCell.swift */,
+				BD24D4F12782DBD500E7ED83 /* SearchMapTableViewCell.swift */,
+				BD1670042773084400856062 /* SearchMapView.swift */,
 			);
 			path = "Detailed Search";
 			sourceTree = "<group>";
@@ -395,9 +401,11 @@
 				BD504E27276FB44A0042A247 /* Colors.swift in Sources */,
 				BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */,
 				BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */,
+				BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
-				BD1670052773084400856062 /* MapVC.swift in Sources */,
+				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
+				BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */,
 				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
 				BD58412927759643004841B7 /* DestinationConfirmationVC.swift in Sources */,

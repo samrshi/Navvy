@@ -8,14 +8,14 @@
 import MapKit
 import UIKit
 
-protocol MapVCDelegate: AnyObject {
+protocol SearchMapViewDelegate: AnyObject {
     func searchCurrentArea()
     func shouldShowSearchAgainButton() -> Bool
     func didSelectMapItem(mapItem: MKMapItem)
     func mapRegionDidChange(region: MKCoordinateRegion)
 }
 
-class MapVC: UIViewController {
+class SearchMapView: UIView {
     lazy var mapView: MKMapView = {
         let mapView = MKMapView(frame: .zero)
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,27 +57,27 @@ class MapVC: UIViewController {
     var nextRegionChangeIsFromUserInteraction = false
     var viewHeightConstraint: NSLayoutConstraint!
     var searchButtonBottomConstraint: NSLayoutConstraint!
-    weak var delegate: MapVCDelegate!
+    weak var delegate: SearchMapViewDelegate!
 
     let mapViewSmallAspectRatio: Double = 2/3
     let mapViewBigAspectRatio: Double = 1
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-        view.addSubview(mapView)
+        addSubview(mapView)
         mapView.addSubview(searchAgainButton)
         mapView.addSubview(mapSizeButton)
         mapView.addSubview(showUserLocationButton)
 
         searchButtonBottomConstraint = searchAgainButton.bottomAnchor.constraint(equalTo: mapView.topAnchor)
-        viewHeightConstraint = view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: mapViewSmallAspectRatio)
+        viewHeightConstraint = heightAnchor.constraint(equalTo: widthAnchor, multiplier: mapViewSmallAspectRatio)
         
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            mapView.topAnchor.constraint(equalTo: topAnchor),
+            mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mapView.heightAnchor.constraint(equalTo: heightAnchor),
             
             viewHeightConstraint,
             
@@ -112,7 +112,7 @@ class MapVC: UIViewController {
         mapSizeButton.setImage(UIImage(systemName: image), for: .normal)
         
         UIView.animate(withDuration: 0.25) { [weak self] in
-            self?.view.layoutSubviews()
+            self?.layoutSubviews()
         }
     }
     
@@ -154,9 +154,13 @@ class MapVC: UIViewController {
             self?.mapView.layoutSubviews()
         }
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
-extension MapVC: MKMapViewDelegate {
+extension SearchMapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = (view.annotation as? SSAnnotation) else { return }
         delegate.didSelectMapItem(mapItem: annotation.mapItem)

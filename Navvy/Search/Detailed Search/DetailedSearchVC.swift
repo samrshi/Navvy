@@ -11,15 +11,11 @@ import UIKit
 
 protocol DetailedSearchVCDelegate: AnyObject {
     func didSelectLocationFromTableView()
-    func didSelectSearchResult(result: NavigationViewModel)
+    func didSelectSearchResult(result: NavigationViewModel, showConfirmation: Bool)
     func changeSearchBarText(newText: String)
 }
 
 class DetailedSearchVC: UIViewController {
-    var searchViewModel: SearchViewModel!
-    var detailedSearchResults = [NavigationViewModel]()
-    weak var delegate: DetailedSearchVCDelegate?
-    
     var cancellables = [AnyCancellable]()
     
     lazy var tableView: UITableView = {
@@ -27,35 +23,25 @@ class DetailedSearchVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(DetailedSearchTableViewCell.self, forCellReuseIdentifier: DetailedSearchTableViewCell.reuseId)
         tableView.backgroundColor = .clear
-        tableView.isScrollEnabled = false
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
     
-    lazy var mapVC: MapVC = {
-        let mapVC = MapVC()
-        mapVC.delegate = self
-        mapVC.view.translatesAutoresizingMaskIntoConstraints = false
-        return mapVC
+    lazy var mapTableViewCell: SearchMapTableViewCell = {
+        let cell = SearchMapTableViewCell(style: .default, reuseIdentifier: SearchMapTableViewCell.reuseId)
+        cell.setUp(delegate: self)
+        return cell
     }()
+    
+    var searchViewModel: SearchViewModel!
+    var detailedSearchResults: [NavigationViewModel] = []
+    weak var delegate: DetailedSearchVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.addSubview(tableView)
-        addChildViewController(child: mapVC)
-        
-        NSLayoutConstraint.activate([
-            mapVC.view.topAnchor.constraint(equalTo: view.topAnchor),
-            mapVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            mapVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            tableView.topAnchor.constraint(equalTo: mapVC.view.bottomAnchor, constant: 12),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        view.addAndPinSubview(tableView)
         
         searchViewModel.$detailedMapItems
             .receive(on: DispatchQueue.main)
@@ -67,7 +53,7 @@ class DetailedSearchVC: UIViewController {
         searchViewModel.$region
             .receive(on: DispatchQueue.main)
             .sink { [weak self] region in
-                self?.mapVC.setMapRegion(region: region)
+                self?.mapTableViewCell.mapView.setMapRegion(region: region)
             }
             .store(in: &cancellables)
     }
@@ -75,13 +61,13 @@ class DetailedSearchVC: UIViewController {
     func didReceiveResults(results: [MKMapItem]) {
         detailedSearchResults = results.map(NavigationViewModel.init)
         tableView.reloadData()
-        mapVC.updateMapItems(mapItems: results)
         
-        mapVC.toggleSearchButton(shouldShow: false)
+        mapTableViewCell.mapView.updateMapItems(mapItems: results)
+        mapTableViewCell.mapView.toggleSearchButton(shouldShow: false)
     }
 }
 
-extension DetailedSearchVC: MapVCDelegate {
+extension DetailedSearchVC: SearchMapViewDelegate {
     func searchCurrentArea() {
         searchViewModel.searchNearby(query: searchViewModel.searchTerm, changeRegion: true)
         delegate?.changeSearchBarText(newText: searchViewModel.searchTerm)
@@ -92,7 +78,7 @@ extension DetailedSearchVC: MapVCDelegate {
     }
     
     func didSelectMapItem(mapItem: MKMapItem) {
-        delegate?.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem))
+        delegate?.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem), showConfirmation: true)
     }
     
     func mapRegionDidChange(region: MKCoordinateRegion) {
@@ -102,6 +88,10 @@ extension DetailedSearchVC: MapVCDelegate {
 
 extension DetailedSearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if indexPath.section == 0 {
+//            return mapTableViewCell
+//        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailedSearchTableViewCell.reuseId) as? DetailedSearchTableViewCell else {
             return UITableViewCell()
         }
@@ -112,21 +102,38 @@ extension DetailedSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return detailedSearchResults.count
+//        switch section {
+//        case 0:
+//            return 1
+//        default:
+//            return detailedSearchResults.count
+//        }
+                    return detailedSearchResults.count
+
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 2
+        1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Search Results"
+        return section == 1 ? "Search Results" : "Map"
     }
 }
 
 extension DetailedSearchVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+//        return indexPath.section == 0 ? nil : indexPath
+        return indexPath
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let result = detailedSearchResults[indexPath.row]
-        mapVC.selectAnnotation(forMapItem: result.mapItem)
-        delegate?.didSelectSearchResult(result: result)
+//        mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
+        delegate?.didSelectSearchResult(result: result, showConfirmation: true)
         delegate?.didSelectLocationFromTableView()
     }
 }
