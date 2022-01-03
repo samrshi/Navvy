@@ -26,10 +26,13 @@ class SearchMapTableViewCell: UITableViewCell {
         ])
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {}
+    
     func setUp(delegate: SearchMapViewDelegate) {
         mapView.delegate = delegate
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

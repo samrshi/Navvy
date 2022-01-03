@@ -36,15 +36,6 @@ class SearchMapView: UIView {
         return button
     }()
     
-    lazy var mapSizeButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
-        button.addAction(UIAction(handler: toggleMapViewHeight), for: .touchUpInside)
-        button.tintColor = .label
-        return button
-    }()
-    
     lazy var showUserLocationButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +50,7 @@ class SearchMapView: UIView {
     var searchButtonBottomConstraint: NSLayoutConstraint!
     weak var delegate: SearchMapViewDelegate!
 
-    let mapViewSmallAspectRatio: Double = 2/3
+    let mapViewSmallAspectRatio: Double = 8/9
     let mapViewBigAspectRatio: Double = 1
     
     override init(frame: CGRect) {
@@ -67,32 +58,25 @@ class SearchMapView: UIView {
 
         addSubview(mapView)
         mapView.addSubview(searchAgainButton)
-        mapView.addSubview(mapSizeButton)
         mapView.addSubview(showUserLocationButton)
 
         searchButtonBottomConstraint = searchAgainButton.bottomAnchor.constraint(equalTo: mapView.topAnchor)
-        viewHeightConstraint = heightAnchor.constraint(equalTo: widthAnchor, multiplier: mapViewSmallAspectRatio)
         
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: topAnchor),
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mapView.heightAnchor.constraint(equalTo: heightAnchor),
+            mapView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            viewHeightConstraint,
-            
-            mapSizeButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
-            mapSizeButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -5),
-            mapSizeButton.widthAnchor.constraint(equalTo: mapSizeButton.heightAnchor),
-            mapSizeButton.heightAnchor.constraint(equalToConstant: 30),
-            
+            heightAnchor.constraint(equalToConstant: 230),
+
             showUserLocationButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
-            showUserLocationButton.trailingAnchor.constraint(equalTo: mapSizeButton.leadingAnchor),
-            showUserLocationButton.widthAnchor.constraint(equalTo: mapSizeButton.heightAnchor),
+            showUserLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -5),
+            showUserLocationButton.widthAnchor.constraint(equalTo: showUserLocationButton.heightAnchor),
             showUserLocationButton.heightAnchor.constraint(equalToConstant: 30),
             
             searchAgainButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 5),
-            searchAgainButton.widthAnchor.constraint(equalTo: mapSizeButton.heightAnchor),
+            searchAgainButton.widthAnchor.constraint(equalTo: searchAgainButton.heightAnchor),
             searchAgainButton.heightAnchor.constraint(equalToConstant: 30),
             searchButtonBottomConstraint
         ])
@@ -100,20 +84,6 @@ class SearchMapView: UIView {
     
     func searchThisArea(_: UIAction) {
         delegate.searchCurrentArea()
-    }
-    
-    func toggleMapViewHeight(_: UIAction) {
-        let multiplier = viewHeightConstraint.multiplier == mapViewBigAspectRatio ? mapViewSmallAspectRatio : mapViewBigAspectRatio
-        viewHeightConstraint.isActive = false
-        viewHeightConstraint = mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: multiplier)
-        viewHeightConstraint.isActive = true
-        
-        let image = viewHeightConstraint.multiplier == 1.0 ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right"
-        mapSizeButton.setImage(UIImage(systemName: image), for: .normal)
-        
-        UIView.animate(withDuration: 0.25) { [weak self] in
-            self?.layoutSubviews()
-        }
     }
     
     func showUserRegion(_: UIAction) {

@@ -114,13 +114,13 @@ extension DetailedSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 1 ? "Search Results" : "Map"
+        return section == 1 ? "Search Results" : nil
     }
 }
 
 extension DetailedSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return indexPath.section == 0 ? nil : indexPath
+        return indexPath.section != 0 ? indexPath : nil
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
