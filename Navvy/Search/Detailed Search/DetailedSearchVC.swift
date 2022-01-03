@@ -10,8 +10,7 @@ import MapKit
 import UIKit
 
 protocol DetailedSearchVCDelegate: AnyObject {
-    func didSelectLocationFromTableView()
-    func didSelectSearchResult(result: NavigationViewModel, showConfirmation: Bool)
+    func didSelectSearchResult(result: NavigationViewModel)
     func changeSearchBarText(newText: String)
 }
 
@@ -78,7 +77,7 @@ extension DetailedSearchVC: SearchMapViewDelegate {
     }
     
     func didSelectMapItem(mapItem: MKMapItem) {
-        delegate?.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem), showConfirmation: true)
+        delegate?.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem))
     }
     
     func mapRegionDidChange(region: MKCoordinateRegion) {
@@ -129,7 +128,6 @@ extension DetailedSearchVC: UITableViewDelegate {
         
         let result = detailedSearchResults[indexPath.row]
         mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
-        delegate?.didSelectSearchResult(result: result, showConfirmation: true)
-        delegate?.didSelectLocationFromTableView()
+        delegate?.didSelectSearchResult(result: result)
     }
 }

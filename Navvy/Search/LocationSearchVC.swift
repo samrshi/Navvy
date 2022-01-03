@@ -63,16 +63,6 @@ class LocationSearchVC: UIViewController {
         addChildViewController(child: detailedSearchVC, toView: view)
         
         NSLayoutConstraint.activate([
-//            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-//            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-//            detailedSearchVC.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
-//            detailedSearchVC.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//            detailedSearchVC.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-//            detailedSearchVC.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            
             detailedSearchVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             detailedSearchVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             detailedSearchVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -98,13 +88,9 @@ class LocationSearchVC: UIViewController {
 }
 
 extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDelegate {
-    func didSelectLocationFromTableView() {
-//        scrollView.setContentOffset(.zero, animated: true)
-    }
-    
-    func didSelectSearchResult(result: NavigationViewModel, showConfirmation: Bool) {
+    func didSelectSearchResult(result: NavigationViewModel) {
         // Show Confirmation View Controller Modally
-        if showConfirmation && presentedViewController == nil {
+        if presentedViewController == nil {
             let vc = DestinationConfirmationVC()
             vc.setUp(vm: result, delegate: self)
             
