@@ -48,15 +48,13 @@ class DestinationConfirmationVC: UIViewController {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction(handler: closeAction), for: .touchUpInside)
-        button.tintColor = .blue
         return button
     }()
     
     lazy var callToActionButton: DestinationSelectionButton = {
         let button = DestinationSelectionButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        // button.addAction(UIAction, for: .touchUpInside)
-        #warning("add action")
+         button.addAction(UIAction(handler: beginNavigationAction), for: .touchUpInside)
         return button
     }()
     
@@ -132,7 +130,8 @@ class DestinationConfirmationVC: UIViewController {
             cancelButton.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
             cancelButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
             cancelButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
-            
+            cancelButton.widthAnchor.constraint(equalTo: cancelButton.heightAnchor),
+
             callToActionButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             callToActionButton.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
             callToActionButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
@@ -185,6 +184,13 @@ class DestinationConfirmationVC: UIViewController {
         
         callToActionButton.distanceLabel.text = "\(distance)"
         pointOfInterestImage.image = UIImage(named: poi.toIcon())
+    }
+    
+    func beginNavigationAction(_: UIAction) {
+        let vc = NavigationVC()
+        vc.setUp(vm: navigationVM)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
     
     func closeAction(_: UIAction) {
