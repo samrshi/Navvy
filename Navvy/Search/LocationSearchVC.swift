@@ -111,13 +111,15 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
             if let presentationController = vc.presentationController as? UISheetPresentationController {
                 presentationController.detents = [.medium(), .large()]
             }
+            
+            present(vc, animated: true)
         }
         
         // Select Matching MapView Annotation and Change Region
-//        detailedSearchVC.mapVC.selectAnnotation(forMapItem: result.mapItem)
+        detailedSearchVC.mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
         
-//        let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
-//        detailedSearchVC.mapVC.setMapRegion(region: region)
+        let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
+        detailedSearchVC.mapTableViewCell.mapView.setMapRegion(region: region)
             
         // Dismiss Search Controller Results VC
         autocompleteVC.dismiss(animated: true)

@@ -88,9 +88,9 @@ extension DetailedSearchVC: SearchMapViewDelegate {
 
 extension DetailedSearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.section == 0 {
-//            return mapTableViewCell
-//        }
+        if indexPath.section == 0 {
+            return mapTableViewCell
+        }
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailedSearchTableViewCell.reuseId) as? DetailedSearchTableViewCell else {
             return UITableViewCell()
@@ -102,19 +102,16 @@ extension DetailedSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        switch section {
-//        case 0:
-//            return 1
-//        default:
-//            return detailedSearchResults.count
-//        }
-                    return detailedSearchResults.count
-
+        switch section {
+        case 0:
+            return 1
+        default:
+            return detailedSearchResults.count
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        return 2
-        1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -124,15 +121,14 @@ extension DetailedSearchVC: UITableViewDataSource {
 
 extension DetailedSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        return indexPath.section == 0 ? nil : indexPath
-        return indexPath
+        return indexPath.section == 0 ? nil : indexPath
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let result = detailedSearchResults[indexPath.row]
-//        mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
+        mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
         delegate?.didSelectSearchResult(result: result, showConfirmation: true)
         delegate?.didSelectLocationFromTableView()
     }
