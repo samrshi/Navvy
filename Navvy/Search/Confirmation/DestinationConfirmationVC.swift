@@ -47,14 +47,18 @@ class DestinationConfirmationVC: UIViewController {
     lazy var cancelButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addAction(UIAction(handler: closeAction), for: .touchUpInside)
+        button.addAction(UIAction { [weak self] _ in
+            self?.closeAction()
+        }, for: .touchUpInside)
         return button
     }()
     
-    lazy var callToActionButton: DestinationSelectionButton = {
-        let button = DestinationSelectionButton(frame: .zero)
+    lazy var beginNavigationButton: BeginNavigationButton = {
+        let button = BeginNavigationButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-         button.addAction(UIAction(handler: beginNavigationAction), for: .touchUpInside)
+        button.addAction(UIAction { [weak self] _ in
+            self?.beginNavigationAction()
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -73,15 +77,15 @@ class DestinationConfirmationVC: UIViewController {
         return button
     }()
         
-    func buildDetailsVC(address: String?, coordinates: String, phoneNumber: String?, url: URL?) -> SelfSizingHostingController<DestinationConfirmationDetailsView> {
+    func buildDetailsVC(address: String?, coordinates: String, phoneNumber: String?, url: URL?) -> UIHostingController<DestinationConfirmationDetailsView> {
         let rootView = DestinationConfirmationDetailsView(address: address, coordinates: coordinates, phoneNumber: phoneNumber, url: url)
-        let hostingController = SelfSizingHostingController(rootView: rootView)
+        let hostingController = UIHostingController(rootView: rootView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         hostingController.view.backgroundColor = .clear
         return hostingController
     }
     
-    var detailsVC: SelfSizingHostingController<DestinationConfirmationDetailsView>!
+    var detailsVC: UIHostingController<DestinationConfirmationDetailsView>!
     
     var navigationVM: NavigationViewModel!
     weak var delegate: DestinationConfirmationVCDelegate!
@@ -97,7 +101,7 @@ class DestinationConfirmationVC: UIViewController {
         scrollViewContent.addSubview(titleLabel)
         scrollViewContent.addSubview(cancelButton)
         
-        scrollViewContent.addSubview(callToActionButton)
+        scrollViewContent.addSubview(beginNavigationButton)
         scrollViewContent.addSubview(favoriteButton)
         
         addChildViewController(child: detailsVC, toView: scrollViewContent)
@@ -132,19 +136,19 @@ class DestinationConfirmationVC: UIViewController {
             cancelButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
             cancelButton.widthAnchor.constraint(equalTo: cancelButton.heightAnchor),
             
-            callToActionButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
-            callToActionButton.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
-            callToActionButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
+            beginNavigationButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            beginNavigationButton.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
+            beginNavigationButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
             
-            favoriteButton.leadingAnchor.constraint(equalTo: callToActionButton.trailingAnchor, constant: 5),
+            favoriteButton.leadingAnchor.constraint(equalTo: beginNavigationButton.trailingAnchor, constant: 5),
             favoriteButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
-            favoriteButton.topAnchor.constraint(equalTo: callToActionButton.topAnchor),
-            favoriteButton.heightAnchor.constraint(equalTo: callToActionButton.heightAnchor),
+            favoriteButton.topAnchor.constraint(equalTo: beginNavigationButton.topAnchor),
+            favoriteButton.heightAnchor.constraint(equalTo: beginNavigationButton.heightAnchor),
             favoriteButton.widthAnchor.constraint(equalTo: favoriteButton.heightAnchor),
             
             detailsVC.view.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
             detailsVC.view.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
-            detailsVC.view.topAnchor.constraint(equalTo: callToActionButton.bottomAnchor, constant: 30),
+            detailsVC.view.topAnchor.constraint(equalTo: beginNavigationButton.bottomAnchor, constant: 30),
             detailsVC.view.bottomAnchor.constraint(equalTo: scrollViewContent.bottomAnchor),
         ])
     }
@@ -162,19 +166,19 @@ class DestinationConfirmationVC: UIViewController {
             phoneNumber: vm.destinationPhoneNumber,
             url: vm.destinationURL)
         
-        callToActionButton.distanceLabel.text = vm.distanceToDestination
+        beginNavigationButton.distanceLabel.text = vm.distanceToDestination
         vm.$distanceToDestination
             .receive(on: DispatchQueue.main)
             .sink { [weak self] distance in
-                self?.callToActionButton.distanceLabel.text = distance
+                self?.beginNavigationButton.distanceLabel.text = distance
             }
             .store(in: &cancellables)
         
-        callToActionButton.arrowImage.transform = CGAffineTransform(rotationAngle: vm.angleToDestination)
+        beginNavigationButton.arrowImage.transform = CGAffineTransform(rotationAngle: vm.angleToDestination)
         vm.$angleToDestination
             .receive(on: DispatchQueue.main)
             .sink { [weak self] angle in
-                self?.callToActionButton.arrowImage.transform = CGAffineTransform(rotationAngle: angle)
+                self?.beginNavigationButton.arrowImage.transform = CGAffineTransform(rotationAngle: angle)
             }
             .store(in: &cancellables)
     }
@@ -182,18 +186,18 @@ class DestinationConfirmationVC: UIViewController {
     func setUp(title: String, address: String, poi: MKPointOfInterestCategory?, coordinate: CLLocationCoordinate2D, distance: String = "25 mi") {
         titleLabel.text = title
         
-        callToActionButton.distanceLabel.text = "\(distance)"
+        beginNavigationButton.distanceLabel.text = "\(distance)"
         pointOfInterestImage.image = UIImage(named: poi.toIcon())
     }
     
-    func beginNavigationAction(_: UIAction) {
+    func beginNavigationAction() {
         let vc = NavigationVC()
         vc.setUp(vm: navigationVM)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
     
-    func closeAction(_: UIAction) {
+    func closeAction() {
         delegate.didDismissDestinationConfirmation()
         dismiss(animated: true)
     }
