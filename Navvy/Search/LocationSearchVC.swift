@@ -33,7 +33,7 @@ class LocationSearchVC: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.searchTextField.text = "San Francisco Museum of Modern Art"
+        searchController.searchBar.searchTextField.text = ""
         return searchController
     }()
     

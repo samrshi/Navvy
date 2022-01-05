@@ -32,6 +32,7 @@ class AutocompleteResultsVC: UIViewController {
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .secondaryLabel
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -54,7 +55,9 @@ class AutocompleteResultsVC: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             statusLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            statusLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 10)
+            statusLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 10),
+            statusLabel.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            statusLabel.leadingAnchor.constraint(equalTo: tableView.trailingAnchor),
         ])
         
         searchViewModel.$autocompleteResults

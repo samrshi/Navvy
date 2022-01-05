@@ -12,22 +12,23 @@ class MainTabBarController: UITabBarController {
         super.init(nibName: nil, bundle: .main)
         
         let searchVC = LocationSearchVC()
-        let favoritesVC = UIViewController()
-        let profileVC = UIViewController()
+        let favoritesVC = FavoritesVC()
+        let settingsVC = SettingsVC()
         
-        var controllers: [UIViewController] = [searchVC, favoritesVC, profileVC]
+        var controllers: [UIViewController] = [searchVC, favoritesVC, settingsVC]
         controllers = controllers.map { UINavigationController(rootViewController: $0) }
         
         searchVC.title = "Search"
         searchVC.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        searchVC.tabBarItem.selectedImage = UIImage(systemName: "location")
 
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart")
         favoritesVC.tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
 
-        profileVC.title = "Profile"
-        profileVC.tabBarItem.image = UIImage(systemName: "person")
-        profileVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
+        settingsVC.title = "Settings"
+        settingsVC.tabBarItem.image = UIImage(systemName: "gearshape")
+        settingsVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()

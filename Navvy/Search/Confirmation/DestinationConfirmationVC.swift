@@ -65,14 +65,15 @@ class DestinationConfirmationVC: UIViewController {
     lazy var favoriteButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.favoriteAction()
+        }), for: .touchUpInside)
         
         var configuration = UIButton.Configuration.filled()
         configuration.image = UIImage(systemName: "heart")
         configuration.baseBackgroundColor = .tertiaryBackground
         configuration.baseForegroundColor = .label
         button.configuration = configuration
-        
-        #warning("add action")
 
         return button
     }()
@@ -195,6 +196,16 @@ class DestinationConfirmationVC: UIViewController {
         vc.setUp(vm: navigationVM)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+    
+    func favoriteAction() {
+        let ac = UIAlertController(title: "Coming Soon",
+                                   message: "Favoriting is not yet implented, but will be shortly.",
+                                   preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(ac, animated: true)
     }
     
     func closeAction() {

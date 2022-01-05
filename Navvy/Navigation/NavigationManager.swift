@@ -54,9 +54,16 @@ class NavigationManager: ObservableObject {
         self.userLocation = location
         
         let distance = location.distance(from: destination)
-        let unit: UnitLength = distance <= 160 ? .feet : .miles
-        let distanceConverted = Measurement(value: distance, unit: UnitLength.meters).converted(to: unit)
+        var unit: UnitLength!
         
+        switch SettingsStore.shared.systemUnits {
+        case .imperial:
+            unit = distance <= 160 ? .feet : .miles
+        case .metric:
+            unit = distance <= 500 ? .meters : .kilometers
+        }
+        
+        let distanceConverted = Measurement(value: distance, unit: UnitLength.meters).converted(to: unit)
         self.distanceToDestination = distanceConverted
     }
 

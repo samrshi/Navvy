@@ -110,7 +110,7 @@ extension DetailedSearchVC: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return detailedSearchResults.count == 0 ? 1 : 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -42,6 +42,14 @@
 		BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */; };
 		BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */; };
 		BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */; };
+		BDF9DE3C2784F19B00A77D53 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */; };
+		BDF9DE3E2784F40900A77D53 /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3D2784F40900A77D53 /* SettingsOption.swift */; };
+		BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3F2784F78300A77D53 /* SettingsStore.swift */; };
+		BDF9DE472785056200A77D53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE462785056200A77D53 /* SettingsView.swift */; };
+		BDF9DE492785067C00A77D53 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE482785067C00A77D53 /* SettingsViewModel.swift */; };
+		BDF9DE4D278506F300A77D53 /* View+PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE4C278506F300A77D53 /* View+PreviewHelpers.swift */; };
+		BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */; };
+		BDF9DE522785148600A77D53 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE512785148600A77D53 /* FavoritesVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +101,14 @@
 		BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchVC.swift; sourceTree = "<group>"; };
 		BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointOfInterestCategory+Icon.swift"; sourceTree = "<group>"; };
+		BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		BDF9DE3D2784F40900A77D53 /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOption.swift; sourceTree = "<group>"; };
+		BDF9DE3F2784F78300A77D53 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		BDF9DE462785056200A77D53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BDF9DE482785067C00A77D53 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		BDF9DE4C278506F300A77D53 /* View+PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+PreviewHelpers.swift"; sourceTree = "<group>"; };
+		BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxStyles.swift; sourceTree = "<group>"; };
+		BDF9DE512785148600A77D53 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +146,7 @@
 			path = NavvyTests;
 			sourceTree = "<group>";
 		};
-		BD39DE4F276D4AD300AF8B57 /* MapKit+CoreLocation */ = {
+		BD39DE4F276D4AD300AF8B57 /* MapKit & CoreLocation */ = {
 			isa = PBXGroup;
 			children = (
 				BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */,
@@ -138,7 +154,7 @@
 				BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */,
 				BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */,
 			);
-			path = "MapKit+CoreLocation";
+			path = "MapKit & CoreLocation";
 			sourceTree = "<group>";
 		};
 		BD39DE50276D4AE300AF8B57 /* UIKit */ = {
@@ -161,6 +177,7 @@
 		BD504E25276FB4320042A247 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				BD78801B27680A0D009D4F2C /* LocationManager.swift */,
 				BD504E26276FB44A0042A247 /* Colors.swift */,
 				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
@@ -214,7 +231,8 @@
 				BD787FFE2767FF27009D4F2C /* MainTabBarController.swift */,
 				BD78801327680884009D4F2C /* Search */,
 				BD653059276B0660001CA8C0 /* Navigation */,
-				BD78801A276809FE009D4F2C /* Location */,
+				BDF9DE502785146000A77D53 /* Favorites */,
+				BDF9DE3A2784F13F00A77D53 /* Settings */,
 				BD504E25276FB4320042A247 /* Shared */,
 				BD78802427682AC9009D4F2C /* Extensions */,
 				BD7880062767FF29009D4F2C /* Assets.xcassets */,
@@ -246,14 +264,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		BD78801A276809FE009D4F2C /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				BD78801B27680A0D009D4F2C /* LocationManager.swift */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
 		BD788023276829F5009D4F2C /* Autocomplete */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,10 +276,11 @@
 		BD78802427682AC9009D4F2C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				BD24D4EC2782CFA300E7ED83 /* Foundation */,
 				BD39DE51276D4AF100AF8B57 /* Combine */,
+				BD24D4EC2782CFA300E7ED83 /* Foundation */,
+				BD39DE4F276D4AD300AF8B57 /* MapKit & CoreLocation */,
 				BD39DE50276D4AE300AF8B57 /* UIKit */,
-				BD39DE4F276D4AD300AF8B57 /* MapKit+CoreLocation */,
+				BDF9DE4B2785069E00A77D53 /* SwiftUI */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -283,6 +294,35 @@
 				BD1670042773084400856062 /* SearchMapView.swift */,
 			);
 			path = "Detailed Search";
+			sourceTree = "<group>";
+		};
+		BDF9DE3A2784F13F00A77D53 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */,
+				BDF9DE462785056200A77D53 /* SettingsView.swift */,
+				BDF9DE482785067C00A77D53 /* SettingsViewModel.swift */,
+				BDF9DE3D2784F40900A77D53 /* SettingsOption.swift */,
+				BDF9DE3F2784F78300A77D53 /* SettingsStore.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		BDF9DE4B2785069E00A77D53 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				BDF9DE4C278506F300A77D53 /* View+PreviewHelpers.swift */,
+				BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		BDF9DE502785146000A77D53 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				BDF9DE512785148600A77D53 /* FavoritesVC.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,17 +434,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDF9DE472785056200A77D53 /* SettingsView.swift in Sources */,
 				BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */,
 				BD504E27276FB44A0042A247 /* Colors.swift in Sources */,
 				BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */,
 				BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */,
+				BDF9DE522785148600A77D53 /* FavoritesVC.swift in Sources */,
 				BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
 				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
+				BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */,
 				BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */,
 				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
+				BDF9DE3E2784F40900A77D53 /* SettingsOption.swift in Sources */,
 				BD58412927759643004841B7 /* DestinationConfirmationVC.swift in Sources */,
 				BD58413A2775B1BD004841B7 /* BeginNavigationButton.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
@@ -414,17 +458,21 @@
 				BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */,
 				BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */,
 				BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift in Sources */,
+				BDF9DE4D278506F300A77D53 /* View+PreviewHelpers.swift in Sources */,
 				BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */,
+				BDF9DE3C2784F19B00A77D53 /* SettingsVC.swift in Sources */,
 				BD78801627680899009D4F2C /* AutocompleteResultsVC.swift in Sources */,
 				BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */,
 				BD58412B2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift in Sources */,
 				BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */,
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,
+				BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */,
 				BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */,
 				BD78802227680C54009D4F2C /* AutocompleteTableViewCell.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,
 				BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */,
 				BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */,
+				BDF9DE492785067C00A77D53 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
