@@ -59,6 +59,14 @@ class BeginNavigationButton: UIButton {
         ])
     }
     
+    func setDistance(newDistance: String) {
+        distanceLabel.text = newDistance
+    }
+    
+    func setAngle(newAngle: Double) {
+        arrowImage.transform = CGAffineTransform(rotationAngle: newAngle)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -167,19 +167,19 @@ class DestinationConfirmationVC: UIViewController {
             phoneNumber: vm.destinationPhoneNumber,
             url: vm.destinationURL)
         
-        beginNavigationButton.distanceLabel.text = vm.distanceToDestination
+        beginNavigationButton.setDistance(newDistance: vm.distanceToDestination)
         vm.$distanceToDestination
             .receive(on: DispatchQueue.main)
             .sink { [weak self] distance in
-                self?.beginNavigationButton.distanceLabel.text = distance
+                self?.beginNavigationButton.setDistance(newDistance: distance)
             }
             .store(in: &cancellables)
         
-        beginNavigationButton.arrowImage.transform = CGAffineTransform(rotationAngle: vm.angleToDestination)
+        beginNavigationButton.setAngle(newAngle: vm.angleToDestination)
         vm.$angleToDestination
             .receive(on: DispatchQueue.main)
             .sink { [weak self] angle in
-                self?.beginNavigationButton.arrowImage.transform = CGAffineTransform(rotationAngle: angle)
+                self?.beginNavigationButton.setAngle(newAngle: angle)
             }
             .store(in: &cancellables)
     }

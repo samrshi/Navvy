@@ -248,9 +248,9 @@
 			children = (
 				BD788011276800E3009D4F2C /* LocationSearchVC.swift */,
 				BD788019276809A3009D4F2C /* SearchViewModel.swift */,
-				BD78802727682CD6009D4F2C /* Detailed Search */,
 				BD788023276829F5009D4F2C /* Autocomplete */,
 				BD58412C2775B02E004841B7 /* Confirmation */,
+				BD78802727682CD6009D4F2C /* Detailed Search */,
 				BD788017276809A3009D4F2C /* Helpers */,
 			);
 			path = Search;

@@ -127,7 +127,7 @@ extension DetailedSearchVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let result = detailedSearchResults[indexPath.row]
-        mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
         delegate?.didSelectSearchResult(result: result)
+        mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
     }
 }
