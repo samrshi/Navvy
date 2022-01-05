@@ -20,7 +20,6 @@ class MainTabBarController: UITabBarController {
         
         searchVC.title = "Search"
         searchVC.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-        searchVC.tabBarItem.selectedImage = UIImage(systemName: "location")
 
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart")
