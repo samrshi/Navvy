@@ -13,11 +13,11 @@ class SSAnnotation: NSObject, MKAnnotation {
     init(mapItem: MKMapItem) {
         self.mapItem = mapItem
     }
-    
+
     var title: String? {
         mapItem.name
     }
-    
+
     var coordinate: CLLocationCoordinate2D {
         mapItem.placemark.coordinate
     }

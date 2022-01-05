@@ -51,7 +51,7 @@ class BeginNavigationButton: UIButton {
             arrowImage.widthAnchor.constraint(equalToConstant: 20),
             arrowImage.heightAnchor.constraint(equalTo: arrowImage.widthAnchor),
             arrowImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-
+            
             distanceLabel.leadingAnchor.constraint(equalTo: arrowImage.trailingAnchor, constant: 5),
             distanceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             distanceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -67,6 +67,7 @@ class BeginNavigationButton: UIButton {
         arrowImage.transform = CGAffineTransform(rotationAngle: newAngle)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

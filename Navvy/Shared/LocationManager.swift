@@ -12,7 +12,7 @@ import MapKit
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
-    
+
     private let locationManager = CLLocationManager()
 
     let locationsPublisher = PassthroughSubject<[CLLocation], Never>()
@@ -37,7 +37,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         headingPublisher.send(newHeading)
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         errorPublisher.send(error)
     }

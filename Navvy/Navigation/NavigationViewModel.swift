@@ -21,7 +21,7 @@ class NavigationViewModel: ObservableObject {
     
     init(mapItem: MKMapItem) {
         self.mapItem = mapItem
-        self.navigationManager = NavigationManager(mapItem: mapItem)
+        navigationManager = NavigationManager(mapItem: mapItem)
         
         distanceCancellable = navigationManager.$distanceToDestination
             .map(NavigationViewModel.measurementToString)

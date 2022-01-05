@@ -11,7 +11,7 @@ import MapKit
 class NavigationManager: ObservableObject {
     private lazy var locationManager = LocationManager.shared
     
-    @Published var distanceToDestination: Measurement = Measurement(value: 0, unit: UnitLength.miles)
+    @Published var distanceToDestination = Measurement(value: 0, unit: UnitLength.miles)
     @Published var angleToDestination: Double = 0
     @Published var userHeading: Double = 0
     @Published var error: Error? = nil
@@ -50,8 +50,8 @@ class NavigationManager: ObservableObject {
 
     func didUpdateLocations(locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        self.angleToDestination = calculateAngle(to: destination, from: location)
-        self.userLocation = location
+        angleToDestination = calculateAngle(to: destination, from: location)
+        userLocation = location
         
         let distance = location.distance(from: destination)
         var unit: UnitLength!
@@ -64,16 +64,16 @@ class NavigationManager: ObservableObject {
         }
         
         let distanceConverted = Measurement(value: distance, unit: UnitLength.meters).converted(to: unit)
-        self.distanceToDestination = distanceConverted
+        distanceToDestination = distanceConverted
     }
 
     func didUpdateHeading(newHeading: CLHeading) {
         userHeading = newHeading.magneticHeading
-        self.angleToDestination = calculateAngle(to: destination, from: userLocation)
+        angleToDestination = calculateAngle(to: destination, from: userLocation)
     }
 
     func calculateAngle(to destination: CLLocation, from location: CLLocation) -> Double {
-        let angle = userHeading - location.angleTo(destination: destination)        
+        let angle = userHeading - location.angleTo(destination: destination)
         return angle
     }
 }

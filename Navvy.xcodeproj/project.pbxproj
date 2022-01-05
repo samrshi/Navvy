@@ -38,10 +38,10 @@
 		BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD788019276809A3009D4F2C /* SearchViewModel.swift */; };
 		BD78801D27680ADC009D4F2C /* LocalSearchPublishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD788018276809A3009D4F2C /* LocalSearchPublishers.swift */; };
 		BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78801B27680A0D009D4F2C /* LocationManager.swift */; };
-		BD78802227680C54009D4F2C /* AutocompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802127680C54009D4F2C /* AutocompleteTableViewCell.swift */; };
 		BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */; };
 		BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */; };
 		BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */; };
+		BDE2756827862FF600902106 /* UITableViewCell+reuseId.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */; };
 		BDF9DE3C2784F19B00A77D53 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */; };
 		BDF9DE3E2784F40900A77D53 /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3D2784F40900A77D53 /* SettingsOption.swift */; };
 		BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3F2784F78300A77D53 /* SettingsStore.swift */; };
@@ -97,10 +97,10 @@
 		BD788018276809A3009D4F2C /* LocalSearchPublishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchPublishers.swift; sourceTree = "<group>"; };
 		BD788019276809A3009D4F2C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BD78801B27680A0D009D4F2C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		BD78802127680C54009D4F2C /* AutocompleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteTableViewCell.swift; sourceTree = "<group>"; };
 		BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchVC.swift; sourceTree = "<group>"; };
 		BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointOfInterestCategory+Icon.swift"; sourceTree = "<group>"; };
+		BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+reuseId.swift"; sourceTree = "<group>"; };
 		BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		BDF9DE3D2784F40900A77D53 /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOption.swift; sourceTree = "<group>"; };
 		BDF9DE3F2784F78300A77D53 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
@@ -161,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */,
+				BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */,
 				BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */,
 			);
 			path = UIKit;
@@ -268,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				BD78801527680899009D4F2C /* AutocompleteResultsVC.swift */,
-				BD78802127680C54009D4F2C /* AutocompleteTableViewCell.swift */,
 			);
 			path = Autocomplete;
 			sourceTree = "<group>";
@@ -446,6 +446,7 @@
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
 				BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */,
 				BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */,
+				BDE2756827862FF600902106 /* UITableViewCell+reuseId.swift in Sources */,
 				BD39DE53276D4B0300AF8B57 /* Publisher+weaklyAssign.swift in Sources */,
 				BD78801C27680ADA009D4F2C /* SearchViewModel.swift in Sources */,
 				BDF9DE3E2784F40900A77D53 /* SettingsOption.swift in Sources */,
@@ -468,7 +469,6 @@
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,
 				BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */,
 				BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */,
-				BD78802227680C54009D4F2C /* AutocompleteTableViewCell.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,
 				BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */,
 				BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */,

@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-  func rawPhoneNumber() -> String {
-    return self.components(separatedBy: .alphanumerics.inverted).joined()
-  }
+    func rawPhoneNumber() -> String {
+        return self.components(separatedBy: .alphanumerics.inverted).joined()
+    }
 }

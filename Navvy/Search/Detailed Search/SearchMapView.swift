@@ -50,7 +50,7 @@ class SearchMapView: UIView {
     var searchButtonBottomConstraint: NSLayoutConstraint!
     weak var delegate: SearchMapViewDelegate!
 
-    let mapViewSmallAspectRatio: Double = 8/9
+    let mapViewSmallAspectRatio: Double = 8 / 9
     let mapViewBigAspectRatio: Double = 1
     
     override init(frame: CGRect) {
@@ -69,7 +69,7 @@ class SearchMapView: UIView {
             mapView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             heightAnchor.constraint(equalToConstant: 230),
-
+            
             showUserLocationButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 5),
             showUserLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -5),
             showUserLocationButton.widthAnchor.constraint(equalTo: showUserLocationButton.heightAnchor),
@@ -92,7 +92,7 @@ class SearchMapView: UIView {
     }
     
     func selectAnnotation(forMapItem mapItem: MKMapItem) {
-        guard let annotation = mapView.annotations.compactMap({ $0 as? SSAnnotation}).first(where: { $0.mapItem == mapItem }) else { return }
+        guard let annotation = mapView.annotations.compactMap({ $0 as? SSAnnotation }).first(where: { $0.mapItem == mapItem }) else { return }
         mapView.selectAnnotation(annotation, animated: true)
     }
     
@@ -125,6 +125,7 @@ class SearchMapView: UIView {
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

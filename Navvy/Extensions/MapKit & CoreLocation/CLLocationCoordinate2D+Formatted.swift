@@ -14,7 +14,7 @@ extension CLLocationCoordinate2D {
 
         latitudeString = "\(latitudeString)º \(latitude >= 0 ? "N" : "S")"
         longitudeString = "\(longitudeString)º \(longitude >= 0 ? "E" : "W")"
-        
+
         return "\(latitudeString), \(longitudeString)"
     }
 }

@@ -5,16 +5,16 @@
 //  Created by Samuel Shi on 12/16/21.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 extension CLLocation {
     func angleTo(destination: CLLocation) -> Double {
-        let dX = destination.coordinate.latitude  - coordinate.latitude
+        let dX = destination.coordinate.latitude - coordinate.latitude
         let dY = destination.coordinate.longitude - coordinate.longitude
         
         let vector = [dX, dY]
-        let north  = [1.0, 0.0]
+        let north = [1.0, 0.0]
         
         let magnitude = mag(vector: vector)
         let cosTheta = dotProduct(u: vector, v: north) / magnitude

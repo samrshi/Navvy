@@ -65,7 +65,7 @@ class SearchViewModel: NSObject, ObservableObject {
 
     func searchNearby(query: String, changeRegion: Bool) {
         status = .searching
-        
+
         LocalSearchPublishers.getMapItems(query: query, region: region)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -85,7 +85,7 @@ class SearchViewModel: NSObject, ObservableObject {
 
     func fetchMapItem(forSearchCompletion searchCompletion: MKLocalSearchCompletion, completion: @escaping (Result<MKMapItem, Error>) -> Void) {
         status = .searching
-        
+
         LocalSearchPublishers.getMapItems(completion: searchCompletion, region: region)
             .map(\.first)
             .receive(on: DispatchQueue.main)
@@ -138,7 +138,7 @@ extension SearchViewModel {
         case searching
         case error(String)
         case hasResults
-        
+
         var displayString: String {
             switch self {
             case .noResults:

@@ -1,15 +1,11 @@
 //
-//  AutocompleteTableViewCell.swift
+//  UITableViewCell+reuseId.swift
 //  Navvy
 //
-//  Created by Samuel Shi on 12/13/21.
+//  Created by Samuel Shi on 1/5/22.
 //
 
 import UIKit
-
-class AutocompleteTableViewCell: UITableViewCell {
-    
-}
 
 extension UITableViewCell {
     static var reuseId: String {

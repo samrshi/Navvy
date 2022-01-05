@@ -14,10 +14,11 @@ class FavoritesVC: UIViewController {
         label.text = "Coming Soon..."
         return label
     }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryBackground
-        
+
         view.addSubview(comingSoonLabel)
         NSLayoutConstraint.activate([
             comingSoonLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
