@@ -130,7 +130,7 @@ extension DetailedSearchVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return nil
+            return "Map"
         } else if section == 1 && detailedSearchResults.isEmpty {
             return "Quick Search"
         } else {
