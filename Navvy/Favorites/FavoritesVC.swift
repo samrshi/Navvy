@@ -6,23 +6,25 @@
 //
 
 import UIKit
+import SwiftUI
 
 class FavoritesVC: UIViewController {
-    lazy var comingSoonLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Coming Soon..."
-        return label
+    lazy var favoritesVC: UIHostingController<FavoritesView> = {
+        let hosting = UIHostingController(rootView: FavoritesView())
+        hosting.view.translatesAutoresizingMaskIntoConstraints = false
+        return hosting
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryBackground
 
-        view.addSubview(comingSoonLabel)
+        addChildViewController(child: favoritesVC)
         NSLayoutConstraint.activate([
-            comingSoonLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            comingSoonLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            favoritesVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            favoritesVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            favoritesVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            favoritesVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }

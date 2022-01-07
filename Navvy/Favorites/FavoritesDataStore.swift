@@ -10,6 +10,8 @@ import Foundation
 import MapKit
 
 class FavoritesDataStore {
+    static let shared = FavoritesDataStore()
+    
     let container: NSPersistentContainer
 
     init() {

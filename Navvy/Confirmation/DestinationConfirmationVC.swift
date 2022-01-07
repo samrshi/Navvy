@@ -202,13 +202,7 @@ class DestinationConfirmationVC: UIViewController {
     }
     
     func favoriteAction() {
-        let ac = UIAlertController(title: "Coming Soon",
-                                   message: "Favoriting is not yet implented, but will be shortly.",
-                                   preferredStyle: .alert)
-        
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        
-        present(ac, animated: true)
+        FavoritesDataStore.shared.save(destination: Destination(mapItem: navigationVM.mapItem))
     }
     
     func closeAction() {
