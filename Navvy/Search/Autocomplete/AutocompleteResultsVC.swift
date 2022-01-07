@@ -43,9 +43,7 @@ class AutocompleteResultsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .primaryBackground
         
-        view.addSubview(statusLabel)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -53,11 +51,6 @@ class AutocompleteResultsVC: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            statusLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            statusLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 10),
-            statusLabel.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            statusLabel.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
         ])
         
         searchViewModel.$autocompleteResults

@@ -19,6 +19,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     let headingPublisher = PassthroughSubject<CLHeading, Never>()
     let errorPublisher = PassthroughSubject<Error?, Never>()
 
+    var userLocation: CLLocationCoordinate2D?
+    
     init(desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBestForNavigation) {
         super.init()
 
@@ -31,6 +33,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userLocation = locations.last?.coordinate
         locationsPublisher.send(locations)
     }
 

@@ -31,7 +31,6 @@ class LocationSearchVC: UIViewController {
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.placeholder = "Search for a destination"
         return searchController
