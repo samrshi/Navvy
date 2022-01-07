@@ -156,8 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */,
-				BD58412A2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift */,
 				BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Icon.swift */,
+				BD58412A2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift */,
 				BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */,
 			);
 			path = "MapKit & CoreLocation";
