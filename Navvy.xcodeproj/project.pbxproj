@@ -11,6 +11,9 @@
 		BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */; };
 		BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4F12782DBD500E7ED83 /* SearchMapTableViewCell.swift */; };
 		BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */; };
+		BD256E042787D47100F6BD72 /* FavoritesDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */; };
+		BD256E072787D53100F6BD72 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E062787D53100F6BD72 /* Destination.swift */; };
+		BD256E092787D7DB00F6BD72 /* AutocompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E082787D7DB00F6BD72 /* AutocompleteTableViewCell.swift */; };
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
 		BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */; };
 		BD39DE4D276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE4B276D3BD300AF8B57 /* NavvyAccesibilityHeadingTests.swift */; };
@@ -67,6 +70,9 @@
 		BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RawPhoneNumber.swift"; sourceTree = "<group>"; };
 		BD24D4F12782DBD500E7ED83 /* SearchMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapTableViewCell.swift; sourceTree = "<group>"; };
 		BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addAndPinSubview.swift"; sourceTree = "<group>"; };
+		BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDataStore.swift; sourceTree = "<group>"; };
+		BD256E062787D53100F6BD72 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
+		BD256E082787D7DB00F6BD72 /* AutocompleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteTableViewCell.swift; sourceTree = "<group>"; };
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		BD39DE38276C2CB200AF8B57 /* CLLocation+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Angle.swift"; sourceTree = "<group>"; };
 		BD39DE3E276D3B9200AF8B57 /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				BD78801B27680A0D009D4F2C /* LocationManager.swift */,
+				BD256E062787D53100F6BD72 /* Destination.swift */,
 				BD504E26276FB44A0042A247 /* Colors.swift */,
 				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
@@ -237,9 +244,9 @@
 				BD504E25276FB4320042A247 /* Shared */,
 				BD78802427682AC9009D4F2C /* Extensions */,
 				BD7880062767FF29009D4F2C /* Assets.xcassets */,
+				BD7880032767FF27009D4F2C /* Navvy.xcdatamodeld */,
 				BD7880082767FF29009D4F2C /* LaunchScreen.storyboard */,
 				BD78800B2767FF29009D4F2C /* Info.plist */,
-				BD7880032767FF27009D4F2C /* Navvy.xcdatamodeld */,
 			);
 			path = Navvy;
 			sourceTree = "<group>";
@@ -269,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				BD78801527680899009D4F2C /* AutocompleteResultsVC.swift */,
+				BD256E082787D7DB00F6BD72 /* AutocompleteTableViewCell.swift */,
 			);
 			path = Autocomplete;
 			sourceTree = "<group>";
@@ -321,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF9DE512785148600A77D53 /* FavoritesVC.swift */,
+				BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -465,13 +474,16 @@
 				BD78801627680899009D4F2C /* AutocompleteResultsVC.swift in Sources */,
 				BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */,
 				BD58412B2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift in Sources */,
+				BD256E092787D7DB00F6BD72 /* AutocompleteTableViewCell.swift in Sources */,
 				BD5F096127683292005ADADC /* DetailedSearchTableViewCell.swift in Sources */,
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,
 				BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */,
 				BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,
 				BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */,
+				BD256E042787D47100F6BD72 /* FavoritesDataStore.swift in Sources */,
 				BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */,
+				BD256E072787D53100F6BD72 /* Destination.swift in Sources */,
 				BDF9DE492785067C00A77D53 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

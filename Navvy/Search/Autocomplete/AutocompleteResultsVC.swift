@@ -57,7 +57,7 @@ class AutocompleteResultsVC: UIViewController {
             statusLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
             statusLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 10),
             statusLabel.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            statusLabel.leadingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            statusLabel.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
         ])
         
         searchViewModel.$autocompleteResults
