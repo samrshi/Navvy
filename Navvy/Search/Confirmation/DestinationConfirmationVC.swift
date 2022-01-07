@@ -79,7 +79,10 @@ class DestinationConfirmationVC: UIViewController {
     }()
         
     func buildDetailsVC(address: String?, coordinates: String, phoneNumber: String?, url: URL?) -> UIHostingController<DestinationConfirmationDetailsView> {
-        let rootView = DestinationConfirmationDetailsView(address: address, coordinates: coordinates, phoneNumber: phoneNumber, url: url)
+        let rootView = DestinationConfirmationDetailsView(address: address,
+                                                          coordinates: coordinates,
+                                                          phoneNumber: phoneNumber,
+                                                          url: url)
         let hostingController = UIHostingController(rootView: rootView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         hostingController.view.backgroundColor = .clear
