@@ -16,7 +16,7 @@ struct QuickSearchView: View {
             Divider()
             
             ForEach(groups) { group in
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading) {
                     Text(group.name)
                         .font(.footnote)
                         .bold()
