@@ -10,7 +10,8 @@ import Foundation
 import MapKit
 
 enum LocalSearchPublishers {
-    static func localSearch(request: MKLocalSearch.Request, completion: @escaping (Result<[MKMapItem], Error>) -> Void) {
+    static func localSearch(request: MKLocalSearch.Request,
+                            completion: @escaping (Result<[MKMapItem], Error>) -> Void) {
         let search = MKLocalSearch(request: request)
 
         search.start { response, error in
@@ -26,7 +27,9 @@ enum LocalSearchPublishers {
         }
     }
 
-    static func getMapItems(query: String, region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
+    static func getMapItems(query: String?,
+                            region: MKCoordinateRegion,
+                            categoryFilter: [MKPointOfInterestCategory] = []) -> AnyPublisher<[MKMapItem], Error> {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = query
         request.region = region
@@ -37,7 +40,8 @@ enum LocalSearchPublishers {
         .eraseToAnyPublisher()
     }
 
-    static func getMapItems(completion: MKLocalSearchCompletion, region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
+    static func getMapItems(completion: MKLocalSearchCompletion,
+                            region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
         let request = MKLocalSearch.Request(completion: completion)
         request.region = region
 
@@ -47,7 +51,8 @@ enum LocalSearchPublishers {
         .eraseToAnyPublisher()
     }
 
-    static func getMapItems(completions: [MKLocalSearchCompletion], region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
+    static func getMapItems(completions: [MKLocalSearchCompletion],
+                            region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
         return completions.publisher
             .flatMap { getMapItems(completion: $0, region: region) }
             .compactMap(\.first)

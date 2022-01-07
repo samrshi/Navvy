@@ -40,6 +40,7 @@ class SearchViewModel: NSObject, ObservableObject {
                 } else {
                     self.status = .noResults
                     self.autocompleteResults = []
+                    self.detailedMapItems = []
                 }
             }
             .store(in: &cancellables)
@@ -63,10 +64,10 @@ class SearchViewModel: NSObject, ObservableObject {
         searchCompleter.region = region
     }
 
-    func searchNearby(query: String, changeRegion: Bool) {
+    func searchNearby(query: String = "", categoryFilter: [MKPointOfInterestCategory] = [], changeRegion: Bool) {
         status = .searching
 
-        LocalSearchPublishers.getMapItems(query: query, region: region)
+        LocalSearchPublishers.getMapItems(query: query, region: region, categoryFilter: categoryFilter)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion, let self = self else { return }
@@ -97,25 +98,6 @@ class SearchViewModel: NSObject, ObservableObject {
                 guard let mapItem = mapItem, let self = self else { return }
                 self.detailedMapItems = [mapItem]
                 completion(.success(mapItem))
-            }
-            .store(in: &cancellables)
-    }
-
-    func fetchMapItems(forCompletions completions: [MKLocalSearchCompletion]) {
-        guard !completions.isEmpty else {
-            status = .error("Cannot search with empty autocomplete suggestions")
-            return
-        }
-
-        status = .searching
-        LocalSearchPublishers.getMapItems(completions: completions, region: region)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard case .failure(let error) = completion, let self = self else { return }
-                self.status = .error(error.localizedDescription)
-            } receiveValue: { [weak self] mapItems in
-                self?.detailedMapItems = mapItems
-                self?.status = mapItems.isEmpty ? .noResults : .hasResults
             }
             .store(in: &cancellables)
     }

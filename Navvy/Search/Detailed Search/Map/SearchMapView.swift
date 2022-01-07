@@ -49,9 +49,6 @@ class SearchMapView: UIView {
     var viewHeightConstraint: NSLayoutConstraint!
     var searchButtonBottomConstraint: NSLayoutConstraint!
     weak var delegate: SearchMapViewDelegate!
-
-    let mapViewSmallAspectRatio: Double = 8 / 9
-    let mapViewBigAspectRatio: Double = 1
     
     override init(frame: CGRect) {
         super.init(frame: frame)

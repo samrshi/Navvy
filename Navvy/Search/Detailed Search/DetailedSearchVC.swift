@@ -34,6 +34,11 @@ class DetailedSearchVC: UIViewController {
         return cell
     }()
     
+    lazy var quickSearchTableViewCell: QuickSearchTableViewCell = {
+        let cell = QuickSearchTableViewCell(didSelectCategory: quickSearchDidSelectCategory)
+        return cell
+    }()
+    
     var searchViewModel: SearchViewModel!
     var detailedSearchResults: [NavigationViewModel] = []
     weak var delegate: DetailedSearchVCDelegate?
@@ -64,6 +69,11 @@ class DetailedSearchVC: UIViewController {
         mapTableViewCell.mapView.updateMapItems(mapItems: results)
         mapTableViewCell.mapView.toggleSearchButton(shouldShow: false)
     }
+    
+    func quickSearchDidSelectCategory(category: MKPointOfInterestCategory) {
+        searchViewModel.searchNearby(query: category.displayName, changeRegion: true)
+        delegate?.changeSearchBarText(newText: category.displayName)
+    }
 }
 
 extension DetailedSearchVC: SearchMapViewDelegate {
@@ -91,6 +101,10 @@ extension DetailedSearchVC: UITableViewDataSource {
             return mapTableViewCell
         }
         
+        guard !detailedSearchResults.isEmpty else {
+            return quickSearchTableViewCell
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailedSearchTableViewCell.reuseId) as? DetailedSearchTableViewCell else {
             return UITableViewCell()
         }
@@ -101,26 +115,39 @@ extension DetailedSearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
+        if section == 0 {
             return 1
-        default:
+        } else if section == 1 && detailedSearchResults.isEmpty {
+            return 1
+        } else {
             return detailedSearchResults.count
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return detailedSearchResults.count == 0 ? 1 : 2
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 1 ? "Search Results" : nil
+        if section == 0 {
+            return nil
+        } else if section == 1 && detailedSearchResults.isEmpty {
+            return "Quick Search"
+        } else {
+            return "Search Results"
+        }
     }
 }
 
 extension DetailedSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return indexPath.section != 0 ? indexPath : nil
+        if indexPath.section == 0 {
+            return nil
+        } else if indexPath.section == 1 && detailedSearchResults.isEmpty {
+            return nil
+        } else {
+            return indexPath
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
