@@ -20,7 +20,7 @@ class DetailedSearchVC: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(DetailedSearchTableViewCell.self, forCellReuseIdentifier: DetailedSearchTableViewCell.reuseId)
+        tableView.register(DestinationTableViewCell.self, forCellReuseIdentifier: DestinationTableViewCell.reuseId)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.dataSource = self
@@ -105,7 +105,7 @@ extension DetailedSearchVC: UITableViewDataSource {
             return quickSearchTableViewCell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailedSearchTableViewCell.reuseId) as? DetailedSearchTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationTableViewCell.reuseId) as? DestinationTableViewCell else {
             return UITableViewCell()
         }
         

@@ -1,5 +1,5 @@
 //
-//  DetailedSearchTableViewCell.swift
+//  DestinationTableViewCell.swift
 //  Navvy
 //
 //  Created by Samuel Shi on 12/13/21.
@@ -9,7 +9,7 @@ import Combine
 import MapKit
 import UIKit
 
-class DetailedSearchTableViewCell: UITableViewCell {
+class DestinationTableViewCell: UITableViewCell {
     lazy var nameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
