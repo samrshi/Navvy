@@ -11,7 +11,10 @@ class FavoritesDiffableDataSource: UITableViewDiffableDataSource<FavoritesDiffab
     enum Section { case favorites }
     
     var favorites: [NavigationViewModel] = []
+    
     var shouldAnimateDifferences: (() -> Bool)!
+    var showEmptyView: (() -> Void)!
+    var hideEmptyView: (() -> Void)!
     
     override init(tableView: UITableView, cellProvider: @escaping UITableViewDiffableDataSource<Section, Destination>.CellProvider) {
         super.init(tableView: tableView, cellProvider: cellProvider)
@@ -25,6 +28,16 @@ class FavoritesDiffableDataSource: UITableViewDiffableDataSource<FavoritesDiffab
         snapshot.appendSections([.favorites])
         snapshot.appendItems(destinations)
         apply(snapshot, animatingDifferences: shouldAnimateDifferences())
+    }
+    
+    override func apply(_ snapshot: NSDiffableDataSourceSnapshot<Section, Destination>, animatingDifferences: Bool = true, completion: (() -> Void)? = nil) {
+        super.apply(snapshot, animatingDifferences: animatingDifferences, completion: completion)
+        
+        if snapshot.itemIdentifiers.isEmpty {
+            showEmptyView()
+        } else {
+            hideEmptyView()
+        }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

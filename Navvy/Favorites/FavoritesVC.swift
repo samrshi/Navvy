@@ -33,6 +33,12 @@ class FavoritesVC: UIViewController {
 
         return refreshControl
     }()
+    
+    lazy var emptyView: FavoritesEmptyView = {
+        let emptyView = FavoritesEmptyView(frame: .zero)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        return emptyView
+    }()
 
     var dataSource: FavoritesDiffableDataSource!
 
@@ -49,7 +55,10 @@ class FavoritesVC: UIViewController {
         ])
 
         dataSource = FavoritesDiffableDataSource(tableView: tableView, cellProvider: tableViewCellProvider)
+        
         dataSource.shouldAnimateDifferences = shouldAnimateDataSourceChanges
+        dataSource.showEmptyView = showEmptyView
+        dataSource.hideEmptyView = hideEmptyView
         
         FavoritesDataStore.shared.$destinations
             .receive(on: DispatchQueue.main)
@@ -78,6 +87,18 @@ extension FavoritesVC {
     
     func shouldAnimateDataSourceChanges() -> Bool {
         return view.window != nil
+    }
+    
+    func showEmptyView() {
+        view.addSubview(emptyView)
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    func hideEmptyView() {
+        emptyView.removeFromSuperview()
     }
 }
 

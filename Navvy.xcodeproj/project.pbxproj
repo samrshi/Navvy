@@ -46,6 +46,7 @@
 		BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */; };
 		BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */; };
 		BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Helpers.swift */; };
+		BDE02DE8278977BF0036D0F2 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = BDE02DE7278977BF0036D0F2 /* Toast */; };
 		BDE2756827862FF600902106 /* UITableViewCell+reuseId.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */; };
 		BDF9DE3C2784F19B00A77D53 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */; };
 		BDF9DE3E2784F40900A77D53 /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE3D2784F40900A77D53 /* SettingsOption.swift */; };
@@ -59,6 +60,8 @@
 		BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */; };
 		BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFD27893376009BE5BF /* Collection+safe.swift */; };
 		BDFDD000278958F3009BE5BF /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFF278958F3009BE5BF /* Haptics.swift */; };
+		BDFDD0022789718E009BE5BF /* FavoritesEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDD0012789718E009BE5BF /* FavoritesEmptyView.swift */; };
+		BDFDD0042789760F009BE5BF /* UIViewController+showError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDD0032789760F009BE5BF /* UIViewController+showError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +130,8 @@
 		BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDiffableDataSource.swift; sourceTree = "<group>"; };
 		BDFDCFFD27893376009BE5BF /* Collection+safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+safe.swift"; sourceTree = "<group>"; };
 		BDFDCFFF278958F3009BE5BF /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		BDFDD0012789718E009BE5BF /* FavoritesEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEmptyView.swift; sourceTree = "<group>"; };
+		BDFDD0032789760F009BE5BF /* UIViewController+showError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showError.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE02DE8278977BF0036D0F2 /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */,
+				BDFDD0032789760F009BE5BF /* UIViewController+showError.swift */,
 				BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */,
 				BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */,
 				BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */,
@@ -362,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF9DE512785148600A77D53 /* FavoritesVC.swift */,
+				BDFDD0012789718E009BE5BF /* FavoritesEmptyView.swift */,
 				BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */,
 				BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */,
 			);
@@ -402,6 +410,9 @@
 			dependencies = (
 			);
 			name = Navvy;
+			packageProductDependencies = (
+				BDE02DE7278977BF0036D0F2 /* Toast */,
+			);
 			productName = Navvy;
 			productReference = BD787FF72767FF27009D4F2C /* Navvy.app */;
 			productType = "com.apple.product-type.application";
@@ -434,6 +445,9 @@
 				Base,
 			);
 			mainGroup = BD787FEE2767FF27009D4F2C;
+			packageReferences = (
+				BDE02DE6278977BF0036D0F2 /* XCRemoteSwiftPackageReference "toast-swift" */,
+			);
 			productRefGroup = BD787FF82767FF27009D4F2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -485,6 +499,7 @@
 				BDF9DE522785148600A77D53 /* FavoritesVC.swift in Sources */,
 				BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
+				BDFDD0042789760F009BE5BF /* UIViewController+showError.swift in Sources */,
 				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
 				BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */,
 				BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */,
@@ -507,6 +522,7 @@
 				BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */,
 				BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */,
 				BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Helpers.swift in Sources */,
+				BDFDD0022789718E009BE5BF /* FavoritesEmptyView.swift in Sources */,
 				BDF9DE4D278506F300A77D53 /* View+PreviewHelpers.swift in Sources */,
 				BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */,
 				BDF9DE3C2784F19B00A77D53 /* SettingsVC.swift in Sources */,
@@ -795,6 +811,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BDE02DE6278977BF0036D0F2 /* XCRemoteSwiftPackageReference "toast-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BastiaanJansen/toast-swift.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDE02DE7278977BF0036D0F2 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDE02DE6278977BF0036D0F2 /* XCRemoteSwiftPackageReference "toast-swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		BD7880032767FF27009D4F2C /* Navvy.xcdatamodeld */ = {

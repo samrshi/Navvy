@@ -79,6 +79,18 @@ class LocationSearchVC: UIViewController {
             contentViewCenterY,
             contentViewHeight,
         ])
+        
+        searchViewModel.$status
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .error(let error):
+                    self?.showToastError(title: "An Error Occurred", message: error)
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {
