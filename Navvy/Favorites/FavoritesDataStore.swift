@@ -73,7 +73,7 @@ class FavoritesDataStore: NSObject {
     }
     
     func remove(destination: Destination) {
-        guard let entity = try? getEntityById(destination.id) else { return }
+        guard let entity = getEntity(destination: destination) else { return }
             
         let context = container.viewContext
         context.delete(entity)
@@ -86,16 +86,31 @@ class FavoritesDataStore: NSObject {
     }
     
     func isFavorited(destination: Destination) -> Bool {
-        getAll().contains(destination)
+        getEntity(destination: destination) != nil
     }
     
-    private func getEntityById(_ id: UUID) throws -> FavoriteDestinationEntity? {
+    private func getEntity(destination: Destination) -> FavoriteDestinationEntity? {
         let request = FavoriteDestinationEntity.fetchRequest()
         request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "id = %@", id.uuidString)
+        request.predicate = NSPredicate(
+            format: """
+                (urlString == %@) AND
+                (phoneNumber == %@) AND
+                (name == %@) AND
+                (category == %@) AND
+                (address == %@) AND
+                (latitude == %lf) AND
+                (longitude == %lf)
+            """,
+            destination.url?.absoluteString ?? "",
+            destination.phoneNumber ?? "",
+            destination.name ?? "",
+            destination.category?.rawValue ?? "",
+            destination.address ?? "",
+            destination.latitude,
+            destination.longitude)
         
-        let context = container.viewContext
-        return try context.fetch(request).first
+        return try? container.viewContext.fetch(request).first
     }
     
     private static func entityToDestination(entity: FavoriteDestinationEntity) -> Destination {

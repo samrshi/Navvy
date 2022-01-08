@@ -185,6 +185,15 @@ class DestinationConfirmationVC: UIViewController {
                 self?.beginNavigationButton.setAngle(newAngle: angle)
             }
             .store(in: &cancellables)
+        
+        FavoritesDataStore.shared.$destinations
+            .map { $0.contains(vm.destination) }
+            .map { UIImage(systemName: $0 ? "heart.fill" : "heart") }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image in
+                self?.favoriteButton.configuration?.image = image
+            }
+            .store(in: &cancellables)
     }
 
     func setUp(title: String, address: String, poi: MKPointOfInterestCategory?, coordinate: CLLocationCoordinate2D, distance: String = "25 mi") {
@@ -204,8 +213,14 @@ class DestinationConfirmationVC: UIViewController {
     }
     
     func favoriteAction() {
-        FavoritesDataStore.shared.save(destination: navigationVM.destination)
-        HapticEngine.success()
+        let destination = navigationVM.destination
+        
+        if FavoritesDataStore.shared.isFavorited(destination: destination) {
+            FavoritesDataStore.shared.remove(destination: destination)
+        } else {
+            FavoritesDataStore.shared.save(destination: destination)
+        }
+        HapticEngine.medium()
     }
     
     func closeAction() {

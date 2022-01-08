@@ -28,7 +28,13 @@ struct Destination: Identifiable, Hashable {
 
 extension Destination: Equatable {
     static func == (lhs: Destination, rhs: Destination) -> Bool {
-        lhs.id == rhs.id
+        lhs.name == rhs.name &&
+        lhs.category == rhs.category &&
+        lhs.latitude == rhs.latitude &&
+        lhs.longitude == rhs.longitude &&
+        lhs.url == rhs.url &&
+        lhs.address == rhs.address &&
+        lhs.phoneNumber == rhs.phoneNumber
     }
 }
 
