@@ -73,6 +73,7 @@ class DetailedSearchVC: UIViewController {
     func quickSearchDidSelectCategory(category: MKPointOfInterestCategory) {
         searchViewModel.searchNearby(query: category.displayName, changeRegion: true)
         delegate?.changeSearchBarText(newText: category.displayName)
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
 
@@ -156,5 +157,6 @@ extension DetailedSearchVC: UITableViewDelegate {
         let result = detailedSearchResults[indexPath.row]
         delegate?.didSelectSearchResult(result: result)
         mapTableViewCell.mapView.selectAnnotation(forDestination: result.destination)
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }

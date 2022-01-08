@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EA66B1B9-BDC6-4408-A4B7-06057FEF316B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Navvy/Confirmation/DestinationConfirmationVC.swift"
-            startingColumnNumber = "12"
-            endingColumnNumber = "75"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
-            landmarkName = "favoriteAction()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BA53EE44-2D7F-436C-AD05-DBB0A473D873"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
