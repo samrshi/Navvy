@@ -109,9 +109,10 @@ extension AutocompleteResultsVC: UITableViewDelegate {
             delegate.changeSearchBarText(newText: autocompleteResult.title)
             dismiss(animated: true)
         } else {
-            searchViewModel.fetchMapItem(forSearchCompletion: autocompleteResult) { [weak self] result in
-                guard case .success(let mapItem) = result, let self = self else { return }
-                self.delegate.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem))
+            searchViewModel.fetchDestination(forSearchCompletion: autocompleteResult) { [weak self] result in
+                guard case .success(let destination) = result, let self = self else { return }
+                let navigationVM = NavigationViewModel(destination: destination)
+                self.delegate.didSelectSearchResult(result: navigationVM)
             }
         }
         

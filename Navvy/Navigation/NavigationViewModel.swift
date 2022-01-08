@@ -10,7 +10,7 @@ import MapKit
 
 class NavigationViewModel: ObservableObject {
     let navigationManager: NavigationManager
-    let mapItem: MKMapItem
+    let destination: Destination
 
     @Published var angleToDestination: Double = 0
     @Published var distanceToDestination: String = ""
@@ -19,9 +19,9 @@ class NavigationViewModel: ObservableObject {
     private var distanceCancellable: AnyCancellable?
     private var angleCancellable: AnyCancellable?
     
-    init(mapItem: MKMapItem) {
-        self.mapItem = mapItem
-        navigationManager = NavigationManager(mapItem: mapItem)
+    init(destination: Destination) {
+        self.destination = destination
+        navigationManager = NavigationManager(destination: destination)
         
         distanceCancellable = navigationManager.$distanceToDestination
             .map(NavigationViewModel.measurementToString)
@@ -47,12 +47,12 @@ class NavigationViewModel: ObservableObject {
         }
     }
     
-    var destinationName: String? { mapItem.name }
-    var destinationSubtitle: String? { mapItem.placemark.title }
-    var destinationCategory: MKPointOfInterestCategory? { mapItem.pointOfInterestCategory }
-    var destinationCoordinates: CLLocationCoordinate2D { mapItem.placemark.coordinate }
-    var destinationPhoneNumber: String? { mapItem.phoneNumber }
-    var destinationURL: URL? { mapItem.url }
+    var destinationName: String? { destination.name }
+    var destinationSubtitle: String? { destination.address }
+    var destinationCategory: MKPointOfInterestCategory? { destination.category }
+    var destinationCoordinates: CLLocationCoordinate2D { destination.coordinates }
+    var destinationPhoneNumber: String? { destination.phoneNumber }
+    var destinationURL: URL? { destination.url }
 }
 
 extension NavigationViewModel {

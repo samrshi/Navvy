@@ -162,7 +162,7 @@ class DestinationConfirmationVC: UIViewController {
         self.delegate = delegate
         
         titleLabel.text = vm.destinationName
-        pointOfInterestImage.image = UIImage(named: vm.mapItem.pointOfInterestCategory.toIcon())
+        pointOfInterestImage.image = UIImage(named: vm.destination.category.toIcon())
         
         detailsVC = buildDetailsVC(
             address: vm.destinationSubtitle,
@@ -202,7 +202,7 @@ class DestinationConfirmationVC: UIViewController {
     }
     
     func favoriteAction() {
-        FavoritesDataStore.shared.save(destination: Destination(mapItem: navigationVM.mapItem))
+        FavoritesDataStore.shared.save(destination: navigationVM.destination)
     }
     
     func closeAction() {

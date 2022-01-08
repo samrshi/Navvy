@@ -14,7 +14,7 @@ class SearchViewModel: NSObject, ObservableObject {
     @Published var status: LocationStatus = .noResults
 
     @Published var autocompleteResults: [MKLocalSearchCompletion] = []
-    @Published var detailedMapItems: [MKMapItem] = []
+    @Published var destinations: [Destination] = []
     @Published var region = MKCoordinateRegion()
 
     var cancellables: [AnyCancellable] = []
@@ -39,8 +39,8 @@ class SearchViewModel: NSObject, ObservableObject {
                 if searchTerm.isEmpty {
                     self.status = .noResults
                     self.autocompleteResults = []
-                    self.detailedMapItems = []
-                    
+                    self.destinations = []
+
                     if let userLocation = LocationManager.shared.userLocation {
                         self.region = MKCoordinateRegion(center: userLocation, radius: 0.1)
                     }
@@ -70,37 +70,52 @@ class SearchViewModel: NSObject, ObservableObject {
     func searchNearby(query: String = "", categoryFilter: [MKPointOfInterestCategory] = [], changeRegion: Bool) {
         status = .searching
 
-        LocalSearchPublishers.getMapItems(query: query, region: region, categoryFilter: categoryFilter)
+        LocalSearchPublishers.getDestinations(query: query, region: region, categoryFilter: categoryFilter)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion, let self = self else { return }
                 self.status = .error(error.localizedDescription)
-            } receiveValue: { [weak self] mapItems in
-                self?.detailedMapItems = mapItems
+            } receiveValue: { [weak self] destinations in
+                self?.destinations = destinations
                 self?.status = .hasResults
 
-                let coordinates = mapItems.map(\.placemark.coordinate)
+                let coordinates = destinations.map(\.coordinates)
                 if changeRegion, let region = MKCoordinateRegion(containing: coordinates) {
                     self?.region = region
                 }
             }
             .store(in: &cancellables)
+
+//            .sink { [weak self] completion in
+//                guard case .failure(let error) = completion, let self = self else { return }
+//                self.status = .error(error.localizedDescription)
+//            } receiveValue: { [weak self] destinations in
+//                self?.destinations = destinations
+//                self?.status = .hasResults
+//
+//                let coordinates = destinations.map(\.coordinates)
+//                if changeRegion, let region = MKCoordinateRegion(containing: coordinates) {
+//                    self?.region = region
+//                }
+//            }
+//            .store(in: &cancellables)
     }
 
-    func fetchMapItem(forSearchCompletion searchCompletion: MKLocalSearchCompletion, completion: @escaping (Result<MKMapItem, Error>) -> Void) {
+    func fetchDestination(forSearchCompletion searchCompletion: MKLocalSearchCompletion,
+                          completion: @escaping (Result<Destination, Error>) -> Void)
+    {
         status = .searching
 
-        LocalSearchPublishers.getMapItems(completion: searchCompletion, region: region)
-            .map(\.first)
+        LocalSearchPublishers.getDestination(forCompletion: searchCompletion, region: region)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] publisherCompletion in
                 guard case .failure(let error) = publisherCompletion, let self = self else { return }
                 self.status = .error(error.localizedDescription)
                 completion(.failure(error))
-            } receiveValue: { [weak self] mapItem in
-                guard let mapItem = mapItem, let self = self else { return }
-                self.detailedMapItems = [mapItem]
-                completion(.success(mapItem))
+            } receiveValue: { [weak self] destination in
+                guard let self = self else { return }
+                self.destinations = [destination]
+                completion(.success(destination))
             }
             .store(in: &cancellables)
     }

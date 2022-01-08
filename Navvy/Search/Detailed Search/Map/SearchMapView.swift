@@ -11,7 +11,7 @@ import UIKit
 protocol SearchMapViewDelegate: AnyObject {
     func searchCurrentArea()
     func shouldShowSearchAgainButton() -> Bool
-    func didSelectMapItem(mapItem: MKMapItem)
+    func didSelectDestination(destination: Destination)
     func mapRegionDidChange(region: MKCoordinateRegion)
 }
 
@@ -88,8 +88,14 @@ class SearchMapView: UIView {
         setMapRegion(region: region)
     }
     
-    func selectAnnotation(forMapItem mapItem: MKMapItem) {
-        guard let annotation = mapView.annotations.compactMap({ $0 as? SSAnnotation }).first(where: { $0.mapItem == mapItem }) else { return }
+    func selectAnnotation(forDestination destination: Destination) {
+        guard let annotation = mapView.annotations
+            .compactMap({ $0 as? SSAnnotation })
+            .first(where: { $0.destination == destination })
+        else {
+            return
+        }
+        
         mapView.selectAnnotation(annotation, animated: true)
     }
     
@@ -99,9 +105,9 @@ class SearchMapView: UIView {
         }
     }
     
-    func updateMapItems(mapItems: [MKMapItem]) {
+    func updateAnnotations(destinations: [Destination]) {
         mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations(mapItems.map(SSAnnotation.init))
+        mapView.addAnnotations(destinations.map(SSAnnotation.init))
     }
     
     func setMapRegion(region: MKCoordinateRegion) {
@@ -131,7 +137,8 @@ class SearchMapView: UIView {
 extension SearchMapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = (view.annotation as? SSAnnotation) else { return }
-        delegate.didSelectMapItem(mapItem: annotation.mapItem)
+        
+        delegate.didSelectDestination(destination: annotation.destination)
         
         DispatchQueue.main.async { [weak self] in
             self?.nextRegionChangeIsFromUserInteraction = false

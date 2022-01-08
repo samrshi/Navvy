@@ -16,22 +16,21 @@ class NavigationManager: ObservableObject {
     @Published var userHeading: Double = 0
     @Published var error: Error? = nil
 
-    private var destination: CLLocation
+    private var destinationLocation: CLLocation
     private var userLocation = CLLocation()
     private var locationsCancellable: AnyCancellable?
     private var headingCancellable: AnyCancellable?
     private var errorCancellable: AnyCancellable?
     
-    let mapItem: MKMapItem
+    let destination: Destination
     
-    init(mapItem: MKMapItem) {
-        guard let location = mapItem.placemark.location else {
-            fatalError("Provided MKMapItem did not contain a CLLocation")
-        }
+    init(destination: Destination) {
+        self.destination = destination
         
-        self.mapItem = mapItem
+        let location = CLLocation(latitude: destination.coordinates.latitude,
+                                  longitude: destination.coordinates.longitude)
+        destinationLocation = location
         
-        destination = location
         locationManager.requestPreciseLocation()
         
         locationsCancellable = locationManager.locationsPublisher
@@ -50,10 +49,10 @@ class NavigationManager: ObservableObject {
 
     func didUpdateLocations(locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        angleToDestination = calculateAngle(to: destination, from: location)
+        angleToDestination = calculateAngle(to: destinationLocation, from: location)
         userLocation = location
         
-        let distance = location.distance(from: destination)
+        let distance = location.distance(from: destinationLocation)
         var unit: UnitLength!
         
         switch SettingsStore.shared.systemUnits {
@@ -69,7 +68,7 @@ class NavigationManager: ObservableObject {
 
     func didUpdateHeading(newHeading: CLHeading) {
         userHeading = newHeading.magneticHeading
-        angleToDestination = calculateAngle(to: destination, from: userLocation)
+        angleToDestination = calculateAngle(to: destinationLocation, from: userLocation)
     }
 
     func calculateAngle(to destination: CLLocation, from location: CLLocation) -> Double {

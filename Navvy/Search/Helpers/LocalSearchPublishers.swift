@@ -27,9 +27,9 @@ enum LocalSearchPublishers {
         }
     }
 
-    static func getMapItems(query: String?,
-                            region: MKCoordinateRegion,
-                            categoryFilter: [MKPointOfInterestCategory] = []) -> AnyPublisher<[MKMapItem], Error> {
+    static func getDestinations(query: String?,
+                                region: MKCoordinateRegion,
+                                categoryFilter: [MKPointOfInterestCategory] = []) -> AnyPublisher<[Destination], Error> {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = query
         request.region = region
@@ -37,26 +37,20 @@ enum LocalSearchPublishers {
         return Future { promise in
             localSearch(request: request, completion: promise)
         }
+        .map { $0.map(Destination.init) }
         .eraseToAnyPublisher()
     }
 
-    static func getMapItems(completion: MKLocalSearchCompletion,
-                            region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
+    static func getDestination(forCompletion completion: MKLocalSearchCompletion,
+                               region: MKCoordinateRegion) -> AnyPublisher<Destination, Error> {
         let request = MKLocalSearch.Request(completion: completion)
         request.region = region
 
         return Future { promise in
             localSearch(request: request, completion: promise)
         }
+        .compactMap(\.first)
+        .map { Destination(mapItem: $0) }
         .eraseToAnyPublisher()
-    }
-
-    static func getMapItems(completions: [MKLocalSearchCompletion],
-                            region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
-        return completions.publisher
-            .flatMap { getMapItems(completion: $0, region: region) }
-            .compactMap(\.first)
-            .collect()
-            .eraseToAnyPublisher()
     }
 }

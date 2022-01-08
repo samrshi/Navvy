@@ -8,17 +8,17 @@
 import MapKit
 
 class SSAnnotation: NSObject, MKAnnotation {
-    var mapItem: MKMapItem
+    var destination: Destination
 
-    init(mapItem: MKMapItem) {
-        self.mapItem = mapItem
+    init(destination: Destination) {
+        self.destination = destination
     }
 
     var title: String? {
-        mapItem.name
+        destination.name
     }
 
     var coordinate: CLLocationCoordinate2D {
-        mapItem.placemark.coordinate
+        destination.coordinates
     }
 }

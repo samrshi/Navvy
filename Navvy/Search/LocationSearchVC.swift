@@ -101,7 +101,7 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
         }
         
         // Select Matching MapView Annotation and Change Region
-        detailedSearchVC.mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
+        detailedSearchVC.mapTableViewCell.mapView.selectAnnotation(forDestination: result.destination)
         
         let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
         detailedSearchVC.mapTableViewCell.mapView.setMapRegion(region: region)

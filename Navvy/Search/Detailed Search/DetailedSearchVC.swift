@@ -47,10 +47,10 @@ class DetailedSearchVC: UIViewController {
         super.viewDidLoad()
         view.addAndPinSubview(tableView)
         
-        searchViewModel.$detailedMapItems
+        searchViewModel.$destinations
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] mapItems in
-                self?.didReceiveResults(results: mapItems)
+            .sink { [weak self] destinations in
+                self?.didReceiveResults(destinations: destinations)
             }
             .store(in: &cancellables)
         
@@ -62,11 +62,11 @@ class DetailedSearchVC: UIViewController {
             .store(in: &cancellables)
     }
     
-    func didReceiveResults(results: [MKMapItem]) {
-        detailedSearchResults = results.map(NavigationViewModel.init)
+    func didReceiveResults(destinations: [Destination]) {
+        detailedSearchResults = destinations.map(NavigationViewModel.init)
         tableView.reloadData()
         
-        mapTableViewCell.mapView.updateMapItems(mapItems: results)
+        mapTableViewCell.mapView.updateAnnotations(destinations: destinations)
         mapTableViewCell.mapView.toggleSearchButton(shouldShow: false)
     }
     
@@ -86,8 +86,8 @@ extension DetailedSearchVC: SearchMapViewDelegate {
         !searchViewModel.searchTerm.isEmpty
     }
     
-    func didSelectMapItem(mapItem: MKMapItem) {
-        delegate?.didSelectSearchResult(result: NavigationViewModel(mapItem: mapItem))
+    func didSelectDestination(destination: Destination) {
+        delegate?.didSelectSearchResult(result: NavigationViewModel(destination: destination))
     }
     
     func mapRegionDidChange(region: MKCoordinateRegion) {
@@ -117,7 +117,7 @@ extension DetailedSearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else if section == 1 && detailedSearchResults.isEmpty {
+        } else if section == 1, detailedSearchResults.isEmpty {
             return 1
         } else {
             return detailedSearchResults.count
@@ -131,7 +131,7 @@ extension DetailedSearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return nil
-        } else if section == 1 && detailedSearchResults.isEmpty {
+        } else if section == 1, detailedSearchResults.isEmpty {
             return "Quick Search"
         } else {
             return "Search Results"
@@ -143,7 +143,7 @@ extension DetailedSearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.section == 0 {
             return nil
-        } else if indexPath.section == 1 && detailedSearchResults.isEmpty {
+        } else if indexPath.section == 1, detailedSearchResults.isEmpty {
             return nil
         } else {
             return indexPath
@@ -155,6 +155,6 @@ extension DetailedSearchVC: UITableViewDelegate {
         
         let result = detailedSearchResults[indexPath.row]
         delegate?.didSelectSearchResult(result: result)
-        mapTableViewCell.mapView.selectAnnotation(forMapItem: result.mapItem)
+        mapTableViewCell.mapView.selectAnnotation(forDestination: result.destination)
     }
 }

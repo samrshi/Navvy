@@ -21,6 +21,12 @@ struct Destination: Identifiable {
     let phoneNumber: String?
 }
 
+extension Destination: Equatable {
+    static func == (lhs: Destination, rhs: Destination) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
 extension Destination {
     init(mapItem: MKMapItem) {
         id = UUID()
