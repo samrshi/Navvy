@@ -55,8 +55,6 @@ class FavoritesVC: UIViewController {
                 self?.tableView.reloadData()
             }
             .store(in: &cancellables)
-
-//        getFavorites()
     }
 
     func getFavorites() {
