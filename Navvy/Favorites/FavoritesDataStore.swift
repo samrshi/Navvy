@@ -102,15 +102,16 @@ class FavoritesDataStore: NSObject {
                 (latitude == %lf) AND
                 (longitude == %lf)
             """,
-            destination.url?.absoluteString ?? "",
-            destination.phoneNumber ?? "",
-            destination.name ?? "",
-            destination.category?.rawValue ?? "",
-            destination.address ?? "",
+            destination.url?.absoluteString ?? NSNull(),
+            destination.phoneNumber ?? NSNull(),
+            destination.name ?? NSNull(),
+            destination.category?.rawValue ?? NSNull(),
+            destination.address ?? NSNull(),
             destination.latitude,
             destination.longitude)
         
-        return try? container.viewContext.fetch(request).first
+        let entity = try! container.viewContext.fetch(request).first
+        return entity
     }
     
     private static func entityToDestination(entity: FavoriteDestinationEntity) -> Destination {
