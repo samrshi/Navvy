@@ -31,7 +31,7 @@
 		BD58413A2775B1BD004841B7 /* BeginNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5841392775B1BD004841B7 /* BeginNavigationButton.swift */; };
 		BD5F096127683292005ADADC /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096027683292005ADADC /* DestinationTableViewCell.swift */; };
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
-		BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */; };
+		BD653055276AEE64001CA8C0 /* UIViewController+addChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */; };
 		BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD65305A276B0670001CA8C0 /* NavigationManager.swift */; };
 		BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFA2767FF27009D4F2C /* AppDelegate.swift */; };
 		BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */; };
@@ -56,6 +56,7 @@
 		BDF9DE4D278506F300A77D53 /* View+PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE4C278506F300A77D53 /* View+PreviewHelpers.swift */; };
 		BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */; };
 		BDF9DE522785148600A77D53 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE512785148600A77D53 /* FavoritesVC.swift */; };
+		BDFDCFD827890F34009BE5BF /* UIViewController+startNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,7 +95,7 @@
 		BD5841392775B1BD004841B7 /* BeginNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginNavigationButton.swift; sourceTree = "<group>"; };
 		BD5F096027683292005ADADC /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
-		BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildViewController.swift"; sourceTree = "<group>"; };
+		BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildVC.swift"; sourceTree = "<group>"; };
 		BD65305A276B0670001CA8C0 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		BD787FF72767FF27009D4F2C /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD787FFA2767FF27009D4F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 		BDF9DE4C278506F300A77D53 /* View+PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+PreviewHelpers.swift"; sourceTree = "<group>"; };
 		BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxStyles.swift; sourceTree = "<group>"; };
 		BDF9DE512785148600A77D53 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
+		BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+startNavigation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +192,8 @@
 		BD39DE50276D4AE300AF8B57 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				BD653054276AEE64001CA8C0 /* UIViewController+addChildViewController.swift */,
+				BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */,
+				BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */,
 				BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */,
 				BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */,
 			);
@@ -208,10 +211,10 @@
 		BD504E25276FB4320042A247 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				BD504E26276FB44A0042A247 /* Colors.swift */,
+				BD256E062787D53100F6BD72 /* Destination.swift */,
 				BD5F096027683292005ADADC /* DestinationTableViewCell.swift */,
 				BD78801B27680A0D009D4F2C /* LocationManager.swift */,
-				BD256E062787D53100F6BD72 /* Destination.swift */,
-				BD504E26276FB44A0042A247 /* Colors.swift */,
 				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
 			path = Shared;
@@ -489,6 +492,7 @@
 				BD58413A2775B1BD004841B7 /* BeginNavigationButton.swift in Sources */,
 				BD256E0D2788CBED00F6BD72 /* QuickSearchView.swift in Sources */,
 				BD788012276800E4009D4F2C /* LocationSearchVC.swift in Sources */,
+				BDFDCFD827890F34009BE5BF /* UIViewController+startNavigation.swift in Sources */,
 				BD256E0F2788E8EA00F6BD72 /* QuickSearchTableViewCell.swift in Sources */,
 				BD54D053277D823E00B44F05 /* DestinationDetailsView.swift in Sources */,
 				BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */,
@@ -506,7 +510,7 @@
 				BD5F096127683292005ADADC /* DestinationTableViewCell.swift in Sources */,
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,
 				BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */,
-				BD653055276AEE64001CA8C0 /* UIViewController+addChildViewController.swift in Sources */,
+				BD653055276AEE64001CA8C0 /* UIViewController+addChildVC.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,
 				BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */,
 				BD256E042787D47100F6BD72 /* FavoritesDataStore.swift in Sources */,

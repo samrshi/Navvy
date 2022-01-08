@@ -9,27 +9,44 @@ import CoreData
 import Foundation
 import MapKit
 
-class FavoritesDataStore {
+class FavoritesDataStore: NSObject {
     static let shared = FavoritesDataStore()
     
-    let container: NSPersistentContainer
+    @Published var destinations: [Destination] = []
 
-    init() {
-        container = NSPersistentContainer(name: "Navvy")
+    private let container = NSPersistentContainer(name: "Navvy")
+    private var controller: NSFetchedResultsController<FavoriteDestinationEntity>!
+    
+    override init() {
+        super.init()
+
         container.loadPersistentStores { _, error in
-            guard error == nil else {
-                fatalError("Cannot load Core Data model: \(error.debugDescription)")
-            }
+            guard error == nil else { fatalError("Cannot load Core Data model: \(error.debugDescription)") }
         }
+
+        controller = NSFetchedResultsController(
+            fetchRequest: favoritesFetchRequest,
+            managedObjectContext: container.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        controller.delegate = self
+
+        try? controller.performFetch()
+        
+        destinations = getAll()
+    }
+    
+    var favoritesFetchRequest: NSFetchRequest<FavoriteDestinationEntity> {
+        let fetchRequest = FavoriteDestinationEntity.fetchRequest()
+        
+        // Configure the request's entity, and optionally its predicate
+        let sort = NSSortDescriptor(key: "dateCreated", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        return fetchRequest
     }
     
     func getAll() -> [Destination] {
-        let request = FavoriteDestinationEntity.fetchRequest()
-        
-        let sort = NSSortDescriptor(key: "dateCreated", ascending: false)
-        request.sortDescriptors = [sort]
-        
-        let results = try? container.viewContext.fetch(request)
+        let results = try? container.viewContext.fetch(favoritesFetchRequest)
         let unwrappedResults = results ?? []
         
         return unwrappedResults
@@ -92,5 +109,12 @@ class FavoritesDataStore {
             url: url,
             address: entity.address,
             phoneNumber: entity.phoneNumber)
+    }
+}
+
+extension FavoritesDataStore: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        guard let objects = controller.fetchedObjects as? [FavoriteDestinationEntity] else { return }
+        destinations = objects.map(FavoritesDataStore.entityToDestination)
     }
 }

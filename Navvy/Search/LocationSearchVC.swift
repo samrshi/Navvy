@@ -90,14 +90,7 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
     func didSelectSearchResult(result: NavigationViewModel) {
         // Show Confirmation View Controller Modally
         if presentedViewController == nil {
-            let vc = DestinationConfirmationVC()
-            vc.setUp(vm: result, delegate: self)
-            
-            if let presentationController = vc.presentationController as? UISheetPresentationController {
-                presentationController.detents = [.medium(), .large()]
-            }
-            
-            present(vc, animated: true)
+            startNavigation(navigationVM: result)
         }
         
         // Select Matching MapView Annotation and Change Region
