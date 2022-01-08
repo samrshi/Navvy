@@ -9,16 +9,17 @@ import Combine
 import UIKit
 
 class FavoritesVC: UIViewController {
+    enum Section { case favorites }
+
     var cancellables: [AnyCancellable] = []
-    
+
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(DestinationTableViewCell.self, forCellReuseIdentifier: DestinationTableViewCell.reuseId)
         tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         tableView.refreshControl = refreshControl
-        tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
@@ -27,13 +28,13 @@ class FavoritesVC: UIViewController {
         let refreshControl = UIRefreshControl(frame: .zero)
 
         refreshControl.addAction(UIAction { [weak self] _ in
-            self?.getFavorites()
+            self?.refresh()
         }, for: .valueChanged)
 
         return refreshControl
     }()
 
-    var favorites: [NavigationViewModel] = []
+    var dataSource: FavoritesDiffableDataSource!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,45 +48,50 @@ class FavoritesVC: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
+        dataSource = FavoritesDiffableDataSource(tableView: tableView, cellProvider: tableViewCellProvider)
+        dataSource.shouldAnimateDifferences = shouldAnimateDataSourceChanges
+        
         FavoritesDataStore.shared.$destinations
-            .map { $0.map(NavigationViewModel.init) }
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] favorites in
-                self?.favorites = favorites
-                self?.tableView.reloadData()
+            .sink { [weak self] destinations in
+                self?.dataSource.update(destinations: destinations)
             }
             .store(in: &cancellables)
     }
 
-    func getFavorites() {
-        favorites = FavoritesDataStore.shared.getAll()
-            .map(NavigationViewModel.init)
-
-        tableView.reloadData()
+    func refresh() {
+        dataSource.update(destinations: FavoritesDataStore.shared.getAll())
         refreshControl.endRefreshing()
     }
 }
 
-extension FavoritesVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favorites.count
-    }
+extension FavoritesVC {
+    func tableViewCellProvider(tableView: UITableView, indexPath: IndexPath, model: Destination) -> UITableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DestinationTableViewCell.reuseId, for: indexPath) as! DestinationTableViewCell
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DestinationTableViewCell.reuseId,
-                                                 for: indexPath) as! DestinationTableViewCell
-        cell.setUp(navigationVM: favorites[indexPath.row])
+        let destination = dataSource.itemIdentifier(for: indexPath)
+        guard let navigationVM = dataSource.favorites.first(where: { $0.destination == destination }) else { return nil }
+
+        cell.setUp(navigationVM: navigationVM, showCustomSeparator: false)
         return cell
+    }
+    
+    func shouldAnimateDataSourceChanges() -> Bool {
+        return view.window != nil
     }
 }
 
 extension FavoritesVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        startNavigation(navigationVM: favorites[indexPath.row])
+        startNavigation(navigationVM: dataSource.favorites[indexPath.row])
 
         if let selected = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selected, animated: true)
         }
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
 }
 

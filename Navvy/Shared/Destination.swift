@@ -9,16 +9,21 @@ import CoreLocation
 import Foundation
 import MapKit
 
-struct Destination: Identifiable {
+struct Destination: Identifiable, Hashable {
     let id: UUID
     
     let name: String?
     let category: MKPointOfInterestCategory?
-    let coordinates: CLLocationCoordinate2D
+    let latitude: Double
+    let longitude: Double
 
     let url: URL?
     let address: String?
     let phoneNumber: String?
+    
+    var coordinates: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
 }
 
 extension Destination: Equatable {
@@ -33,7 +38,9 @@ extension Destination {
         
         name = mapItem.name
         category = mapItem.pointOfInterestCategory
-        coordinates = mapItem.placemark.coordinate
+        
+        latitude = mapItem.placemark.coordinate.latitude
+        longitude = mapItem.placemark.coordinate.longitude
         
         url = mapItem.url
         address = mapItem.placemark.title

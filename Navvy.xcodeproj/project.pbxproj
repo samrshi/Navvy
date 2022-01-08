@@ -14,7 +14,6 @@
 		BD256E042787D47100F6BD72 /* FavoritesDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */; };
 		BD256E072787D53100F6BD72 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E062787D53100F6BD72 /* Destination.swift */; };
 		BD256E092787D7DB00F6BD72 /* AutocompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E082787D7DB00F6BD72 /* AutocompleteTableViewCell.swift */; };
-		BD256E0B2787DE0A00F6BD72 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E0A2787DE0A00F6BD72 /* FavoritesView.swift */; };
 		BD256E0D2788CBED00F6BD72 /* QuickSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E0C2788CBED00F6BD72 /* QuickSearchView.swift */; };
 		BD256E0F2788E8EA00F6BD72 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD256E0E2788E8EA00F6BD72 /* QuickSearchTableViewCell.swift */; };
 		BD39DE37276C28D300AF8B57 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */; };
@@ -57,6 +56,7 @@
 		BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */; };
 		BDF9DE522785148600A77D53 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE512785148600A77D53 /* FavoritesVC.swift */; };
 		BDFDCFD827890F34009BE5BF /* UIViewController+startNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */; };
+		BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +77,6 @@
 		BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDataStore.swift; sourceTree = "<group>"; };
 		BD256E062787D53100F6BD72 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		BD256E082787D7DB00F6BD72 /* AutocompleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteTableViewCell.swift; sourceTree = "<group>"; };
-		BD256E0A2787DE0A00F6BD72 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		BD256E0C2788CBED00F6BD72 /* QuickSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchView.swift; sourceTree = "<group>"; };
 		BD256E0E2788E8EA00F6BD72 /* QuickSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewCell.swift; sourceTree = "<group>"; };
 		BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
@@ -123,6 +122,7 @@
 		BDF9DE4E27850BA400A77D53 /* GroupBoxStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxStyles.swift; sourceTree = "<group>"; };
 		BDF9DE512785148600A77D53 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+startNavigation.swift"; sourceTree = "<group>"; };
+		BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDiffableDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,7 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF9DE512785148600A77D53 /* FavoritesVC.swift */,
-				BD256E0A2787DE0A00F6BD72 /* FavoritesView.swift */,
+				BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */,
 				BD256E032787D47100F6BD72 /* FavoritesDataStore.swift */,
 			);
 			path = Favorites;
@@ -471,7 +471,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD256E0B2787DE0A00F6BD72 /* FavoritesView.swift in Sources */,
 				BDF9DE472785056200A77D53 /* SettingsView.swift in Sources */,
 				BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */,
 				BD504E27276FB44A0042A247 /* Colors.swift in Sources */,
@@ -481,6 +480,7 @@
 				BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
 				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
+				BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */,
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
 				BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */,
 				BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */,

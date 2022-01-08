@@ -71,8 +71,9 @@ class DestinationTableViewCell: UITableViewCell {
     var angleCancellable: AnyCancellable?
     var distanceCancellable: AnyCancellable?
     
-    func setUp(navigationVM: NavigationViewModel) {
+    func setUp(navigationVM: NavigationViewModel, showCustomSeparator: Bool) {
         self.navigationVM = navigationVM
+        self.separatorView.isHidden = !showCustomSeparator
         
         nameLabel.text = navigationVM.destinationName
         subtitleLabel.text = navigationVM.destinationSubtitle
@@ -109,6 +110,7 @@ class DestinationTableViewCell: UITableViewCell {
         contentView.addSubview(subtitleLabel)
         contentView.addSubview(arrow)
         contentView.addSubview(distanceLabel)
+        contentView.addSubview(separatorView)
         
         iconView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         nameLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -142,6 +144,11 @@ class DestinationTableViewCell: UITableViewCell {
             arrow.heightAnchor.constraint(equalTo: arrow.widthAnchor),
             arrow.trailingAnchor.constraint(equalTo: distanceLabel.trailingAnchor),
             arrow.bottomAnchor.constraint(equalTo: distanceLabel.topAnchor),
+            
+            separatorView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separatorView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 0.5),
         ])
     }
     

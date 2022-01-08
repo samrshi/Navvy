@@ -110,7 +110,7 @@ extension DetailedSearchVC: UITableViewDataSource {
         }
         
         let result = detailedSearchResults[indexPath.row]
-        cell.setUp(navigationVM: result)
+        cell.setUp(navigationVM: result, showCustomSeparator: true)
         return cell
     }
     

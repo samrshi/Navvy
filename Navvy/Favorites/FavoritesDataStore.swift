@@ -54,6 +54,8 @@ class FavoritesDataStore: NSObject {
     }
     
     func save(destination: Destination) {
+        guard !isFavorited(destination: destination) else { return }
+        
         let entity = FavoriteDestinationEntity(context: container.viewContext)
         
         entity.id = destination.id
@@ -83,6 +85,10 @@ class FavoritesDataStore: NSObject {
         }
     }
     
+    func isFavorited(destination: Destination) -> Bool {
+        getAll().contains(destination)
+    }
+    
     private func getEntityById(_ id: UUID) throws -> FavoriteDestinationEntity? {
         let request = FavoriteDestinationEntity.fetchRequest()
         request.fetchLimit = 1
@@ -98,14 +104,13 @@ class FavoritesDataStore: NSObject {
         
         var url: URL?
         if let urlString = entity.urlString { url = URL(string: urlString) }
-        
-        let coordinates = CLLocationCoordinate2D(latitude: entity.latitude, longitude: entity.longitude)
-        
+                
         return Destination(
             id: entity.id!,
             name: entity.name ?? "Unknown Destination",
             category: category,
-            coordinates: coordinates,
+            latitude: entity.latitude,
+            longitude: entity.longitude,
             url: url,
             address: entity.address,
             phoneNumber: entity.phoneNumber)
