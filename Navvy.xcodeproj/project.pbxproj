@@ -57,6 +57,7 @@
 		BDF9DE522785148600A77D53 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9DE512785148600A77D53 /* FavoritesVC.swift */; };
 		BDFDCFD827890F34009BE5BF /* UIViewController+startNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */; };
 		BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */; };
+		BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFD27893376009BE5BF /* Collection+safe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		BDF9DE512785148600A77D53 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+startNavigation.swift"; sourceTree = "<group>"; };
 		BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDiffableDataSource.swift; sourceTree = "<group>"; };
+		BDFDCFFD27893376009BE5BF /* Collection+safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+safe.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				BD24D4ED2782CFAF00E7ED83 /* String+RawPhoneNumber.swift */,
+				BDFDCFFD27893376009BE5BF /* Collection+safe.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				BD24D4F42782DC5900E7ED83 /* UIView+addAndPinSubview.swift in Sources */,
 				BD39DE39276C2CB200AF8B57 /* CLLocation+Angle.swift in Sources */,
 				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
+				BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */,
 				BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */,
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
 				BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */,

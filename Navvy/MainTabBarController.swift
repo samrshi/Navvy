@@ -8,26 +8,35 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    init() {
-        super.init(nibName: nil, bundle: .main)
-        
+    lazy var searchVC: LocationSearchVC = {
         let searchVC = LocationSearchVC()
-        let favoritesVC = FavoritesVC()
-        let settingsVC = SettingsVC()
-        
-        var controllers: [UIViewController] = [searchVC, favoritesVC, settingsVC]
-        controllers = controllers.map { UINavigationController(rootViewController: $0) }
-        
         searchVC.title = "Search"
         searchVC.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        return searchVC
+    }()
 
+    lazy var favoritesVC: FavoritesVC = {
+        let favoritesVC = FavoritesVC()
         favoritesVC.title = "Favorites"
         favoritesVC.tabBarItem.image = UIImage(systemName: "heart")
         favoritesVC.tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
+        return favoritesVC
+    }()
 
+    lazy var settingsVC: SettingsVC = {
+        let settingsVC = SettingsVC()
         settingsVC.title = "Settings"
         settingsVC.tabBarItem.image = UIImage(systemName: "gearshape")
         settingsVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
+        return settingsVC
+    }()
+    
+    init() {
+        super.init(nibName: nil, bundle: .main)
+        delegate = self
+        
+        var controllers: [UIViewController] = [searchVC, favoritesVC, settingsVC]
+        controllers = controllers.map { UINavigationController(rootViewController: $0) }
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()
@@ -41,5 +50,15 @@ class MainTabBarController: UITabBarController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let selectedViewController = viewControllers?[safe: selectedIndex] else { return true }
+        guard selectedViewController == viewController, selectedIndex == 0 else { return true }
+    
+        searchVC.clearSearchResults()
+        return true
     }
 }

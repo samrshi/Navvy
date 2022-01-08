@@ -84,6 +84,12 @@ class LocationSearchVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.searchController = searchController
     }
+    
+    func clearSearchResults() {
+        searchViewModel.destinations = []
+        searchViewModel.autocompleteResults = []
+        searchController.searchBar.text = ""
+    }
 }
 
 extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDelegate {
