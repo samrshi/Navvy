@@ -58,6 +58,7 @@
 		BDFDCFD827890F34009BE5BF /* UIViewController+startNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */; };
 		BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */; };
 		BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFD27893376009BE5BF /* Collection+safe.swift */; };
+		BDFDD000278958F3009BE5BF /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFDCFFF278958F3009BE5BF /* Haptics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+startNavigation.swift"; sourceTree = "<group>"; };
 		BDFDCFFB278928CE009BE5BF /* FavoritesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDiffableDataSource.swift; sourceTree = "<group>"; };
 		BDFDCFFD27893376009BE5BF /* Collection+safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+safe.swift"; sourceTree = "<group>"; };
+		BDFDCFFF278958F3009BE5BF /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 				BD504E26276FB44A0042A247 /* Colors.swift */,
 				BD256E062787D53100F6BD72 /* Destination.swift */,
 				BD5F096027683292005ADADC /* DestinationTableViewCell.swift */,
+				BDFDCFFF278958F3009BE5BF /* Haptics.swift */,
 				BD78801B27680A0D009D4F2C /* LocationManager.swift */,
 				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
@@ -237,9 +240,9 @@
 		BD653059276B0660001CA8C0 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				BD65305A276B0670001CA8C0 /* NavigationManager.swift */,
-				BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */,
 				BD54D0542782B2C300B44F05 /* NavigationVC.swift */,
+				BD39DE36276C28D300AF8B57 /* NavigationViewModel.swift */,
+				BD65305A276B0670001CA8C0 /* NavigationManager.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				BD78801627680899009D4F2C /* AutocompleteResultsVC.swift in Sources */,
 				BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */,
 				BD58412B2775A8CE004841B7 /* CLLocationCoordinate2D+Formatted.swift in Sources */,
+				BDFDD000278958F3009BE5BF /* Haptics.swift in Sources */,
 				BD256E092787D7DB00F6BD72 /* AutocompleteTableViewCell.swift in Sources */,
 				BD5F096127683292005ADADC /* DestinationTableViewCell.swift in Sources */,
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,

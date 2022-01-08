@@ -199,10 +199,13 @@ class DestinationConfirmationVC: UIViewController {
         vc.setUp(vm: navigationVM)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+        
+        HapticEngine.success()
     }
     
     func favoriteAction() {
         FavoritesDataStore.shared.save(destination: navigationVM.destination)
+        HapticEngine.success()
     }
     
     func closeAction() {

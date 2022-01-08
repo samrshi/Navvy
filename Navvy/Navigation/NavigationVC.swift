@@ -94,5 +94,6 @@ class NavigationVC: UIViewController {
     
     func closeAction() {
         dismiss(animated: true)
+        HapticEngine.medium()
     }
 }
