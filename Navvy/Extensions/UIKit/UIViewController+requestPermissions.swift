@@ -32,7 +32,9 @@ extension UIViewController {
             buttonTitle = "Go To Settings"
             action = {
                 completion()
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }
             }
         }
 

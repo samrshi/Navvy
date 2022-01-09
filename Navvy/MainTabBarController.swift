@@ -57,6 +57,8 @@ class MainTabBarController: UITabBarController {
             showRequestLocationPermissions(requestType: .firstTime, completion: completion)
         } else if LocationManager.shared.locationPermissionsAreDenied {
             showRequestLocationPermissions(requestType: .currentlyDenied, completion: completion)
+        } else {
+            searchVC.setUp()
         }
     }
 

@@ -74,6 +74,12 @@ class NavigationVC: UIViewController {
         ])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if LocationManager.shared.locationPermissionsAreDenied {
+            showRequestLocationPermissions(requestType: .currentlyDenied)
+        }
+    }
+    
     func setUp(vm: NavigationViewModel) {
         self.vm = vm
         titleLabel.text = vm.destinationName
