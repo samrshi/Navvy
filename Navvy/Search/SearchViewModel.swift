@@ -34,6 +34,7 @@ class SearchViewModel: NSObject, ObservableObject {
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main, options: nil)
             .sink { searchTerm in
                 self.status = .searching
+                self.searchCompleter.queryFragment = searchTerm
 
                 if searchTerm.isEmpty {
                     self.status = .noResults
@@ -43,8 +44,6 @@ class SearchViewModel: NSObject, ObservableObject {
                     if let userLocation = LocationManager.shared.userLocation {
                         self.region = MKCoordinateRegion(center: userLocation, radius: 0.1)
                     }
-                } else {
-                    self.searchCompleter.queryFragment = searchTerm
                 }
             }
             .store(in: &cancellables)
@@ -86,20 +85,6 @@ class SearchViewModel: NSObject, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-
-//            .sink { [weak self] completion in
-//                guard case .failure(let error) = completion, let self = self else { return }
-//                self.status = .error(error.localizedDescription)
-//            } receiveValue: { [weak self] destinations in
-//                self?.destinations = destinations
-//                self?.status = .hasResults
-//
-//                let coordinates = destinations.map(\.coordinates)
-//                if changeRegion, let region = MKCoordinateRegion(containing: coordinates) {
-//                    self?.region = region
-//                }
-//            }
-//            .store(in: &cancellables)
     }
 
     func fetchDestination(forSearchCompletion searchCompletion: MKLocalSearchCompletion,
@@ -129,6 +114,7 @@ extension SearchViewModel: MKLocalSearchCompleterDelegate {
     }
 
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        guard !completer.queryFragment.isEmpty else { return }
         status = .error(error.localizedDescription)
     }
 }
