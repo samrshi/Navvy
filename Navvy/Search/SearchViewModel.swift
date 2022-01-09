@@ -34,7 +34,6 @@ class SearchViewModel: NSObject, ObservableObject {
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main, options: nil)
             .sink { searchTerm in
                 self.status = .searching
-                self.searchCompleter.queryFragment = searchTerm
 
                 if searchTerm.isEmpty {
                     self.status = .noResults
@@ -44,6 +43,8 @@ class SearchViewModel: NSObject, ObservableObject {
                     if let userLocation = LocationManager.shared.userLocation {
                         self.region = MKCoordinateRegion(center: userLocation, radius: 0.1)
                     }
+                } else {
+                    self.searchCompleter.queryFragment = searchTerm
                 }
             }
             .store(in: &cancellables)
