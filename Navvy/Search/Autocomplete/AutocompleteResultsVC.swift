@@ -58,6 +58,7 @@ class AutocompleteResultsVC: UIViewController {
             .sink { [weak self] results in
                 self?.autocompleteResults = results
                 self?.tableView.reloadData()
+                self?.view.backgroundColor = results.isEmpty ? .clear : .primaryBackground
             }
             .store(in: &cancellables)
         
