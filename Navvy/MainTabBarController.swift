@@ -47,6 +47,19 @@ class MainTabBarController: UITabBarController {
         viewControllers = controllers
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let completion: () -> Void = { [weak self] in
+            self?.searchVC.setUp()
+        }
+        if !UserDefaults.standard.bool(forKey: "hasShownOnboarding") {
+            showRequestLocationPermissions(requestType: .firstTime, completion: completion)
+        } else if LocationManager.shared.locationPermissionsAreDenied {
+            showRequestLocationPermissions(requestType: .currentlyDenied, completion: completion)
+        }
+    }
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -63,7 +76,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
         } else if selectedIndex == 1 {
             favoritesVC.refresh()
         }
-        
+
         return true
     }
 }

@@ -52,4 +52,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             }
         }
     }
+    
+    var locationPermissionsAreDenied: Bool {
+        locationManager.authorizationStatus == .denied || locationManager.authorizationStatus == .restricted
+    }
 }

@@ -44,7 +44,9 @@ class AutocompleteResultsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addAndPinSubviewToSafeArea(tableView)
-        
+    }
+    
+    func setUp() {
         searchViewModel.$autocompleteResults
             .receive(on: DispatchQueue.main)
             .sink { [weak self] results in

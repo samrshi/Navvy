@@ -22,7 +22,6 @@ class LocationSearchVC: UIViewController {
     lazy var autocompleteVC: AutocompleteResultsVC = {
         let autocompleteResultsVC = AutocompleteResultsVC()
         autocompleteResultsVC.delegate = self
-        autocompleteResultsVC.searchViewModel = searchViewModel
         return autocompleteResultsVC
     }()
     
@@ -39,7 +38,6 @@ class LocationSearchVC: UIViewController {
     lazy var detailedSearchVC: DetailedSearchVC = {
         let detailedSearchVC = DetailedSearchVC()
         detailedSearchVC.delegate = self
-        detailedSearchVC.searchViewModel = searchViewModel
         detailedSearchVC.view.translatesAutoresizingMaskIntoConstraints = false
         return detailedSearchVC
     }()
@@ -79,7 +77,9 @@ class LocationSearchVC: UIViewController {
             contentViewCenterY,
             contentViewHeight,
         ])
-        
+    }
+    
+    func setUp() {
         searchViewModel.$status
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
@@ -91,6 +91,12 @@ class LocationSearchVC: UIViewController {
                 }
             }
             .store(in: &cancellables)
+        
+        detailedSearchVC.searchViewModel = searchViewModel
+        detailedSearchVC.setUp()
+        
+        autocompleteVC.searchViewModel = searchViewModel
+        autocompleteVC.setUp()
     }
     
     override func viewWillAppear(_ animated: Bool) {

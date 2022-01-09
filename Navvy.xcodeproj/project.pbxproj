@@ -32,6 +32,7 @@
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
 		BD653055276AEE64001CA8C0 /* UIViewController+addChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */; };
 		BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD65305A276B0670001CA8C0 /* NavigationManager.swift */; };
+		BD77F6F2278AB3ED00B9545C /* UIViewController+requestPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77F6F1278AB3ED00B9545C /* UIViewController+requestPermissions.swift */; };
 		BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFA2767FF27009D4F2C /* AppDelegate.swift */; };
 		BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */; };
 		BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFE2767FF27009D4F2C /* MainTabBarController.swift */; };
@@ -45,6 +46,8 @@
 		BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78801B27680A0D009D4F2C /* LocationManager.swift */; };
 		BD78802627682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */; };
 		BD78802927682D0B009D4F2C /* DetailedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */; };
+		BD81D49B278AA9ED001B3AB0 /* UIViewController+showInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81D49A278AA9ED001B3AB0 /* UIViewController+showInformationVC.swift */; };
+		BD81D49D278AAA24001B3AB0 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81D49C278AAA24001B3AB0 /* InformationView.swift */; };
 		BDD22CA72769477C00AE6D0F /* MKPointOfInterestCategory+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Helpers.swift */; };
 		BDE02DE8278977BF0036D0F2 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = BDE02DE7278977BF0036D0F2 /* Toast */; };
 		BDE2756827862FF600902106 /* UITableViewCell+reuseId.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */; };
@@ -101,6 +104,7 @@
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildVC.swift"; sourceTree = "<group>"; };
 		BD65305A276B0670001CA8C0 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		BD77F6F1278AB3ED00B9545C /* UIViewController+requestPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+requestPermissions.swift"; sourceTree = "<group>"; };
 		BD787FF72767FF27009D4F2C /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD787FFA2767FF27009D4F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 		BD78801B27680A0D009D4F2C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BD78802527682AEB009D4F2C /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		BD78802827682D0B009D4F2C /* DetailedSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSearchVC.swift; sourceTree = "<group>"; };
+		BD81D49A278AA9ED001B3AB0 /* UIViewController+showInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showInformationVC.swift"; sourceTree = "<group>"; };
+		BD81D49C278AAA24001B3AB0 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		BDD22CA62769477C00AE6D0F /* MKPointOfInterestCategory+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointOfInterestCategory+Helpers.swift"; sourceTree = "<group>"; };
 		BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+reuseId.swift"; sourceTree = "<group>"; };
 		BDF9DE3B2784F19B00A77D53 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -204,7 +210,9 @@
 			isa = PBXGroup;
 			children = (
 				BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */,
+				BD77F6F1278AB3ED00B9545C /* UIViewController+requestPermissions.swift */,
 				BDFDD0032789760F009BE5BF /* UIViewController+showError.swift */,
+				BD81D49A278AA9ED001B3AB0 /* UIViewController+showInformationVC.swift */,
 				BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */,
 				BDE2756727862FF600902106 /* UITableViewCell+reuseId.swift */,
 				BD24D4F32782DC5900E7ED83 /* UIView+addAndPinSubview.swift */,
@@ -228,6 +236,7 @@
 				BD5F096027683292005ADADC /* DestinationTableViewCell.swift */,
 				BDFDCFFF278958F3009BE5BF /* Haptics.swift */,
 				BD78801B27680A0D009D4F2C /* LocationManager.swift */,
+				BD81D49C278AAA24001B3AB0 /* InformationView.swift */,
 				BD5F096227683844005ADADC /* SSAnnotation.swift */,
 			);
 			path = Shared;
@@ -503,6 +512,7 @@
 				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
 				BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */,
 				BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */,
+				BD77F6F2278AB3ED00B9545C /* UIViewController+requestPermissions.swift in Sources */,
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
 				BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */,
 				BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */,
@@ -535,10 +545,12 @@
 				BD7880052767FF27009D4F2C /* Navvy.xcdatamodeld in Sources */,
 				BDF9DE4F27850BA500A77D53 /* GroupBoxStyles.swift in Sources */,
 				BD653055276AEE64001CA8C0 /* UIViewController+addChildVC.swift in Sources */,
+				BD81D49B278AA9ED001B3AB0 /* UIViewController+showInformationVC.swift in Sources */,
 				BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */,
 				BD24D4EE2782CFAF00E7ED83 /* String+RawPhoneNumber.swift in Sources */,
 				BD256E042787D47100F6BD72 /* FavoritesDataStore.swift in Sources */,
 				BD78801E27680AE3009D4F2C /* LocationManager.swift in Sources */,
+				BD81D49D278AAA24001B3AB0 /* InformationView.swift in Sources */,
 				BD256E072787D53100F6BD72 /* Destination.swift in Sources */,
 				BDF9DE492785067C00A77D53 /* SettingsViewModel.swift in Sources */,
 			);

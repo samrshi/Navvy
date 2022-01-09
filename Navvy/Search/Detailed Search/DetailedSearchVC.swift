@@ -46,7 +46,9 @@ class DetailedSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addAndPinSubview(tableView)
-        
+    }
+    
+    func setUp() {
         searchViewModel.$destinations
             .receive(on: DispatchQueue.main)
             .sink { [weak self] destinations in
