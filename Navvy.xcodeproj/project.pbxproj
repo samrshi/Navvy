@@ -32,7 +32,7 @@
 		BD5F096327683844005ADADC /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F096227683844005ADADC /* SSAnnotation.swift */; };
 		BD653055276AEE64001CA8C0 /* UIViewController+addChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */; };
 		BD65305B276B0670001CA8C0 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD65305A276B0670001CA8C0 /* NavigationManager.swift */; };
-		BD77F6F2278AB3ED00B9545C /* UIViewController+requestPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77F6F1278AB3ED00B9545C /* UIViewController+requestPermissions.swift */; };
+		BD77F6F2278AB3ED00B9545C /* UIViewController+requestLocationPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD77F6F1278AB3ED00B9545C /* UIViewController+requestLocationPermissions.swift */; };
 		BD787FFB2767FF27009D4F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFA2767FF27009D4F2C /* AppDelegate.swift */; };
 		BD787FFD2767FF27009D4F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */; };
 		BD787FFF2767FF27009D4F2C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD787FFE2767FF27009D4F2C /* MainTabBarController.swift */; };
@@ -104,7 +104,7 @@
 		BD5F096227683844005ADADC /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addChildVC.swift"; sourceTree = "<group>"; };
 		BD65305A276B0670001CA8C0 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
-		BD77F6F1278AB3ED00B9545C /* UIViewController+requestPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+requestPermissions.swift"; sourceTree = "<group>"; };
+		BD77F6F1278AB3ED00B9545C /* UIViewController+requestLocationPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+requestLocationPermissions.swift"; sourceTree = "<group>"; };
 		BD787FF72767FF27009D4F2C /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD787FFA2767FF27009D4F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD787FFC2767FF27009D4F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				BD653054276AEE64001CA8C0 /* UIViewController+addChildVC.swift */,
-				BD77F6F1278AB3ED00B9545C /* UIViewController+requestPermissions.swift */,
+				BD77F6F1278AB3ED00B9545C /* UIViewController+requestLocationPermissions.swift */,
 				BDFDD0032789760F009BE5BF /* UIViewController+showError.swift */,
 				BD81D49A278AA9ED001B3AB0 /* UIViewController+showInformationVC.swift */,
 				BDFDCFD727890F34009BE5BF /* UIViewController+startNavigation.swift */,
@@ -512,7 +512,7 @@
 				BD1670052773084400856062 /* SearchMapView.swift in Sources */,
 				BDFDCFFE27893376009BE5BF /* Collection+safe.swift in Sources */,
 				BDFDCFFC278928CE009BE5BF /* FavoritesDiffableDataSource.swift in Sources */,
-				BD77F6F2278AB3ED00B9545C /* UIViewController+requestPermissions.swift in Sources */,
+				BD77F6F2278AB3ED00B9545C /* UIViewController+requestLocationPermissions.swift in Sources */,
 				BD58412E2775B059004841B7 /* Confirmation+Previews.swift in Sources */,
 				BDF9DE402784F78300A77D53 /* SettingsStore.swift in Sources */,
 				BD24D4F22782DBD500E7ED83 /* SearchMapTableViewCell.swift in Sources */,
