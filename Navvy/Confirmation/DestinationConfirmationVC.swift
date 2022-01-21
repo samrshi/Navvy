@@ -224,6 +224,7 @@ class DestinationConfirmationVC: UIViewController {
     }
     
     func closeAction() {
+        HapticEngine.medium()
         delegate.didDismissDestinationConfirmation()
         dismiss(animated: true)
     }
