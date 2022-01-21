@@ -33,12 +33,14 @@ class NavigationManager: ObservableObject {
         
         locationManager.requestPreciseLocation()
         
-        locationsCancellable = locationManager.locationsPublisher
+        didUpdateLocations(locations: locationManager.locations)
+        locationsCancellable = locationManager.$locations
             .sink { [weak self] locations in
                 self?.didUpdateLocations(locations: locations)
             }
         
-        headingCancellable = locationManager.headingPublisher
+        didUpdateHeading(newHeading: locationManager.heading)
+        headingCancellable = locationManager.$heading
             .sink { [weak self] heading in
                 self?.didUpdateHeading(newHeading: heading)
             }

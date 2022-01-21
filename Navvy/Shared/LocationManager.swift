@@ -15,8 +15,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
 
-    let locationsPublisher = PassthroughSubject<[CLLocation], Never>()
-    let headingPublisher = PassthroughSubject<CLHeading, Never>()
+    @Published var locations: [CLLocation] = []
+    @Published var heading: CLHeading = CLHeading()
     let errorPublisher = PassthroughSubject<Error?, Never>()
 
     var userLocation: CLLocationCoordinate2D?
@@ -34,11 +34,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = locations.last?.coordinate
-        locationsPublisher.send(locations)
+        self.locations = locations
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        headingPublisher.send(newHeading)
+        self.heading = newHeading
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

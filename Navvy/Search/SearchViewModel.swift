@@ -48,7 +48,7 @@ class SearchViewModel: NSObject, ObservableObject {
             }
             .store(in: &cancellables)
 
-        locationManager?.locationsPublisher
+        locationManager?.$locations
             .receive(on: DispatchQueue.main)
             .sink { [weak self] locations in
                 guard let coordinate = locations.first?.coordinate else { return }
