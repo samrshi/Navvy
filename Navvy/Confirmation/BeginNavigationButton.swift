@@ -11,6 +11,7 @@ class BeginNavigationButton: UIButton {
     lazy var contentView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
         return view
     }()
     
@@ -19,6 +20,7 @@ class BeginNavigationButton: UIButton {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "arrow.up")
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = false
         imageView.tintColor = .white
         return imageView
     }()
@@ -27,12 +29,15 @@ class BeginNavigationButton: UIButton {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title3)
+        label.isUserInteractionEnabled = false
         label.textColor = .white
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        accessibilityHint = "Begin Navigation"
         
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = .systemBlue

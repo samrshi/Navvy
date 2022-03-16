@@ -65,6 +65,7 @@ class DestinationConfirmationVC: UIViewController {
     lazy var favoriteButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityHint = "Toggle Favorite State"
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.favoriteAction()
         }), for: .touchUpInside)
@@ -188,10 +189,10 @@ class DestinationConfirmationVC: UIViewController {
         
         FavoritesDataStore.shared.$destinations
             .map { $0.contains(vm.destination) }
-            .map { UIImage(systemName: $0 ? "heart.fill" : "heart") }
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] image in
-                self?.favoriteButton.configuration?.image = image
+            .sink { [weak self] isFavorited in
+                self?.favoriteButton.accessibilityLabel = isFavorited ? "Favorited" : "Not Favorited"
+                self?.favoriteButton.configuration?.image = UIImage(systemName: isFavorited ? "heart.fill" : "heart")
             }
             .store(in: &cancellables)
     }
