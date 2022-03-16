@@ -34,10 +34,10 @@ class NavigationViewModel: ObservableObject {
     }
     
     func didUpdateAngle(angle: Double) {
-        let angleInDegrees = angle * .pi / 180 // convert from radians to degrees
-        angleToDestination = -angleInDegrees // display angle should flip sign to show which way the user should go
+        let angleInRadians = angle * .pi / 180 // convert from degrees to radians
+        angleToDestination = -angleInRadians // display angle should flip sign to show which way the user should go
         
-        let boundedAngle = NavigationViewModel.accessibilityHeading(angle: angle)
+        let boundedAngle = NavigationViewModel.boundedAngle(angle: angle)
         let direction = NavigationViewModel.accessibilityHeadingDirection(angle: boundedAngle)
         
         if direction == "Left" || direction == "Right" {
@@ -68,7 +68,35 @@ extension NavigationViewModel {
         return "\(distance) \(measurement.unit.symbol)"
     }
     
-    static func accessibilityHeading(angle: Double) -> Int {
+    static func boundedAngle(angle: Double) -> Int {
+        // angle is in degrees
+        
+        var sign: Int
+        let positiveAngle: Int
+        
+        if angle < 0 {
+            sign = -1
+            positiveAngle = -1 * (Int(angle) % 360)
+        } else {
+            sign = 1
+            positiveAngle = Int(angle) % 360
+        }
+        
+        if angle > 180, angle < 360 {
+            sign = -1
+        }
+        
+        if positiveAngle >= 0, positiveAngle <= 180 {
+            return Int(positiveAngle) * sign
+        }
+        
+        let boundedAngle = (positiveAngle - 360) * -1
+        return sign * boundedAngle
+    }
+    
+    static func boundedAngleInDegrees(angleInRadians: Double) -> Int {
+        let angle = angleInRadians * 180 / .pi // convert to degrees
+        
         var sign: Int
         let positiveAngle: Int
         

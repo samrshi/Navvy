@@ -10,6 +10,7 @@ import UIKit
 
 class NavigationVC: UIViewController {
     var cancellables: [AnyCancellable] = []
+    var timer: AnyCancellable?
     
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -45,6 +46,7 @@ class NavigationVC: UIViewController {
     }()
     
     var vm: NavigationViewModel!
+    var isGoingCorrectDirection: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,8 +89,9 @@ class NavigationVC: UIViewController {
         
         vm.$angleToDestination
             .receive(on: DispatchQueue.main)
-            .map { CGAffineTransform(rotationAngle: $0) }
-            .weaklyAssign(to: \.transform, on: arrowView)
+            .sink { [weak self] angle in
+                self?.didReceiveAngle(angle: angle)
+            }
             .store(in: &cancellables)
         
         vm.$distanceToDestination
@@ -105,5 +108,29 @@ class NavigationVC: UIViewController {
     func closeAction() {
         dismiss(animated: true)
         HapticEngine.medium()
+    }
+    
+    func didReceiveAngle(angle: Double) {
+        let transform = CGAffineTransform(rotationAngle: angle)
+        arrowView.transform = transform
+        
+        let boundedAngle = NavigationViewModel.boundedAngleInDegrees(angleInRadians: angle)
+        
+        if abs(boundedAngle) > 10 && timer == nil {
+            return
+        } else if abs(boundedAngle) > 10 && timer != nil {
+            HapticEngine.failure()
+            timer = nil
+            return
+        } else if abs(boundedAngle) <= 10 && timer != nil {
+            return
+        }
+        
+        HapticEngine.success()
+        timer = Timer.publish(every: 0.75, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                HapticEngine.medium()
+            }
     }
 }

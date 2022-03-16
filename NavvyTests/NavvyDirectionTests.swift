@@ -75,7 +75,7 @@ class NavvyDirectionTests: XCTestCase {
 
     func test_Direction_Right_Positive_Acute() throws {
         let input = 225.0
-        let angle = NavigationViewModel.accessibilityHeading(angle: input)
+        let angle = NavigationViewModel.boundedAngle(angle: input)
         let output = NavigationViewModel.accessibilityHeadingDirection(angle: angle)
         let expected = "Right"
 
@@ -84,7 +84,7 @@ class NavvyDirectionTests: XCTestCase {
 
     func test_Direction_Right_Positive_Right() throws {
         let input = 270.0
-        let angle = NavigationViewModel.accessibilityHeading(angle: input)
+        let angle = NavigationViewModel.boundedAngle(angle: input)
         let output = NavigationViewModel.accessibilityHeadingDirection(angle: angle)
         let expected = "Right"
 
@@ -93,7 +93,7 @@ class NavvyDirectionTests: XCTestCase {
 
     func test_Direction_Right_Positive_Obtuse() throws {
         let input = 315.0
-        let angle = NavigationViewModel.accessibilityHeading(angle: input)
+        let angle = NavigationViewModel.boundedAngle(angle: input)
         let output = NavigationViewModel.accessibilityHeadingDirection(angle: angle)
         let expected = "Right"
 
