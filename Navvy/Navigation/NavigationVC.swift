@@ -31,6 +31,7 @@ class NavigationVC: UIViewController {
     lazy var arrowView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "arrow.up")!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isAccessibilityElement = true
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .label
         return imageView
@@ -92,9 +93,12 @@ class NavigationVC: UIViewController {
         
         vm.$distanceToDestination
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.distanceLabel.text = $0
-            }
+            .weaklyAssign(to: \.text, on: distanceLabel)
+            .store(in: &cancellables)
+        
+        vm.$accessibilityAngleDescription
+            .receive(on: DispatchQueue.main)
+            .weaklyAssign(to: \.accessibilityLabel, on: arrowView)
             .store(in: &cancellables)
     }
     

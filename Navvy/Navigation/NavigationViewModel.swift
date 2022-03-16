@@ -55,6 +55,7 @@ class NavigationViewModel: ObservableObject {
     var destinationURL: URL? { destination.url }
 }
 
+// MARK: VoiceOver Extensions
 extension NavigationViewModel {
     static func measurementToString(measurement: Measurement<UnitLength>) -> String {
         let formatter = NumberFormatter()

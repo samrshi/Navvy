@@ -87,9 +87,7 @@ class DestinationTableViewCell: UITableViewCell {
         
         distanceCancellable = navigationVM.$distanceToDestination
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] distanceText in
-                self?.distanceLabel.text = distanceText
-            }
+            .weaklyAssign(to: \.text, on: distanceLabel)
     }
     
     func rotateArrow(angle: Double) {
