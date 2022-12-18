@@ -113,7 +113,11 @@ class LocationSearchVC: UIViewController {
 extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDelegate {
     func didSelectSearchResult(result: NavigationViewModel) {
         // Show Confirmation View Controller Modally
-        if presentedViewController == nil {
+        if let presented = presentedViewController as? DestinationConfirmationVC, presented.navigationVM != result {
+            presented.dismiss(animated: true, completion: { self.startNavigation(navigationVM: result) })
+        } else if let presented = presentedViewController as? DestinationConfirmationVC, presented.navigationVM == result {
+            return
+        } else {
             startNavigation(navigationVM: result)
         }
         
