@@ -36,6 +36,12 @@ class AutocompleteResultsVC: UIViewController {
         return label
     }()
     
+    lazy var dismissGestureRecognizer: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissAutocomplete))
+        recognizer.delegate = self
+        return recognizer
+    }()
+    
     var searchViewModel: SearchViewModel!
     var cancellables = [AnyCancellable]()
     var autocompleteResults = [MKLocalSearchCompletion]()
@@ -44,6 +50,7 @@ class AutocompleteResultsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addAndPinSubviewToSafeArea(tableView)
+        view.addGestureRecognizer(dismissGestureRecognizer)
     }
     
     func setUp() {
@@ -112,6 +119,20 @@ extension AutocompleteResultsVC: UITableViewDelegate {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: Dismiss Gesture Logic
+
+extension AutocompleteResultsVC: UIGestureRecognizerDelegate {
+    @objc func dismissAutocomplete(_ sender: UIAction) {
+        if autocompleteResults.isEmpty {
+            dismiss(animated: true)
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return autocompleteResults.isEmpty
     }
 }
 
