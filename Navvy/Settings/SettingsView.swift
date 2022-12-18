@@ -15,14 +15,27 @@ struct SettingsView: View {
             GroupBox("System Units") {
                 systemUnitsView
             }
-            .groupBoxStyle(.secondary)
+            
+            GroupBox("Haptic Feedback") {
+                hapticsFeedbackView
+            }
         }
+        .groupBoxStyle(.secondary)
         .padding(.horizontal)
     }
 
-    var systemUnitsView: some View {
+    private var systemUnitsView: some View {
         Picker("System Units", selection: $vm.systemUnits) {
             ForEach(SettingsOption.SystemUnits.allCases, id: \.self) { option in
+                Text(option.displayName)
+            }
+        }
+        .pickerStyle(.segmented)
+    }
+    
+    private var hapticsFeedbackView: some View {
+        Picker("Haptic Feedback", selection: $vm.hapticFeedback) {
+            ForEach(SettingsOption.HapticFeedback.allCases, id: \.self) { option in
                 Text(option.displayName)
             }
         }

@@ -33,4 +33,13 @@ class SettingsStore {
             UserDefaults.standard.set(newValue.rawValue, forKey: SettingsOption.systemUnits.defaultsKey)
         }
     }
+    
+    var hapticFeedback: SettingsOption.HapticFeedback {
+        get {
+            let rawValue = UserDefaults.standard.integer(forKey: SettingsOption.hapticFeedback.defaultsKey)
+            return SettingsOption.HapticFeedback(rawValue: rawValue) ?? .defaultValue
+        } set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: SettingsOption.hapticFeedback.defaultsKey)
+        }
+    }
 }

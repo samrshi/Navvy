@@ -7,18 +7,25 @@
 
 import Foundation
 
+protocol Defaultable {
+    static var defaultValue: Self { get }
+}
+
 enum SettingsOption: CaseIterable {
     case systemUnits
-
+    case hapticFeedback
+    
     var displayName: String {
         switch self {
         case .systemUnits: return "System Units"
+        case .hapticFeedback: return "Haptic Feedback (Vibration)"
         }
     }
 
     var defaultsKey: String {
         switch self {
         case .systemUnits: return "systemUnits"
+        case .hapticFeedback: return "hapticFeedback"
         }
     }
 }
@@ -37,8 +44,18 @@ extension SettingsOption {
 
         static var defaultValue: SettingsOption.SystemUnits = .imperial
     }
-}
-
-protocol Defaultable {
-    static var defaultValue: Self { get }
+    
+    enum HapticFeedback: Int, CaseIterable, Defaultable {
+        case enabled
+        case disabled
+        
+        var displayName: String {
+            switch self {
+            case .enabled: return "Enabled"
+            case .disabled: return "Disabled"
+            }
+        }
+        
+        static var defaultValue: SettingsOption.HapticFeedback = .enabled
+    }
 }

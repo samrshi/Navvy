@@ -13,4 +13,10 @@ class SettingsViewModel: ObservableObject {
             SettingsStore.shared.systemUnits = systemUnits
         }
     }
+    
+    @Published var hapticFeedback: SettingsOption.HapticFeedback = SettingsStore.shared.hapticFeedback {
+        didSet {
+            SettingsStore.shared.hapticFeedback = hapticFeedback
+        }
+    }
 }
