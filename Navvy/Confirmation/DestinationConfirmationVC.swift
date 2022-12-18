@@ -44,11 +44,11 @@ class DestinationConfirmationVC: UIViewController {
         return label
     }()
     
-    lazy var cancelButton: UIButton = {
+    lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction { [weak self] _ in
-            self?.closeAction()
+            self?.closeAction(shouldDismiss: true)
         }, for: .touchUpInside)
         return button
     }()
@@ -104,14 +104,17 @@ class DestinationConfirmationVC: UIViewController {
         
         scrollViewContent.addSubview(pointOfInterestImage)
         scrollViewContent.addSubview(titleLabel)
-        scrollViewContent.addSubview(cancelButton)
+        scrollViewContent.addSubview(closeButton)
         
         scrollViewContent.addSubview(beginNavigationButton)
         scrollViewContent.addSubview(favoriteButton)
         
         addChildViewController(child: detailsVC, toView: scrollViewContent)
         
-        let scrollViewContentHeightConstraint = scrollViewContent.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor)
+        let scrollViewContentCenterYConstraint = scrollViewContent.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+        scrollViewContentCenterYConstraint.priority = .defaultLow
+        
+        let scrollViewContentHeightConstraint = scrollViewContent.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.contentLayoutGuide.heightAnchor)
         scrollViewContentHeightConstraint.priority = .defaultLow
 
         NSLayoutConstraint.activate([
@@ -125,7 +128,8 @@ class DestinationConfirmationVC: UIViewController {
             scrollViewContent.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             scrollViewContent.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
             
-            scrollViewContent.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            scrollViewContent.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            scrollViewContentCenterYConstraint,
             scrollViewContentHeightConstraint,
             
             pointOfInterestImage.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
@@ -136,10 +140,10 @@ class DestinationConfirmationVC: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: pointOfInterestImage.trailingAnchor, constant: 10),
             titleLabel.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
             
-            cancelButton.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
-            cancelButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
-            cancelButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
-            cancelButton.widthAnchor.constraint(equalTo: cancelButton.heightAnchor),
+            closeButton.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
+            closeButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+            closeButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
+            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
             
             beginNavigationButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             beginNavigationButton.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
@@ -155,7 +159,14 @@ class DestinationConfirmationVC: UIViewController {
             detailsVC.view.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
             detailsVC.view.topAnchor.constraint(equalTo: beginNavigationButton.bottomAnchor, constant: 30),
             detailsVC.view.bottomAnchor.constraint(equalTo: scrollViewContent.bottomAnchor),
+            detailsVC.view.heightAnchor.constraint(equalToConstant: detailsVC.sizeThatFits(in: view.frame.size).height)
         ])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if isBeingDismissed {
+            closeAction(shouldDismiss: false)
+        }
     }
     
     func setUp(vm: NavigationViewModel, delegate: DestinationConfirmationVCDelegate) {
@@ -224,10 +235,10 @@ class DestinationConfirmationVC: UIViewController {
         HapticEngine.medium()
     }
     
-    func closeAction() {
+    func closeAction(shouldDismiss: Bool) {
         HapticEngine.medium()
         delegate.didDismissDestinationConfirmation()
-        dismiss(animated: true)
+        if shouldDismiss { dismiss(animated: true) }
     }
 }
 

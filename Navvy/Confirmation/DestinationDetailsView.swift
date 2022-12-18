@@ -84,7 +84,7 @@ struct DestinationConfirmationDetailsView: View {
     }
         
     @ViewBuilder func detailItem<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .foregroundColor(.secondary)
                 .font(.footnote)

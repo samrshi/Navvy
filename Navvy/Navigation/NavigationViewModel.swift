@@ -55,6 +55,12 @@ class NavigationViewModel: ObservableObject {
     var destinationURL: URL? { destination.url }
 }
 
+extension NavigationViewModel: Equatable {
+    static func == (lhs: NavigationViewModel, rhs: NavigationViewModel) -> Bool {
+        lhs.destination == rhs.destination
+    }
+}
+
 // MARK: VoiceOver Extensions
 extension NavigationViewModel {
     static func measurementToString(measurement: Measurement<UnitLength>) -> String {

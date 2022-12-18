@@ -294,10 +294,10 @@
 				BDF9DE3A2784F13F00A77D53 /* Settings */,
 				BD504E25276FB4320042A247 /* Shared */,
 				BD78802427682AC9009D4F2C /* Extensions */,
-				BD7880062767FF29009D4F2C /* Assets.xcassets */,
-				BD7880032767FF27009D4F2C /* Navvy.xcdatamodeld */,
 				BD7880082767FF29009D4F2C /* LaunchScreen.storyboard */,
+				BD7880032767FF27009D4F2C /* Navvy.xcdatamodeld */,
 				BD78800B2767FF29009D4F2C /* Info.plist */,
+				BD7880062767FF29009D4F2C /* Assets.xcassets */,
 			);
 			path = Navvy;
 			sourceTree = "<group>";
