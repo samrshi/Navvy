@@ -126,9 +126,6 @@ extension LocationSearchVC: DetailedSearchVCDelegate, AutocompleteResultsVCDeleg
         
         let region = MKCoordinateRegion(center: result.destinationCoordinates, radius: 0.1)
         detailedSearchVC.mapTableViewCell.mapView.setMapRegion(region: region)
-            
-        // Dismiss Search Controller Results VC
-        autocompleteVC.dismiss(animated: true)
     }
     
     func changeSearchBarText(newText: String) {

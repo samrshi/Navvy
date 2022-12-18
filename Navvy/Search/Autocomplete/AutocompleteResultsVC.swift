@@ -106,10 +106,12 @@ extension AutocompleteResultsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let autocompleteResult = autocompleteResults[indexPath.row]
         
+        // Dismiss Search Controller Results VC
+        dismiss(animated: true)
+        
         if autocompleteResult.isSearchNearby {
             searchViewModel.searchNearby(query: autocompleteResult.title, changeRegion: true)
             delegate.changeSearchBarText(newText: autocompleteResult.title)
-            dismiss(animated: true)
         } else {
             searchViewModel.fetchDestination(forSearchCompletion: autocompleteResult) { [weak self] result in
                 guard case .success(let destination) = result, let self = self else { return }
