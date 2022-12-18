@@ -48,7 +48,7 @@ class DestinationConfirmationVC: UIViewController {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction { [weak self] _ in
-            self?.closeAction()
+            self?.closeAction(shouldDismiss: true)
         }, for: .touchUpInside)
         return button
     }()
@@ -163,6 +163,12 @@ class DestinationConfirmationVC: UIViewController {
         ])
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        if isBeingDismissed {
+            closeAction(shouldDismiss: false)
+        }
+    }
+    
     func setUp(vm: NavigationViewModel, delegate: DestinationConfirmationVCDelegate) {
         navigationVM = vm
         self.delegate = delegate
@@ -229,10 +235,10 @@ class DestinationConfirmationVC: UIViewController {
         HapticEngine.medium()
     }
     
-    func closeAction() {
+    func closeAction(shouldDismiss: Bool) {
         HapticEngine.medium()
         delegate.didDismissDestinationConfirmation()
-        dismiss(animated: true)
+        if shouldDismiss { dismiss(animated: true) }
     }
 }
 
