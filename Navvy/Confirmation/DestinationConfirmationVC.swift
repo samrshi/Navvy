@@ -44,7 +44,7 @@ class DestinationConfirmationVC: UIViewController {
         return label
     }()
     
-    lazy var cancelButton: UIButton = {
+    lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction { [weak self] _ in
@@ -104,7 +104,7 @@ class DestinationConfirmationVC: UIViewController {
         
         scrollViewContent.addSubview(pointOfInterestImage)
         scrollViewContent.addSubview(titleLabel)
-        scrollViewContent.addSubview(cancelButton)
+        scrollViewContent.addSubview(closeButton)
         
         scrollViewContent.addSubview(beginNavigationButton)
         scrollViewContent.addSubview(favoriteButton)
@@ -140,10 +140,10 @@ class DestinationConfirmationVC: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: pointOfInterestImage.trailingAnchor, constant: 10),
             titleLabel.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
             
-            cancelButton.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
-            cancelButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
-            cancelButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
-            cancelButton.widthAnchor.constraint(equalTo: cancelButton.heightAnchor),
+            closeButton.topAnchor.constraint(equalTo: scrollViewContent.topAnchor, constant: 25),
+            closeButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+            closeButton.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor, constant: -15),
+            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
             
             beginNavigationButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             beginNavigationButton.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor, constant: 15),
