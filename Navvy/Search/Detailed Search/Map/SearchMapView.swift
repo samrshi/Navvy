@@ -9,10 +9,10 @@ import MapKit
 import UIKit
 
 protocol SearchMapViewDelegate: AnyObject {
-    func searchCurrentArea()
-    func shouldShowSearchAgainButton() -> Bool
-    func didSelectDestination(destination: Destination)
-    func mapRegionDidChange(region: MKCoordinateRegion)
+    func searchMapViewSearchCurrentArea()
+    func searchMapViewShouldShowSearchAgainButton() -> Bool
+    func searchMapViewDidSelectDestination(destination: Destination)
+    func searchMapViewMapRegionDidChange(region: MKCoordinateRegion)
 }
 
 class SearchMapView: UIView {
@@ -80,7 +80,7 @@ class SearchMapView: UIView {
     }
     
     func searchThisArea(_: UIAction) {
-        delegate.searchCurrentArea()
+        delegate.searchMapViewSearchCurrentArea()
     }
     
     func showUserRegion(_: UIAction) {
@@ -118,7 +118,7 @@ class SearchMapView: UIView {
     
     func toggleSearchButton(shouldShow: Bool) {
         guard shouldShow == (searchButtonBottomConstraint.constant == 0) else { return }
-        guard delegate.shouldShowSearchAgainButton() else { return }
+        guard delegate.searchMapViewShouldShowSearchAgainButton() else { return }
         
         let showConstant = searchAgainButton.frame.size.height + 5
         searchButtonBottomConstraint?.constant = shouldShow ? showConstant : 0
@@ -138,7 +138,7 @@ extension SearchMapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = (view.annotation as? SSAnnotation) else { return }
         
-        delegate.didSelectDestination(destination: annotation.destination)
+        delegate.searchMapViewDidSelectDestination(destination: annotation.destination)
         
         DispatchQueue.main.async { [weak self] in
             self?.nextRegionChangeIsFromUserInteraction = false
@@ -160,7 +160,7 @@ extension SearchMapView: MKMapViewDelegate {
         if nextRegionChangeIsFromUserInteraction {
             nextRegionChangeIsFromUserInteraction = false
             toggleSearchButton(shouldShow: true)
-            delegate.mapRegionDidChange(region: mapView.region)
+            delegate.searchMapViewMapRegionDidChange(region: mapView.region)
         }
     }
 }

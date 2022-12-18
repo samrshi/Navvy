@@ -80,20 +80,20 @@ class DetailedSearchVC: UIViewController {
 }
 
 extension DetailedSearchVC: SearchMapViewDelegate {
-    func searchCurrentArea() {
+    func searchMapViewSearchCurrentArea() {
         searchViewModel.searchNearby(query: searchViewModel.searchTerm, changeRegion: true)
         delegate?.changeSearchBarText(newText: searchViewModel.searchTerm)
     }
     
-    func shouldShowSearchAgainButton() -> Bool {
+    func searchMapViewShouldShowSearchAgainButton() -> Bool {
         !searchViewModel.searchTerm.isEmpty
     }
     
-    func didSelectDestination(destination: Destination) {
+    func searchMapViewDidSelectDestination(destination: Destination) {
         delegate?.didSelectSearchResult(result: NavigationViewModel(destination: destination))
     }
     
-    func mapRegionDidChange(region: MKCoordinateRegion) {
+    func searchMapViewMapRegionDidChange(region: MKCoordinateRegion) {
         searchViewModel.region = region
     }
 }
