@@ -12,13 +12,6 @@ import UIKit
 class LocationSearchVC: UIViewController {
     var cancellables = [AnyCancellable]()
     
-    lazy var label: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hello, World"
-        return label
-    }()
-    
     lazy var autocompleteVC: AutocompleteResultsVC = {
         let autocompleteResultsVC = AutocompleteResultsVC()
         autocompleteResultsVC.delegate = self
