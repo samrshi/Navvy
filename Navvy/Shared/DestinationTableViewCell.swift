@@ -142,11 +142,20 @@ class DestinationTableViewCell: UITableViewCell {
             arrow.heightAnchor.constraint(equalTo: arrow.widthAnchor),
             arrow.trailingAnchor.constraint(equalTo: distanceLabel.trailingAnchor),
             arrow.bottomAnchor.constraint(equalTo: distanceLabel.topAnchor),
-            
+        ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let displayScale = window?.screen.scale
+        let pixelLength = displayScale.map { 1 / $0 } ?? 0.5
+        
+        NSLayoutConstraint.activate([
             separatorView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             separatorView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: 0.5),
+            separatorView.heightAnchor.constraint(equalToConstant: pixelLength),
         ])
     }
     
